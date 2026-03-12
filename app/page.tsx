@@ -1,19 +1,103 @@
 import { Button } from "@/components/ui/button"
-
-export default function Page() {
-  return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+import { getProfile } from "@/lib/queries"
+import {
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  EnvelopeSimpleIcon,
+  MapPinIcon,
+  BriefcaseIcon,
+  CodeIcon,
+} from "@phosphor-icons/react/dist/ssr"
+import Link from "next/link"
+export default async function Page() {
+  const profile = await getProfile()
+  if (!profile) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="animate-pulse text-muted-foreground">
+          Initializing Rashid's Profile...
+        </p>
       </div>
+    )
+  }
+  return (
+    <div className="space-y-4">
+      {/* Header Section */}
+      <section className="flex flex-row justify-between gap-6 md:items-start">
+        <div className="space-y-3">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            {profile.headline}
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium text-muted-foreground md:text-base">
+            <span className="flex items-center gap-1.5">
+              <MapPinIcon size={18} weight="bold" className="text-primary" />
+              {profile.location}
+            </span>
+            <span className="hidden text-border md:block">•</span>
+            <span className="flex items-center gap-1.5">
+              <BriefcaseIcon size={18} weight="bold" className="text-primary" />
+              {profile.workStatus}
+            </span>
+          </div>
+        </div>
+
+        {/* Social Actions */}
+        <div className="flex items-start gap-2">
+          <SocialLink
+            href={profile.socials.github}
+            icon={<GithubLogoIcon size={24} />}
+          />
+          <SocialLink
+            href={profile.socials.linkedin}
+            icon={<LinkedinLogoIcon size={24} />}
+          />
+          <SocialLink
+            href={profile.socials.email}
+            icon={<EnvelopeSimpleIcon size={24} />}
+          />
+        </div>
+      </section>
+
+      {/* About/Bio Section */}
+      <section>
+        <p className="text-lg leading-relaxed text-muted-foreground/90 md:text-xl">
+          {profile.bio}
+        </p>
+      </section>
+
+      {/* Skill Grid Preview (Optional) */}
+      <section className="space-y-4 border-t pt-4">
+        <div className="flex items-center gap-2">
+          <CodeIcon className="size-8 text-primary" />
+          <h3 className="text-lg font-semibold tracking-widest uppercase">
+            Technical Stack
+          </h3>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {profile.skills?.map((skill: string) => (
+            <span
+              key={skill}
+              className="rounded-full border border-border bg-neutral-50 px-3 py-1 text-xs font-medium dark:bg-neutral-900"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
     </div>
+  )
+}
+
+// Small helper component for social buttons
+function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
+    >
+      {icon}
+    </Link>
   )
 }

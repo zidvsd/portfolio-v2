@@ -1,0 +1,9 @@
+[
+  { "title": "Home", "href": "/", "icon": "HouseIcon" },
+  { "title": "About", "href": "/about", "icon": "UserIcon" },
+  { "title": "Achievements", "href": "/achievements", "icon": "TrophyIcon" },
+  { "title": "Projects", "href": "/projects", "icon": "CodeIcon" },
+  { "title": "Blog", "href": "/blog", "icon": "ArticleIcon" },
+  { "title": "Dashboard", "href": "/dashboard", "icon": "LayoutIcon" },
+  { "title": "Contact", "href": "/contact", "icon": "EnvelopeIcon" }
+]

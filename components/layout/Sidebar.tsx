@@ -1,0 +1,95 @@
+"use client"
+
+import {
+  HouseIcon,
+  UserIcon,
+  TrophyIcon,
+  CodeIcon,
+  ArticleIcon,
+  LayoutIcon,
+  EnvelopeIcon,
+  CircleIcon,
+  ArrowRightIcon,
+} from "@phosphor-icons/react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import navs from "@/lib/json/navs.json"
+import LogoAndAvatar from "../LogoAndAvatar"
+import ThemeToggle from "../themes/theme-toggle"
+import { cn } from "@/lib/utils"
+
+const IconMap: Record<string, any> = {
+  HouseIcon,
+  UserIcon,
+  TrophyIcon,
+  CodeIcon,
+  ArticleIcon,
+  LayoutIcon,
+  EnvelopeIcon,
+  CircleIcon,
+  ArrowRightIcon,
+}
+
+export default function Sidebar() {
+  const pathname = usePathname()
+
+  return (
+    <div className="flex h-full flex-col p-2">
+      <div className="space-y-3">
+        <LogoAndAvatar />
+
+        <div className="flex items-center justify-center self-center">
+          <ThemeToggle />
+        </div>
+
+        <nav className="flex flex-col gap-1 border-t pt-2">
+          {navs.map((nav) => {
+            const Icon = IconMap[nav.icon] || CircleIcon
+            const isActive = pathname === nav.href
+
+            return (
+              <Link
+                key={nav.href}
+                href={nav.href}
+                className={cn(
+                  "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all",
+                  isActive
+                    ? "bg-neutral-100 text-foreground dark:bg-neutral-800"
+                    : "text-muted-foreground hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
+                )}
+              >
+                <Icon
+                  size={18}
+                  weight={isActive ? "bold" : "regular"}
+                  className={cn(
+                    "transition-colors",
+                    isActive
+                      ? "text-sidebar-primary"
+                      : "group-hover:text-sidebar-primary"
+                  )}
+                />
+
+                <span className="font-medium">{nav.title}</span>
+
+                <ArrowRightIcon
+                  size={14}
+                  className={cn(
+                    "ml-auto transition-all",
+                    isActive
+                      ? "translate-x-0 text-sidebar-primary opacity-100"
+                      : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                  )}
+                />
+              </Link>
+            )
+          })}
+        </nav>
+      </div>
+
+      <div className="mt-4 border-t px-3 pt-2 text-center text-[10px] leading-relaxed text-muted-foreground/60">
+        <p>Copyright © 2026</p>
+        <p>Rashid Visda. All rights reserved.</p>
+      </div>
+    </div>
+  )
+}
