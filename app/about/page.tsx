@@ -20,7 +20,7 @@ export default async function AboutPage() {
   const educationHistory = experiences.filter(
     (exp: any) => exp.type === "education"
   )
-
+  
   return (
     <div className="space-y-12 py-8">
       {/* Intro Section */}
