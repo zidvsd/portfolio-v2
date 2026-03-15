@@ -1,32 +1,31 @@
-// src/lib/github.ts
 import { unstable_cache } from "next/cache"
+import { MY_PROJECTS } from "./projects-config"
 
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {
-      // Replace YOUR_USERNAME with your actual GitHub handle
-      const query = `
-        {
-          user(login: "zidvsd") {
-            pinnedItems(first: 6, types: REPOSITORY) {
+      // 1. Build dynamic GraphQL query aliases based on your config slugs
+      const repoQueries = MY_PROJECTS.map(function (project, index) {
+        // Fallback to project.name if slug is missing in config
+        const identifier = project.slug || project.name
+
+        return `
+          repo${index}: repository(owner: "zidvsd", name: "${identifier}") {
+            name
+            description
+            url
+            stargazerCount
+            languages(first: 3, orderBy: {field: SIZE, direction: DESC}) {
               nodes {
-                ... on Repository {
-                  name
-                  description
-                  url
-                  stargazerCount
-                  languages(first: 3, orderBy: {field: SIZE, direction: DESC}) {
-                    nodes {
-                      name
-                      color
-                    }
-                  }
-                }
+                name
+                color
               }
             }
           }
-        }
-      `
+        `
+      }).join("\n")
+
+      const query = `{ ${repoQueries} }`
 
       try {
         const response = await fetch("https://api.github.com/graphql", {
@@ -36,7 +35,6 @@ export async function getPinnedRepos() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ query }),
-          next: { revalidate: 3600 },
         })
 
         const result = await response.json()
@@ -49,16 +47,20 @@ export async function getPinnedRepos() {
           return []
         }
 
-        const pinnedNodes = result.data.user.pinnedItems.nodes
+        // 2. Map the Aliased results (repo0, repo1...) back to your project list
+        return MY_PROJECTS.map(function (project, index) {
+          const githubData = result.data[`repo${index}`]
 
-        return pinnedNodes.map(function (repo: any) {
           return {
-            name: repo.name,
-            description: repo.description,
-            url: repo.url,
-            stars: repo.stargazerCount,
-            // Extracts the primary language or a list
-            languages: repo.languages.nodes,
+            name: project.name, // Use the pretty name from config
+            slug: project.slug,
+            description: githubData?.description || "No description provided.",
+            githubUrl:
+              githubData?.url || `https://github.com/zidvsd/${project.slug}`,
+            deployUrl: project.deployUrl || null,
+            image: project.image || null,
+            stars: githubData?.stargazerCount || 0,
+            languages: githubData?.languages?.nodes || [],
           }
         })
       } catch (error) {
