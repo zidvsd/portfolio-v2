@@ -20,13 +20,13 @@ export default async function AboutPage() {
   const educationHistory = experiences.filter(
     (exp: any) => exp.type === "education"
   )
-  
+
   return (
-    <div className="space-y-12 py-8">
+    <div className="space-y-12 pb-8">
       {/* Intro Section */}
       <section className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">About</h1>
+          <h1 className="text-3xl font-bold tracking-tight">About</h1>
           <p className="text-muted-foreground">
             A brief introduction to who I am.
           </p>
@@ -97,7 +97,7 @@ function ExperienceCard({ item }: { item: any }) {
         <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg">
           {item.logo ? (
             <Image
-              src={logoPath} 
+              src={logoPath}
               alt={`${item.company} logo`}
               width={56}
               height={56}

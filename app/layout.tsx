@@ -4,6 +4,8 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/themes/theme-provider"
 import { cn } from "@/lib/utils"
 import MainLayout from "@/components/layout/MainLayout"
+import ChatToggle from "@/components/ChatToggle"
+import ScrollToTop from "@/components/ScrollToTop"
 const fontSans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -33,6 +35,8 @@ export default function RootLayout({
       <body className="">
         <ThemeProvider>
           <MainLayout>{children}</MainLayout>
+          <ScrollToTop />
+          <ChatToggle />
         </ThemeProvider>
       </body>
     </html>
