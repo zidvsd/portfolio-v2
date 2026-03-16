@@ -21,7 +21,7 @@ export default async function AboutPage() {
   )
 
   return (
-    <div className="space-y-12 pb-8">
+    <div className="space-y-8 pb-8">
       {/* Intro Section */}
       <section className="space-y-6">
         <div className="space-y-2">
@@ -44,6 +44,8 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      <hr className="border-border" />
+
       {/* Work Experience Section */}
       <section className="space-y-8">
         <div className="flex items-center gap-2">
@@ -62,6 +64,8 @@ export default async function AboutPage() {
           ))}
         </div>
       </section>
+
+      <hr className="border-border" />
 
       {/* Education Section */}
       <section className="space-y-8">

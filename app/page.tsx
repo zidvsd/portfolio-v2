@@ -10,8 +10,24 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { TECH_CONFIG } from "@/lib/tech-data"
+import { getPinnedRepos } from "@/lib/github"
+import { FeaturedCarousel } from "@/components/FeaturedCarousel"
+import { MY_PROJECTS } from "@/lib/projects-config"
+import { PushPinIcon } from "@phosphor-icons/react/dist/ssr"
 export default async function Page() {
   const profile = await getProfile()
+  const githubRepos = await getPinnedRepos()
+
+  const featuredRepos = githubRepos
+    .map((repo: any) => {
+      const localConfig = MY_PROJECTS.find((p) => p.slug === repo.slug)
+      return {
+        ...repo,
+        image: localConfig?.image || repo.image,
+        isFeatured: localConfig?.isFeatured || false,
+      }
+    })
+    .filter((repo) => repo.isFeatured)
   if (!profile) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -67,8 +83,9 @@ export default async function Page() {
         </p>
       </section>
 
+      <hr className="border-border" />
       {/* Skill Grid Preview (Optional) */}
-      <section className="space-y-4 border-t pt-4">
+      <section className="space-y-4">
         <div className="flex items-center gap-2">
           <CodeIcon className="size-8 text-primary" />
           <h3 className="text-lg font-semibold tracking-widest uppercase">
@@ -80,6 +97,20 @@ export default async function Page() {
             <SkillBadge key={skill} name={skill} />
           ))}
         </div>
+      </section>
+
+      {/* Carousel for featured works */}
+
+      <hr className="border-border" />
+
+      <section className="w-full">
+        <div className="flex items-center gap-2">
+          <PushPinIcon className="size-8 text-primary" />
+          <h3 className="text-lg font-semibold tracking-widest uppercase">
+            Featured Projects
+          </h3>
+        </div>
+        <FeaturedCarousel projects={featuredRepos} />
       </section>
     </div>
   )

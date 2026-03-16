@@ -4,6 +4,7 @@ export const MY_PROJECTS = [
     slug: "portfolio-v2",
     deployUrl: "https://gadyet-hub.vercel.app/",
     image: "/images/projects/portfolio.png",
+    isFeatured: true,
   },
   {
     name: "Gadyet Hub",
@@ -33,6 +34,7 @@ export const MY_PROJECTS = [
     slug: "stash",
     deployUrl: "https://stash-lemon.vercel.app/",
     image: "/images/projects/stash.png",
+    isFeatured: true,
   },
   {
     name: "Le Dream",
@@ -45,5 +47,6 @@ export const MY_PROJECTS = [
     slug: "portfolio",
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
     image: "/images/projects/portfolio.png",
+    isFeatured: true,
   },
 ]
