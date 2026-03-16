@@ -9,6 +9,8 @@ import {
   CodeIcon,
 } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
+import Image from "next/image"
+import { TECH_CONFIG } from "@/lib/tech-data"
 export default async function Page() {
   const profile = await getProfile()
   if (!profile) {
@@ -76,12 +78,7 @@ export default async function Page() {
         </div>
         <div className="flex flex-wrap gap-2">
           {profile.skills?.map((skill: string) => (
-            <span
-              key={skill}
-              className="rounded-full border border-border bg-neutral-50 px-3 py-1 text-xs font-medium dark:bg-neutral-900"
-            >
-              {skill}
-            </span>
+            <SkillBadge key={skill} name={skill} />
           ))}
         </div>
       </section>
@@ -99,5 +96,29 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
     >
       {icon}
     </Link>
+  )
+}
+
+// Tech stack badges
+function SkillBadge({ name }: { name: string }) {
+  const config = TECH_CONFIG[name] || {
+    color: "bg-muted text-muted-foreground border-border",
+    slug: name.toLowerCase(),
+  }
+
+  return (
+    <div
+      className={`hover-utility flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all hover:scale-110 ${config.color} shadow`}
+    >
+      <Image
+        unoptimized
+        width={4}
+        height={4}
+        src={`https://cdn.simpleicons.org/${config.slug}/currentColor`}
+        alt=""
+        className="size-4"
+      />
+      {name}
+    </div>
   )
 }

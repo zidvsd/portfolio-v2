@@ -87,8 +87,11 @@ export default async function AboutPage() {
 }
 
 function ExperienceCard({ item }: { item: any }) {
-  // Ensure the logo path starts with a slash
-  const logoPath = item.logo?.startsWith("/") ? item.logo : `/${item.logo}`
+  const cleanLogo = item.logo?.replace(/^\//, "")
+
+  // 2. Construct the full path
+  // If your DB has "ccc-icon.png", this becomes "/images/experiences/ccc-icon.png"
+  const fullPath = `/icons/experiences/${cleanLogo}`
 
   return (
     <div className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
@@ -97,7 +100,7 @@ function ExperienceCard({ item }: { item: any }) {
         <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg">
           {item.logo ? (
             <Image
-              src={logoPath}
+              src={fullPath}
               alt={`${item.company} logo`}
               width={56}
               height={56}

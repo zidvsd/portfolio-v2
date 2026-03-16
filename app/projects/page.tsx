@@ -86,7 +86,7 @@ export default async function ProjectsPage() {
           )
         })}
 
-        <div className="col-span-full mt-10">
+        <div className="col-span-full">
           <EndOfPage />
         </div>
       </div>
