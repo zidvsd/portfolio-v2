@@ -1,6 +1,29 @@
 import { unstable_cache } from "next/cache"
 import { MY_PROJECTS } from "./projects-config"
-
+interface GitHubRepoResponse {
+  name: string
+  description: string | null
+  url: string
+  homepageUrl: string | null
+  stargazerCount: number
+  forkCount: number
+  repositoryTopics: {
+    nodes: Array<{
+      topic: {
+        name: string
+      }
+    }>
+  }
+  languages: {
+    nodes: Array<{
+      name: string
+      color: string
+    }>
+  }
+  readme: {
+    text: string
+  } | null
+}
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {
@@ -71,4 +94,66 @@ export async function getPinnedRepos() {
     ["pinned-repos"],
     { tags: ["github"], revalidate: 3600 }
   )()
+}
+
+export async function getRepoDetails(slug: string) {
+  // Guard clause for Next.js 15 pre-rendering
+  if (!slug || typeof slug !== "string") return null
+
+  return unstable_cache(
+    async (repoSlug: string) => {
+      const username = "zidvsd"
+      const token = process.env.GITHUB_TOKEN
+
+      const commonHeaders = {
+        Authorization: `Bearer ${token}`,
+        "User-Agent": "Zid-Portfolio-App", // CRITICAL: GitHub REST API often 404s without this
+        Accept: "application/vnd.github+json",
+      }
+
+      try {
+        const [repoRes, readmeRes] = await Promise.all([
+          fetch(`https://api.github.com/repos/${username}/${repoSlug}`, {
+            headers: commonHeaders,
+            next: { revalidate: 3600 },
+          }),
+          fetch(`https://api.github.com/repos/${username}/${repoSlug}/readme`, {
+            headers: {
+              ...commonHeaders,
+              Accept: "application/vnd.github.raw",
+            },
+            next: { revalidate: 3600 },
+          }),
+        ])
+
+        if (!repoRes.ok) {
+          // This will help you see if it's a Rate Limit (403) or Not Found (404)
+          console.error(`GitHub API Status: ${repoRes.status} for ${repoSlug}`)
+          return null
+        }
+
+        const data = await repoRes.json()
+        const readmeText = readmeRes.ok
+          ? await readmeRes.text()
+          : "No README found."
+
+        return {
+          name: data.name,
+          description: data.description,
+          githubUrl: data.html_url,
+          deployUrl: data.homepage,
+          stars: data.stargazers_count,
+          forks: data.forks_count,
+          topics: data.topics || [],
+          language: data.language,
+          readme: readmeText,
+        }
+      } catch (error) {
+        console.error("Fetch error:", error)
+        return null
+      }
+    },
+    [`repo-detail-${slug}`],
+    { tags: [`repo-${slug}`], revalidate: 3600 }
+  )(slug)
 }

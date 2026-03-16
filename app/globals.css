@@ -148,3 +148,109 @@
 .hover-utility {
   @apply transition-all duration-250 ease-in-out;
 }
+
+.prose pre {
+  @apply bg-zinc-100 text-foreground dark:bg-zinc-800 rounded-xl p-4 border border-zinc-300 dark:border-zinc-700 overflow-x-auto;
+}
+
+.prose code {
+  @apply bg-zinc-300 dark:bg-zinc-700 px-1.5 py-0.5 rounded-md text-sm font-medium;
+}
+
+.prose h1 {
+  @apply text-4xl font-bold mb-2;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold mt-4 mb-4 border-b border-zinc-300 dark:border-zinc-700 pb-2;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mt-6 mb-2;
+}
+
+.prose img {
+  @apply rounded-xl shadow-md;
+}
+
+.prose a {
+  @apply text-accent no-underline duration-300 ease-in-out transition-colors;
+}
+
+.prose ul {
+  @apply list-disc ml-6;
+}
+
+.prose li::marker {
+  @apply text-accent;
+}
+
+/* Optional: scroll margin for anchor links on headings */
+.prose h1,
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 5rem;
+}
+
+/* Update these specific parts in your CSS file */
+
+.prose ul {
+  /* This ensures bullets show up and align with your theme */
+  list-style-type: disc !important;
+  margin-left: 1.5rem !important;
+  @apply my-4 space-y-2;
+}
+
+.prose ol {
+  list-style-type: decimal !important;
+  margin-left: 1.5rem !important;
+  @apply my-4 space-y-2;
+}
+
+.prose li {
+  @apply text-muted-foreground leading-7;
+}
+
+/* This targets the actual bullet/number color */
+.prose li::marker {
+  /* Using your theme's primary or accent color */
+  @apply text-primary;
+}
+
+/* Fix for the Table of Contents spacing in your screenshot */
+.prose h2+ul {
+  @apply mt-2;
+}
+
+.prose li a {
+  @apply text-current hover:text-primary;
+}
+
+.prose p a {
+  @apply text-primary-foreground hover:text-primary;
+}
+
+.prose img[src*="img.shields.io"] {
+  @apply mb-2 inline-block my-0 align-middle mr-2;
+  /* Optional: Give them a slight rounding and a soft glow */
+  @apply rounded-sm shadow-sm transition-transform hover:scale-105;
+  /* Match the background to your dark mode if they have white edges */
+  @apply border border-transparent dark:border-white/5;
+}
+
+/* Ensure they don't break onto new lines unless necessary */
+.prose p:has(img[src*="img.shields.io"]) {
+  @apply flex flex-wrap gap-1 items-center;
+}
+
+.prose ul li a {
+  @apply text-chart-5 hover:underline;
+}
+
+.prose ol li p {
+  @apply text-zinc-600 dark:text-zinc-300;
+}
+
+.prose ol li::marker {
+  @apply text-foreground;
+}

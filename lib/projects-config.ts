@@ -40,4 +40,10 @@ export const MY_PROJECTS = [
     deployUrl: "https://le-dream.vercel.app/",
     image: "/images/projects/le-dream.png",
   },
+  {
+    name: "Portfolio",
+    slug: "portfolio",
+    deployUrl: "https://portfolio-five-sand-23.vercel.app/",
+    image: "/images/projects/portfolio.png",
+  },
 ]

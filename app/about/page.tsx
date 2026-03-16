@@ -1,6 +1,5 @@
-// src/app/about/page.tsx
 import { getExperience, getProfile } from "@/lib/queries"
-import Image from "next/image" // Import Next.js Image component
+import Image from "next/image"
 import {
   BriefcaseIcon,
   GraduationCapIcon,

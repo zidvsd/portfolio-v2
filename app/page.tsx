@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { getProfile } from "@/lib/queries"
 import {
   GithubLogoIcon,
@@ -76,7 +75,7 @@ export default async function Page() {
             Technical Stack
           </h3>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-4">
           {profile.skills?.map((skill: string) => (
             <SkillBadge key={skill} name={skill} />
           ))}
@@ -92,7 +91,7 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
     <Link
       href={href}
       target="_blank"
-      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
+      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:bg-neutral-100 hover:text-primary dark:hover:bg-neutral-800"
     >
       {icon}
     </Link>
