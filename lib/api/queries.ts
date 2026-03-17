@@ -2,6 +2,7 @@
 import { Profile } from "@/models/Profile"
 import { Experiences } from "@/models/Experiences"
 import { connectDb } from "../db"
+import { Achievements } from "@/models/Achievements"
 import { unstable_cache } from "next/cache"
 
 export async function getProfile() {
@@ -24,5 +25,16 @@ export async function getExperience() {
     },
     ["experience-data"],
     { tags: ["experience"], revalidate: 3600 }
+  )()
+}
+export async function getAchievements() {
+  return unstable_cache(
+    async function () {
+      await connectDb()
+      const data = await Achievements.find({}).sort({ start: -1 }).lean()
+      return JSON.parse(JSON.stringify(data))
+    },
+    ["achievements-data"],
+    { tags: ["achievements"], revalidate: 3600 }
   )()
 }
