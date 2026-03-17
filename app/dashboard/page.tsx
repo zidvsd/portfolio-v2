@@ -35,6 +35,7 @@ export default async function page() {
       </div>
       <hr className="border-border" />
       <WakaTimeCard weeklyStats={weeklyData} allTimeStats={allTimeStats} />
+      <hr className="border-border" />
     </section>
   )
 }

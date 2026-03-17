@@ -2,7 +2,7 @@
 import { WakaTimeStats } from "@/app/types/wakatime"
 import { CheckCircleIcon } from "@phosphor-icons/react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
+import WakaTimeIcon from "../icons/WakaTimeIcon"
 interface WakaTimeCardProps {
   weeklyStats: WakaTimeStats
   allTimeStats: WakaTimeStats
@@ -26,7 +26,7 @@ export default function WakaTimeCard({
       {/* Header Info */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-          <CheckCircleIcon size={18} weight="bold" />
+          <WakaTimeIcon className="size-6" />
           <h2 className="text-lg font-semibold tracking-tight">
             WakaTime Stats
           </h2>
@@ -67,7 +67,7 @@ function StatTile({
   highlight?: boolean
 }) {
   return (
-    <Card className="bg-card/50 shadow-none">
+    <Card className="bg-card/50 shadow-md">
       <CardHeader className="">
         <p className="text-xs font-medium text-muted-foreground">{label}</p>
       </CardHeader>
@@ -84,13 +84,13 @@ function StatTile({
 
 function ListTile({ title, items }: { title: string; items: any[] }) {
   return (
-    <Card className="bg-card/50 shadow-none">
-      <CardHeader className="p-4 pb-4">
+    <Card className="bg-card/50 shadow-md">
+      <CardHeader className="">
         <CardTitle className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
           {title}
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 p-4 pt-0">
+      <CardContent className="flex flex-col gap-4 pt-0">
         {items.map((item) => (
           <div key={item.name} className="flex flex-col gap-1.5">
             <div className="flex justify-between text-xs font-medium">
