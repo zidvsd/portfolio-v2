@@ -1,7 +1,7 @@
 // src/lib/queries.ts
 import { Profile } from "@/models/Profile"
 import { Experiences } from "@/models/Experiences"
-import { connectDb } from "./db"
+import { connectDb } from "../db"
 import { unstable_cache } from "next/cache"
 
 export async function getProfile() {

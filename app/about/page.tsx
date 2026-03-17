@@ -1,4 +1,4 @@
-import { getExperience, getProfile } from "@/lib/queries"
+import { getExperience, getProfile } from "@/lib/api/queries"
 import Image from "next/image"
 import {
   BriefcaseIcon,

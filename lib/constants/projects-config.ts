@@ -11,6 +11,7 @@ export const MY_PROJECTS = [
     slug: "gadyet-hub",
     deployUrl: "https://gadyet-hub.vercel.app/",
     image: "/images/projects/gadyet-hub.png",
+    isFeatured: true,
   },
   {
     name: "Kita Jobs",
@@ -47,6 +48,5 @@ export const MY_PROJECTS = [
     slug: "portfolio",
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
     image: "/images/projects/portfolio.png",
-    isFeatured: true,
   },
 ]

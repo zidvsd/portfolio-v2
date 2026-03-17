@@ -3,7 +3,7 @@ import remarkGfm from "remark-gfm"
 import rehypeHighlight from "rehype-highlight"
 import rehypeRaw from "rehype-raw"
 import { Badge } from "@/components/ui/badge"
-import { MY_PROJECTS } from "@/lib/projects-config"
+import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import Image from "next/image"
 import {
   GithubLogoIcon,

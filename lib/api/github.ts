@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache"
-import { MY_PROJECTS } from "./projects-config"
+import { MY_PROJECTS } from "../constants/projects-config"
 interface GitHubRepoResponse {
   name: string
   description: string | null

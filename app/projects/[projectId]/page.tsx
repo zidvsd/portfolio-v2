@@ -1,8 +1,8 @@
 import { Metadata } from "next"
-import { getRepoDetails } from "@/lib/github"
+import { getRepoDetails } from "@/lib/api/github"
 import { notFound } from "next/navigation"
 import ProjectDetail from "@/components/ProjectDetail"
-import { MY_PROJECTS } from "@/lib/projects-config"
+import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import BackButton from "@/components/ui/back-button"
 interface ProjectDetailPageProps {
   params: Promise<{ projectId: string }>
