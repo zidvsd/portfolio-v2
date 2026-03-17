@@ -62,7 +62,7 @@ export default function Sidebar() {
                   size={18}
                   weight={isActive ? "bold" : "regular"}
                   className={cn(
-                    "transition-colors",
+                    "hover-utility transition-colors group-hover:scale-110 group-hover:-rotate-30",
                     isActive
                       ? "text-sidebar-primary"
                       : "group-hover:text-sidebar-primary"

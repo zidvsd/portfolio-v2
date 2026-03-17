@@ -1,29 +1,6 @@
 import { unstable_cache } from "next/cache"
 import { MY_PROJECTS } from "../constants/projects-config"
-interface GitHubRepoResponse {
-  name: string
-  description: string | null
-  url: string
-  homepageUrl: string | null
-  stargazerCount: number
-  forkCount: number
-  repositoryTopics: {
-    nodes: Array<{
-      topic: {
-        name: string
-      }
-    }>
-  }
-  languages: {
-    nodes: Array<{
-      name: string
-      color: string
-    }>
-  }
-  readme: {
-    text: string
-  } | null
-}
+import { GitHubRepoResponse } from "@/app/types/github"
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {

@@ -5,16 +5,7 @@ import AchievementCard from "./AchievementCard"
 import { Button } from "./ui/button"
 import { EmptyState } from "./EmptyState"
 import { EmptyIcon } from "@phosphor-icons/react"
-
-interface Achievement {
-  _id: string
-  name: string
-  issuer: string
-  dateIssued: string
-  supabaseUrl: string
-  type: "certificate" | "badge"
-  alt: string
-}
+import { Achievement } from "@/app/types/achievement"
 
 // 1. Define the FilterType so useState knows what 'filter' can be
 type FilterType = "all" | "certificate" | "badge"

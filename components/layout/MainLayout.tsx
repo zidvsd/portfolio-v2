@@ -17,7 +17,7 @@ export default function MainLayout({
       </aside>
 
       {/* Header - Mobile/Tablet Only */}
-      <header className="sticky top-0 z-40 flex items-center justify-between border-b bg-background/80 px-6 py-4 backdrop-blur-md lg:hidden">
+      <header className="sticky top-0 z-40 flex items-center justify-between border-b bg-background px-6 py-4 backdrop-blur-md lg:hidden">
         <LogoAndAvatar />
         <div className="flex items-center gap-2">
           <ThemeToggle />
