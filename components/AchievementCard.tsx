@@ -5,6 +5,7 @@ import {
   ArrowSquareOutIcon,
   CertificateIcon,
   CalendarDotsIcon,
+  MedalIcon,
 } from "@phosphor-icons/react"
 import { Button } from "./ui/button"
 import { useState } from "react"
@@ -22,13 +23,20 @@ interface AchievementProps {
 }
 
 export default function AchievementCard({ data }: AchievementProps) {
+  const Icon = data.type === "certificate" ? CertificateIcon : MedalIcon
   const [isFullscreen, setIsFullscreen] = useState(false)
   return (
-    <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card p-5 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
       {/* Type Badge */}
-      <div className="absolute top-3 right-3 z-10">
-        <span className="flex items-center gap-1 rounded-full border border-purple-500/20 bg-purple-500/10 px-2 py-1 text-[10px] font-medium tracking-wider text-purple-400 uppercase">
-          <CertificateIcon size={12} />
+      <div className="absolute top-3 right-3 z-20">
+        <span
+          className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-black tracking-[0.12em] uppercase shadow-lg ring-1 backdrop-blur-sm ${
+            data.type === "certificate"
+              ? "border-blue-400/50 bg-blue-50 text-blue-700 ring-blue-200 dark:border-blue-500/50 dark:bg-blue-950/70 dark:text-blue-300 dark:ring-blue-900/50"
+              : "border-amber-400/50 bg-amber-50 text-amber-700 ring-amber-200 dark:border-amber-500/50 dark:bg-amber-950/70 dark:text-amber-300 dark:ring-amber-900/50"
+          }`}
+        >
+          <Icon size={12} weight="fill" />
           {data.type}
         </span>
       </div>
@@ -36,7 +44,7 @@ export default function AchievementCard({ data }: AchievementProps) {
       {/* Image Container */}
       <div
         onClick={() => setIsFullscreen(true)}
-        className="relative flex aspect-video w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-lg border border-slate-800 bg-slate-950 group-hover:shadow-xl"
+        className="relative flex aspect-video w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 group-hover:shadow-xl"
       >
         {" "}
         <Image
@@ -46,17 +54,17 @@ export default function AchievementCard({ data }: AchievementProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {/* Hover Gradient Overlay */}
-        <div className="hover-utility pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/80 to-transparent opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100" />
+        <div className="hover-utility pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/80 to-transparent opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100" />
       </div>
 
       {/* Content Wrapper - flex-1 pushes everything below it to the bottom */}
       <div className="mt-4 flex flex-1 flex-col justify-between space-y-4">
         <div className="space-y-2">
-          <h3 className="line-clamp-2 font-semibold text-slate-100 transition-colors group-hover:text-primary">
+          <h3 className="line-clamp-2 font-semibold transition-colors group-hover:text-primary">
             {data.name}
           </h3>
 
-          <div className="flex items-center justify-between text-sm text-slate-400">
+          <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-400">
             <span className="max-w-36 flex-wrap">{data.issuer}</span>
             <span className="flex shrink-0 items-center gap-1 text-xs">
               <CalendarDotsIcon size={12} />
