@@ -1,53 +1,43 @@
 import SpotifyIcon from "../icons/SpotifyIcon"
 import SpotifyPlayingCard from "./SpotifyPlayingCard"
-import SpotifyProfileCard from "./SpotifyProfileCard"
-import { getSpotifyProfile } from "@/lib/services/spotify"
 import { getUserPlaylist } from "@/lib/services/spotify"
-import { getPublicPlaylist } from "@/lib/services/spotify"
 import { SpotifyPlaylistCarousel } from "./SpotifyPlaylistCarousel"
+import { getSpotifyProfile } from "@/lib/services/spotify"
+import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr"
+import { Button } from "../ui/button"
 export default async function SpotifyCard() {
-  const spotifyProfileData = await getSpotifyProfile()
   const playlists = await getUserPlaylist()
-  const publicPlaylist = await getPublicPlaylist()
+  const profile = await getSpotifyProfile()
   const spotifyPlaylists =
     playlists.items.filter((p: any) => p.public === true) || []
-  console.log(publicPlaylist)
-  console.log(playlists)
+
   return (
     <div className="space-y-6">
       {/* Header Section */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2.5">
-          <div className="rounded-lg bg-[#1DB954]/10 p-2">
-            <SpotifyIcon className="size-5 text-[#1DB954]" />
-          </div>
-          <a
-            href="https://spotify.com/zidvsd"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group transition-opacity hover:opacity-80"
-          >
-            <h2 className="text-xl font-bold tracking-tight text-zinc-100">
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="rounded-lg bg-[#1DB954]/10 p-2">
+              <SpotifyIcon className="size-5 text-[#1DB954]" />
+            </div>
+            <h1 className="text-2xl font-semibold tracking-tight">
               Listening Activity
-            </h2>
+            </h1>
+          </div>
+          <a href={profile.external_urls.spotify} target="_blank">
+            <Button variant="ghost">
+              <ArrowSquareOutIcon />
+            </Button>
           </a>
         </div>
 
-        <p className="text-sm leading-relaxed text-zinc-400">
+        <p className="flex items-center leading-relaxed text-muted-foreground">
           Real-time music & coding vibes from the past week
         </p>
-
-        <div className="flex items-center gap-2 text-xs font-medium text-zinc-500">
-          <div className="h-1 w-1 rounded-full bg-[#1DB954]" />
-          <span>Updates continuously</span>
-        </div>
       </div>
 
-      {/* Cards Grid */}
-      <div className="grid auto-rows-fr grid-cols-1 gap-4 md:grid-cols-2">
-        <SpotifyPlayingCard />
-        <SpotifyProfileCard data={spotifyProfileData} />
-      </div>
+      {/* Unified Card */}
+      <SpotifyPlayingCard />
 
       <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
     </div>

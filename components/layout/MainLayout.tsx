@@ -26,10 +26,10 @@ export default function MainLayout({
       </header>
 
       {/* Content Area */}
-      <main className="flex w-full flex-col">
+      <main className="flex w-full min-w-0 flex-col">
         {/* We use w-full here so the internal container handles the content width */}
         <div className="flex-1 px-4 py-6 md:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl">{children}</div>
+          <div className="">{children}</div>
         </div>
       </main>
     </div>

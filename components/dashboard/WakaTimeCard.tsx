@@ -4,6 +4,8 @@ import { WakaTimeStats } from "@/lib/types/wakatime"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import WakaTimeIcon from "../icons/WakaTimeIcon"
 import { formatDate } from "@/lib/utils"
+import { ArrowSquareOutIcon } from "@phosphor-icons/react"
+import { Button } from "../ui/button"
 interface WakaTimeCardProps {
   weeklyStats: WakaTimeStats
   allTimeStats: WakaTimeStats
@@ -29,17 +31,23 @@ export default function WakaTimeCard({
     <div className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-2">
-          <WakaTimeIcon className="size-6" />
-          <a href="https://wakatime.com/zidvsd" target="_blank">
-            <h2 className="text-lg font-semibold tracking-tight">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <WakaTimeIcon className="size-6" />
+
+            <h1 className="text-2xl font-semibold tracking-tight">
               WakaTime Stats
-            </h2>
+            </h1>
+          </div>
+          <a href="https://wakatime.com/zidvsd" target="_blank">
+            <Button variant="ghost">
+              <ArrowSquareOutIcon />
+            </Button>
           </a>
         </div>
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span>Coding activity over the past 7 days.</span>
-          <span>Last Update: {lastUpdate}</span>
+        <div className="flex items-center justify-between text-muted-foreground">
+          <p>Coding activity over the past 7 days.</p>
+          <span className="text-right text-xs">Last Update: {lastUpdate}</span>
         </div>
       </div>
 
@@ -50,7 +58,7 @@ export default function WakaTimeCard({
         <StatTile label="Average Daily Coding Time" value={dailyAvg} />
         <StatTile label="Total This Week" value={totalWeekly} />
         <StatTile label="Best Day" value="March 13, 2026 (4 hrs 49 mins)" />
-        <StatTile label="All-Time Coding" value={totalAllTime} highlight />
+        <StatTile label="All-Time Coding" value={totalAllTime} />
         <ListTile title="Top Languages" items={languages} />
         <ListTile title="Editors" items={editors} />
       </div>

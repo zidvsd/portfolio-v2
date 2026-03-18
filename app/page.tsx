@@ -38,49 +38,53 @@ export default async function Page() {
     )
   }
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       {/* Header Section */}
-      <section className="flex flex-row justify-between gap-6 md:items-start">
-        <div className="space-y-3">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            {profile.headline}
-          </h1>
-
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium text-muted-foreground md:text-base">
-            <span className="flex items-center gap-1.5">
-              <MapPinIcon size={18} weight="bold" className="text-primary" />
-              {profile.location}
-            </span>
-            <span className="hidden text-border md:block">•</span>
-            <span className="flex items-center gap-1.5">
-              <BriefcaseIcon size={18} weight="bold" className="text-primary" />
-              {profile.workStatus}
-            </span>
+      <section className="space-y-2">
+        <div className="flex flex-row justify-between gap-6 md:items-start">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+              {profile.headline}
+            </h1>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium text-muted-foreground md:text-base">
+              <span className="flex items-center gap-1.5">
+                <MapPinIcon size={18} weight="bold" className="text-primary" />
+                {profile.location}
+              </span>
+              <span className="hidden text-border md:block">•</span>
+              <span className="flex items-center gap-1.5">
+                <BriefcaseIcon
+                  size={18}
+                  weight="bold"
+                  className="text-primary"
+                />
+                {profile.workStatus}
+              </span>
+            </div>
+          </div>
+          {/* Social Actions */}
+          <div className="flex flex-col items-start gap-2 sm:flex-row">
+            <SocialLink
+              href={profile.socials.github}
+              icon={<GithubLogoIcon size={24} />}
+            />
+            <SocialLink
+              href={profile.socials.linkedin}
+              icon={<LinkedinLogoIcon size={24} />}
+            />
+            <SocialLink
+              href={profile.socials.email}
+              icon={<EnvelopeSimpleIcon size={24} />}
+            />
           </div>
         </div>
 
-        {/* Social Actions */}
-        <div className="flex items-start gap-2">
-          <SocialLink
-            href={profile.socials.github}
-            icon={<GithubLogoIcon size={24} />}
-          />
-          <SocialLink
-            href={profile.socials.linkedin}
-            icon={<LinkedinLogoIcon size={24} />}
-          />
-          <SocialLink
-            href={profile.socials.email}
-            icon={<EnvelopeSimpleIcon size={24} />}
-          />
-        </div>
-      </section>
-
-      {/* About/Bio Section */}
-      <section>
-        <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-          {profile.bio}
-        </p>
+        {/* About/Bio Section */}
+        <section>
+          <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
+            {profile.bio}
+          </p>
+        </section>
       </section>
 
       <hr className="border-border" />
@@ -88,7 +92,7 @@ export default async function Page() {
       <section className="space-y-4">
         <div className="flex items-center gap-2">
           <CodeIcon className="size-8 text-primary" />
-          <h3 className="text-lg font-semibold tracking-widest uppercase">
+          <h3 className="text-lg font-bold tracking-widest uppercase">
             Technical Stack
           </h3>
         </div>
@@ -106,7 +110,7 @@ export default async function Page() {
       <section className="w-full">
         <div className="flex items-center gap-2">
           <PushPinIcon className="size-8 text-primary" />
-          <h3 className="text-lg font-semibold tracking-widest uppercase">
+          <h3 className="text-lg font-bold tracking-widest uppercase">
             Featured Projects
           </h3>
         </div>

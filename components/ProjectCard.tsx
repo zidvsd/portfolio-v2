@@ -57,11 +57,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
 
         {/* BOTTOM HALF: CONTENT & TAGS */}
         <CardContent className="flex grow flex-col p-5">
-          <h3
-            className={`font-bold tracking-tight ${isFeatured ? "text-2xl" : "text-lg"}`}
-          >
-            {repo.name}
-          </h3>
+          <h3 className="text-xl font-bold tracking-tight">{repo.name}</h3>
 
           <p
             className={`mt-2 text-muted-foreground ${isFeatured ? "text-base" : "line-clamp-2 text-sm"}`}

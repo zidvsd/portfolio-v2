@@ -1,4 +1,4 @@
-import * as React from "react"
+"use client"
 import {
   Carousel,
   CarouselContent,
@@ -7,15 +7,16 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { ProjectCard } from "./ProjectCard"
-
+import Autoplay from "embla-carousel-autoplay"
 export function FeaturedCarousel({ projects }: { projects: any[] }) {
   if (!projects || projects.length === 0) return null
 
   return (
     <div className="mt-4 px-2">
       <Carousel
-        opts={{ align: "start", loop: true }}
+        opts={{ align: "start", loop: true, dragFree: true }}
         className="w-full overflow-visible"
+        plugins={[Autoplay({ delay: 3000 })]}
       >
         {/* py-4 provides room for the Featured Badge and shadows within the carousel */}
         <CarouselContent className="-ml-4 py-4">

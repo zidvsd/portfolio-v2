@@ -32,7 +32,7 @@ export default function RootLayout({
         fontSans.variable
       )}
     >
-      <body className="">
+      <body>
         <ThemeProvider>
           <MainLayout>{children}</MainLayout>
           <ScrollToTop />

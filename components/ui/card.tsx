@@ -10,7 +10,7 @@ function Card({
   return (
     <div
       className={cn(
-        "group/card relative flex flex-col gap-4 overflow-hidden rounded-2xl border bg-card/30 py-4 text-xs/relaxed text-card-foreground shadow-md",
+        "group/card relative flex flex-col gap-4 overflow-hidden rounded-lg border bg-card/30 py-4 text-xs/relaxed text-card-foreground shadow-md",
         className
       )}
     >
@@ -44,7 +44,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "text-base font-bold text-zinc-50 transition-colors group-hover/card:text-white",
+        "text-base font-bold text-zinc-50 transition-colors",
         className
       )}
       {...props}

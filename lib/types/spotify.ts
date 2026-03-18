@@ -3,11 +3,14 @@ export interface SpotifyProfile {
   external_urls: {
     spotify: string
   }
+  followers: { total: number }
   images: {
     url: string
     height?: number
     width?: number
   }[]
+  id: string
+  uri: string
 }
 export interface SpotifyRecentlyPlayed {
   track: {
@@ -46,12 +49,6 @@ export interface SpotifyPlayingNow {
       releaseDate: string
     }
   }
-}
-export interface SpotifyStats {
-  totalPlayTimeMs?: number
-  totalTracksPlayed?: number
-  topArtists?: { name: string; playCount: number }[]
-  topTracks?: { name: string; playCount: number }[]
 }
 
 export interface SpotifyPlaylist {

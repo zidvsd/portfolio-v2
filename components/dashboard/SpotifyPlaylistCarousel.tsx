@@ -1,3 +1,4 @@
+"use client"
 import {
   Carousel,
   CarouselContent,
@@ -7,7 +8,8 @@ import {
 } from "@/components/ui/carousel"
 import { SpotifyPlaylist } from "@/lib/types/spotify"
 import SpotifyIcon from "@/components/icons/SpotifyIcon"
-
+import Autoplay from "embla-carousel-autoplay"
+import Image from "next/image"
 interface SpotifyPlaylistCarouselProps {
   playlists: SpotifyPlaylist[]
 }
@@ -18,42 +20,46 @@ export function SpotifyPlaylistCarousel({
   if (!playlists || playlists.length === 0) return null
 
   return (
-    <div className="mt-4 px-2">
+    <div className="mt-4 w-full max-w-full overflow-visible px-2">
       <Carousel
-        opts={{ align: "start", loop: true }}
-        className="w-full overflow-visible"
+        opts={{ align: "start", loop: true, dragFree: true }}
+        plugins={[Autoplay({ delay: 3000 })]}
+        className="scrollbar-none w-full"
       >
         <CarouselContent className="-ml-4 py-4">
           {playlists.map((playlist) => (
             <CarouselItem
               key={playlist.uri || playlist.name}
-              className="basis-full pl-4 sm:basis-1/2 md:basis-1/3 lg:basis-1/3"
+              // Mobile: 1.5 cards (shows a peek of the next one)
+              // Tablet: 3 cards
+              // Desktop: 4 cards
+              // Large Screens: 5 cards
+              className="basis-[70%] pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
               {/* Vertical Playlist Card */}
               <a
                 href={playlist.external_urls.spotify}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03] transition-all duration-300 hover:border-white/10 hover:bg-white/[0.07]"
+                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/3 shadow-md transition-all duration-300 hover:border-white/10 hover:bg-white/[0.07] dark:border-white/5"
               >
                 {/* Top Image Section - Takes full width, fixed aspect ratio */}
-                <div className="relative aspect-square w-full overflow-hidden">
-                  <img
+                <div className="relative w-full overflow-hidden after:block after:pb-[100%]">
+                  <Image
+                    fill
                     src={playlist.images[0]?.url}
                     alt={playlist.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 will-change-transform group-hover:scale-110"
                   />
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <div className="translate-y-2 transform rounded-full bg-[#1DB954] shadow-xl transition-transform duration-300 group-hover:translate-y-0">
-                      <SpotifyIcon className="size-12 text-[#1DB954]" />
-                    </div>
+                    <SpotifyIcon className="size-8 text-[#1DB954]" />
                   </div>
                 </div>
 
                 {/* Bottom Content Section */}
                 <div className="flex flex-col space-y-1 p-4">
-                  <p className="truncate text-sm font-bold text-zinc-100 transition-colors group-hover:text-[#1DB954]">
+                  <p className="truncate text-sm font-bold text-accent-foreground transition-colors group-hover:text-green-500">
                     {playlist.name}
                   </p>
                   <div className="flex items-center justify-between">
@@ -65,15 +71,12 @@ export function SpotifyPlaylistCarousel({
                     </span>
                   </div>
                 </div>
-
-                {/* Subtle border glow */}
-                <div className="pointer-events-none absolute -inset-px rounded-2xl border border-[#1DB954]/0 transition-colors group-hover:border-[#1DB954]/20" />
               </a>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="-left-4 hidden border-white/10 bg-zinc-900/80 backdrop-blur-sm hover:text-[#1DB954] md:flex" />
-        <CarouselNext className="-right-4 hidden border-white/10 bg-zinc-900/80 backdrop-blur-sm hover:text-[#1DB954] md:flex" />
+        <CarouselPrevious className="-left-4 hidden border-white/10 backdrop-blur-sm hover:text-[#1DB954] md:flex dark:bg-zinc-900/80" />
+        <CarouselNext className="-right-4 hidden border-white/10 backdrop-blur-sm hover:text-[#1DB954] md:flex dark:bg-zinc-900/80" />
       </Carousel>
     </div>
   )
