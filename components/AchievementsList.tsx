@@ -3,7 +3,7 @@
 import { useState } from "react"
 import AchievementCard from "./AchievementCard"
 import { Button } from "./ui/button"
-import { Achievement } from "@/app/types/achievement"
+import { Achievement } from "@/lib/types/achievement"
 
 // 1. Define the FilterType so useState knows what 'filter' can be
 type FilterType = "all" | "certificate" | "badge"

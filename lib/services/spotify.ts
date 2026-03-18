@@ -1,6 +1,5 @@
 // src/lib/queries.ts
 import { unstable_cache } from "next/cache"
-
 const client_id = process.env.SPOTIFY_CLIENT_ID
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN
@@ -46,5 +45,38 @@ export const getNowPlaying = async () => {
     }
   )
   if (res.status === 204 || res.status > 400) return null
+  return res.json()
+}
+
+export const getLastPlayed = async () => {
+  const { access_token } = await getAccessToken()
+  const res = await fetch(
+    "https://api.spotify.com/v1/me/player/recently-played?limit=1",
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+  )
+  if (res.status === 204 || res.status > 400) return null
+  return res.json()
+}
+
+export const getUserPlaylist = async () => {
+  const { access_token } = await getAccessToken()
+  const res = await fetch(`https://api.spotify.com/v1/me/playlists`, {
+    headers: { Authorization: `Bearer ${access_token}` },
+  })
+
+  return res.json()
+}
+
+export const getPublicPlaylist = async () => {
+  const { access_token } = await getAccessToken()
+  const res = await fetch(
+    `https://api.spotify.com/v1/users/21cck5t67dmuwihcv3jvlgwtq/playlists`,
+    {
+      headers: { Authorization: `Bearer ${access_token}` },
+    }
+  )
+
   return res.json()
 }

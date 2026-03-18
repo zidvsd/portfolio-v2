@@ -1,6 +1,6 @@
 "use client"
 
-import { WakaTimeStats } from "@/app/types/wakatime"
+import { WakaTimeStats } from "@/lib/types/wakatime"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import WakaTimeIcon from "../icons/WakaTimeIcon"
 import { formatDate } from "@/lib/utils"
@@ -13,8 +13,6 @@ export default function WakaTimeCard({
   weeklyStats,
   allTimeStats,
 }: WakaTimeCardProps) {
-  console.log(allTimeStats)
-
   const dailyAvg = weeklyStats?.human_readable_daily_average || "0 hrs 0 mins"
   const totalWeekly = weeklyStats?.human_readable_total || "0 hrs"
   const totalAllTime = allTimeStats?.human_readable_total || "0 hrs"

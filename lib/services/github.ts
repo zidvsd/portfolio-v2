@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache"
 import { MY_PROJECTS } from "../constants/projects-config"
-import { GitHubRepoResponse } from "@/app/types/github"
+import { GitHubRepoResponse } from "@/lib/types/github"
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {

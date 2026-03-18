@@ -1,6 +1,6 @@
 import { getWakaTimeAllTime } from "@/lib/services/wakatime"
 import { getWakaTimeWeeklyStats } from "@/lib/services/wakatime"
-import { WakaTimeStats } from "../types/wakatime"
+import { WakaTimeStats } from "../../lib/types/wakatime"
 import WakaTimeCard from "@/components/dashboard/WakaTimeCard"
 import SpotifyCard from "@/components/dashboard/SpotifyCard"
 export default async function page() {
@@ -13,7 +13,7 @@ export default async function page() {
 
   // Format the all-time object so it satisfies the WakaTimeStats interface
   const allTimeStats: WakaTimeStats = {
-    ...weeklyData, 
+    ...weeklyData,
     ...allTimeRaw,
     // NOW WE OVERWRITE: These MUST come after the spread
     human_readable_total: allTimeRaw?.text || "0 hrs",

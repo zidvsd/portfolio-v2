@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
+import { getUserPlaylist } from "@/lib/services/spotify"
 import Link from "next/link"
 
-export default function SpotifyProfileCard({ data }) {
+export default async function SpotifyProfileCard({ data }) {
   if (!data) return null
-
+  console.log(data)
+ 
   const profileUrl = data.external_urls.spotify
   const profileImage = data.images[0]?.url
   const name = data.display_name

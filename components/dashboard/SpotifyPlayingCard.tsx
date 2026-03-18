@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default async function SpotifyPlayingCard() {
   const data = await getNowPlaying()
-
+  console.log(data)
   const isPlaying = data?.is_playing ?? false
   const title = isPlaying ? data.item.name : "Nothing Playing"
   const artist = isPlaying

@@ -2,10 +2,17 @@ import SpotifyIcon from "../icons/SpotifyIcon"
 import SpotifyPlayingCard from "./SpotifyPlayingCard"
 import SpotifyProfileCard from "./SpotifyProfileCard"
 import { getSpotifyProfile } from "@/lib/services/spotify"
-
+import { getUserPlaylist } from "@/lib/services/spotify"
+import { getPublicPlaylist } from "@/lib/services/spotify"
+import { SpotifyPlaylistCarousel } from "./SpotifyPlaylistCarousel"
 export default async function SpotifyCard() {
   const spotifyProfileData = await getSpotifyProfile()
-
+  const playlists = await getUserPlaylist()
+  const publicPlaylist = await getPublicPlaylist()
+  const spotifyPlaylists =
+    playlists.items.filter((p: any) => p.public === true) || []
+  console.log(publicPlaylist)
+  console.log(playlists)
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -41,6 +48,8 @@ export default async function SpotifyCard() {
         <SpotifyPlayingCard />
         <SpotifyProfileCard data={spotifyProfileData} />
       </div>
+
+      <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
     </div>
   )
 }
