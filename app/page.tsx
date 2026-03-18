@@ -78,7 +78,7 @@ export default async function Page() {
 
       {/* About/Bio Section */}
       <section>
-        <p className="text-lg leading-relaxed text-muted-foreground/90 md:text-xl">
+        <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
           {profile.bio}
         </p>
       </section>
