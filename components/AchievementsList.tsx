@@ -3,8 +3,6 @@
 import { useState } from "react"
 import AchievementCard from "./AchievementCard"
 import { Button } from "./ui/button"
-import { EmptyState } from "./EmptyState"
-import { EmptyIcon } from "@phosphor-icons/react"
 import { Achievement } from "@/app/types/achievement"
 
 // 1. Define the FilterType so useState knows what 'filter' can be
@@ -26,25 +24,25 @@ export default function AchievementList({ initialData }: AchievementListProps) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-2">
+        <div className="text flex items-center gap-2">
           <Button
             variant={filter === "all" ? "default" : "ghost"}
             onClick={() => setFilter("all")}
-            className="transition-all"
+            className="text-md px-6 py-4 transition-all"
           >
             All
           </Button>
           <Button
             variant={filter === "certificate" ? "default" : "ghost"}
             onClick={() => setFilter("certificate")}
-            className="transition-all"
+            className="text-md px-6 py-4 transition-all"
           >
             Certificates
           </Button>
           <Button
             variant={filter === "badge" ? "default" : "ghost"}
             onClick={() => setFilter("badge")}
-            className="transition-all"
+            className="text-md px-6 py-4 transition-all"
           >
             Badges
           </Button>

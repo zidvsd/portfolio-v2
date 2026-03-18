@@ -46,7 +46,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
             )}
 
             {/* HOVER OVERLAY */}
-            <div className="absolute inset-0 flex items-center justify-center bg-background/60 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+            <div className="absolute inset-0 flex items-center justify-center bg-background/10 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100 dark:bg-background/10">
               <div className="flex translate-y-2 items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold tracking-widest text-primary-foreground uppercase shadow-xl transition-transform duration-300 group-hover:translate-y-0">
                 View Project
                 <ArrowUpRightIcon size={16} weight="bold" />

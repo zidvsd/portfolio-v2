@@ -13,8 +13,8 @@ export default async function page() {
 
   // Format the all-time object so it satisfies the WakaTimeStats interface
   const allTimeStats: WakaTimeStats = {
-    ...weeklyData, // We spread this ONLY to get the languages/editors arrays
-
+    ...weeklyData, 
+    ...allTimeRaw,
     // NOW WE OVERWRITE: These MUST come after the spread
     human_readable_total: allTimeRaw?.text || "0 hrs",
     human_readable_daily_average: "N/A",

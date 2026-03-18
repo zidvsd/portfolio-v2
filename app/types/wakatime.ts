@@ -21,6 +21,11 @@ export interface WakaTimeStats {
   human_readable_total: string
   human_readable_total_including_other_language?: string
   languages: WakaTimeLanguage[]
+  modified_at: string
+  range: {
+    start_date: string
+    end_date: string
+  }
   editors: {
     name: string
     percent: number

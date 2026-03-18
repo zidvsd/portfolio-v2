@@ -6,7 +6,7 @@ import {
   MapPinIcon,
   CalendarIcon,
 } from "@phosphor-icons/react/dist/ssr"
-import { Card } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 export default async function AboutPage() {
   const [profile, experiences] = await Promise.all([
     getProfile(),
@@ -91,64 +91,65 @@ export default async function AboutPage() {
 
 function ExperienceCard({ item }: { item: any }) {
   const cleanLogo = item.logo?.replace(/^\//, "")
-
-  // 2. Construct the full path
-  // If your DB has "ccc-icon.png", this becomes "/images/experiences/ccc-icon.png"
   const fullPath = `/icons/experiences/${cleanLogo}`
 
   return (
-    <Card className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:shadow-md">
-      <div className="flex gap-5">
-        {/* Logo Container */}
-        <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg">
-          {item.logo ? (
-            <Image
-              src={fullPath}
-              alt={`${item.company} logo`}
-              width={56}
-              height={56}
-              className="object-contain p-2"
-            />
-          ) : (
-            <BriefcaseIcon size={28} className="text-muted-foreground" />
-          )}
-        </div>
-        {/* Content Container */}
-        <div className="flex-1 space-y-3">
-          <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-start">
-            <div>
-              <h3 className="text-xl leading-tight font-bold text-foreground">
-                {item.title}
-              </h3>
-              <p className="font-semibold text-primary">{item.company}</p>
-            </div>
-            <div className="flex w-fit items-center gap-1.5 rounded-md bg-muted/50 px-2 py-1 text-sm font-medium text-muted-foreground">
-              <CalendarIcon size={16} />
-              {item.startDate} — {item.endDate}
-            </div>
+    <Card className="group relative overflow-hidden rounded-xl border border-border p-2 transition-all hover:shadow-md">
+      <CardContent className="p-4">
+        <div className="flex gap-5">
+          {/* Logo Container */}
+          <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+            {item.logo ? (
+              <Image
+                src={fullPath}
+                alt={`${item.company} logo`}
+                width={56}
+                height={56}
+                className="object-contain p-2"
+              />
+            ) : (
+              <BriefcaseIcon size={28} className="text-muted-foreground" />
+            )}
           </div>
 
-          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <MapPinIcon size={16} />
-            <span>
-              {item.location} {item.mode && `• ${item.mode}`}
-            </span>
-          </div>
+          {/* Content Container */}
+          <div className="flex-1 space-y-3">
+            <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-start">
+              <div>
+                <h3 className="text-xl leading-tight font-bold text-foreground">
+                  {item.title}
+                </h3>
+                <p className="font-semibold text-primary">{item.company}</p>
+              </div>
 
-          {item.responsibilities?.length > 0 && (
-            <ul className="mt-4 space-y-2 border-l-2 border-muted pl-4">
-              {item.responsibilities.map((resp: string, i: number) => (
-                <li
-                  key={i}
-                  className="text-sm leading-snug text-muted-foreground"
-                >
-                  {resp}
-                </li>
-              ))}
-            </ul>
-          )}
+              <div className="flex w-fit items-center gap-1.5 rounded-md bg-muted/50 px-2 py-1 text-sm font-medium text-muted-foreground">
+                <CalendarIcon size={16} />
+                {item.startDate} — {item.endDate}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <MapPinIcon size={16} />
+              <span>
+                {item.location} {item.mode && `• ${item.mode}`}
+              </span>
+            </div>
+
+            {item.responsibilities?.length > 0 && (
+              <ul className="mt-4 space-y-2 border-l-2 border-muted pl-4">
+                {item.responsibilities.map((resp: string, i: number) => (
+                  <li
+                    key={i}
+                    className="text-sm leading-snug text-muted-foreground"
+                  >
+                    {resp}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
-      </div>
+      </CardContent>
     </Card>
   )
 }
