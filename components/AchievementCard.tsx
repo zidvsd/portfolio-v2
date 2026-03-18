@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button"
 import { useState } from "react"
 import { XIcon } from "@phosphor-icons/react"
-
+import { Card } from "./ui/card"
 interface AchievementProps {
   data: {
     name: string
@@ -26,7 +26,7 @@ export default function AchievementCard({ data }: AchievementProps) {
   const Icon = data.type === "certificate" ? CertificateIcon : MedalIcon
   const [isFullscreen, setIsFullscreen] = useState(false)
   return (
-    <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card p-5 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
+    <Card className="group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card p-4 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
       {/* Type Badge */}
       <div className="absolute top-3 right-3 z-20">
         <span
@@ -44,7 +44,7 @@ export default function AchievementCard({ data }: AchievementProps) {
       {/* Image Container */}
       <div
         onClick={() => setIsFullscreen(true)}
-        className="relative flex aspect-video w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 group-hover:shadow-xl"
+        className="relative flex aspect-video w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-tl-lg rounded-tr-lg border border-zinc-800 bg-zinc-950 group-hover:shadow-xl"
       >
         {" "}
         <Image
@@ -58,9 +58,9 @@ export default function AchievementCard({ data }: AchievementProps) {
       </div>
 
       {/* Content Wrapper - flex-1 pushes everything below it to the bottom */}
-      <div className="mt-4 flex flex-1 flex-col justify-between space-y-4">
+      <div className="flex flex-1 flex-col justify-between space-y-4">
         <div className="space-y-2">
-          <h3 className="line-clamp-2 font-semibold transition-colors group-hover:text-primary">
+          <h3 className="line-clamp-2 text-lg font-semibold transition-colors group-hover:text-primary">
             {data.name}
           </h3>
 
@@ -106,6 +106,6 @@ export default function AchievementCard({ data }: AchievementProps) {
           </div>
         </div>
       )}
-    </div>
+    </Card>
   )
 }

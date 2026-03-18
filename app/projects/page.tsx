@@ -1,4 +1,4 @@
-import { getPinnedRepos } from "@/lib/api/github"
+import { getPinnedRepos } from "@/lib/services/github"
 import EndOfPage from "@/components/ui/end-of-page"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { ProjectCard } from "@/components/ProjectCard"

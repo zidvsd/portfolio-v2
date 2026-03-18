@@ -27,9 +27,11 @@ export default function WakaTimeCard({
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <WakaTimeIcon className="size-6" />
-          <h2 className="text-lg font-semibold tracking-tight">
-            WakaTime Stats
-          </h2>
+          <a href="https://wakatime.com/zidvsd" target="_blank">
+            <h2 className="text-lg font-semibold tracking-tight">
+              WakaTime Stats
+            </h2>
+          </a>
         </div>
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>Coding activity over the past 7 days.</span>

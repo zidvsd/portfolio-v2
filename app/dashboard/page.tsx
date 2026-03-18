@@ -1,8 +1,8 @@
-import { getWakaTimeAllTime } from "@/lib/api/wakatime"
-import { getWakaTimeWeeklyStats } from "@/lib/api/wakatime"
+import { getWakaTimeAllTime } from "@/lib/services/wakatime"
+import { getWakaTimeWeeklyStats } from "@/lib/services/wakatime"
 import { WakaTimeStats } from "../types/wakatime"
 import WakaTimeCard from "@/components/dashboard/WakaTimeCard"
-
+import SpotifyCard from "@/components/dashboard/SpotifyCard"
 export default async function page() {
   const allTimeRes = await getWakaTimeAllTime()
   const weeklyRes = await getWakaTimeWeeklyStats()
@@ -22,8 +22,7 @@ export default async function page() {
     // If your interface uses this specific key:
     human_readable_total_including_other_language: allTimeRaw?.text || "0 hrs",
   }
-  console.log(allTimeStats)
-  console.log(allTimeRes)
+
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -34,7 +33,13 @@ export default async function page() {
         </p>
       </div>
       <hr className="border-border" />
-      <WakaTimeCard weeklyStats={weeklyData} allTimeStats={allTimeStats} />
+      <section>
+        <WakaTimeCard weeklyStats={weeklyData} allTimeStats={allTimeStats} />
+      </section>
+      <hr className="border-border" />
+      <section>
+        <SpotifyCard />
+      </section>
       <hr className="border-border" />
     </section>
   )

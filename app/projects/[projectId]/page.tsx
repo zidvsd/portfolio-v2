@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { getRepoDetails } from "@/lib/api/github"
+import { getRepoDetails } from "@/lib/services/github"
 import { notFound } from "next/navigation"
 import ProjectDetail from "@/components/ProjectDetail"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"

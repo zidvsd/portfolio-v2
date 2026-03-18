@@ -1,4 +1,4 @@
-import { getExperience, getProfile } from "@/lib/api/queries"
+import { getExperience, getProfile } from "@/lib/services/queries"
 import Image from "next/image"
 import {
   BriefcaseIcon,
@@ -6,7 +6,7 @@ import {
   MapPinIcon,
   CalendarIcon,
 } from "@phosphor-icons/react/dist/ssr"
-
+import { Card } from "@/components/ui/card"
 export default async function AboutPage() {
   const [profile, experiences] = await Promise.all([
     getProfile(),
@@ -97,7 +97,7 @@ function ExperienceCard({ item }: { item: any }) {
   const fullPath = `/icons/experiences/${cleanLogo}`
 
   return (
-    <div className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md">
+    <Card className="group relative rounded-xl border border-border bg-card p-5 transition-all hover:shadow-md">
       <div className="flex gap-5">
         {/* Logo Container */}
         <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg">
@@ -149,6 +149,6 @@ function ExperienceCard({ item }: { item: any }) {
           )}
         </div>
       </div>
-    </div>
+    </Card>
   )
 }

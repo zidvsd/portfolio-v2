@@ -1,4 +1,4 @@
-import { getAchievements } from "@/lib/api/queries"
+import { getAchievements } from "@/lib/services/queries"
 import AchievementList from "@/components/AchievementsList"
 import EndOfPage from "@/components/ui/end-of-page"
 export default async function Page() {
