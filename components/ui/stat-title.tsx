@@ -15,7 +15,7 @@ export default function StatTile({
       </CardHeader>
       <CardContent className="pt-0">
         <p
-          className={`text-sm font-semibold ${
+          className={`text-lg font-semibold ${
             highlight ? "text-chart-3" : "text-foreground"
           }`}
         >

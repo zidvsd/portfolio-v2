@@ -1,7 +1,6 @@
 "use client"
 
 import { WakaTimeStats } from "@/lib/types/wakatime"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import WakaTimeIcon from "../icons/WakaTimeIcon"
 import { formatDate } from "@/lib/utils"
 import { ArrowSquareOutIcon } from "@phosphor-icons/react"
@@ -29,6 +28,8 @@ export default function WakaTimeCard({
   const endDate = formatDate(allTimeStats?.range.end_date) || "—"
   const joinedDate = formatDate(allTimeStats?.range.start_date) || "—"
   const lastUpdate = formatDate(allTimeStats?.modified_at) || "—"
+
+  
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}

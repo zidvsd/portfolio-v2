@@ -13,13 +13,13 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
   const getColor = (level: string) => {
     switch (level) {
       case "FIRST_QUARTILE":
-        return "bg-green-900/50"
+        return "bg-green-500/50"
       case "SECOND_QUARTILE":
         // Matches: bg-green-700/60
         return "bg-green-700/60"
       case "THIRD_QUARTILE":
         // Matches: bg-green-500/80
-        return "bg-green-500/80"
+        return "bg-green-500/100"
       case "FOURTH_QUARTILE":
         // Matches: bg-[#1DB954] (Spotify Green)
         return "bg-[#1DB954] "

@@ -3,27 +3,19 @@ import { getWakaTimeWeeklyStats } from "@/lib/services/wakatime"
 import { WakaTimeStats } from "../../lib/types/wakatime"
 import WakaTimeCard from "@/components/dashboard/WakaTimeCard"
 import SpotifyCard from "@/components/dashboard/SpotifyCard"
-import { getGithubActivity } from "@/lib/services/github"
 import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
 export default async function page() {
   const allTimeRes = await getWakaTimeAllTime()
   const weeklyRes = await getWakaTimeWeeklyStats()
 
-  // Extract the inner data objects
   const weeklyData = weeklyRes?.data || weeklyRes
   const allTimeRaw = allTimeRes?.data || allTimeRes
 
-  // Format the all-time object so it satisfies the WakaTimeStats interface
   const allTimeStats: WakaTimeStats = {
     ...weeklyData,
     ...allTimeRaw,
-    // NOW WE OVERWRITE: These MUST come after the spread
     human_readable_total: allTimeRaw?.text || "0 hrs",
-    human_readable_daily_average: "N/A",
-
-    // If your interface uses this specific key:
-    human_readable_total_including_other_language: allTimeRaw?.text || "0 hrs",
   }
 
   return (
@@ -47,7 +39,6 @@ export default async function page() {
       <section className="w-full">
         <GithubCard />
       </section>
-      <hr className="border-border" />
 
       <EndOfPage />
     </section>

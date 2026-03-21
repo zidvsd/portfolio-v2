@@ -1,17 +1,20 @@
 import GithubIcon from "../icons/GithubIcon"
 import { Button } from "../ui/button"
-import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr"
+import { ArrowSquareOutIcon, PushPinIcon } from "@phosphor-icons/react/dist/ssr"
 import { GithubContributionsCard } from "./GithubContributionsCard"
 import { getGithubActivity } from "@/lib/services/github"
 import { getGithubStats } from "@/lib/services/github"
 import StatTile from "../ui/stat-title"
-interface StatCardProps {
-  title: string
-  value: string | number
-}
+import { getPinnedRepos } from "@/lib/services/github"
+import { PinnedRepoCard } from "./GithubRepoCard"
+import { GitHubPinnedRepo } from "@/lib/types/github"
+
 export default async function GithubCard() {
   const githubData = await getGithubActivity()
   const githubStats = await getGithubStats()
+  const pinnedRepos = await getPinnedRepos()
+
+  console.log(pinnedRepos)
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -50,14 +53,38 @@ export default async function GithubCard() {
           <StatTile label="Following" value={githubStats.following} />
         </div>
         <div className="col-span-1 md:col-span-2">
-          <StatTile label="Repos" value={githubStats.total_repos} />
+          <StatTile label="Repos" value={githubStats.followers} />
         </div>
         <div className="col-span-2 md:col-span-2">
-          <StatTile label="Followers" value={githubStats.followers} />
+          <StatTile label="Followers" value={githubStats.total_repos} />
         </div>
       </div>
 
       <GithubContributionsCard weeks={githubData} />
+
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <PushPinIcon className="size-6" />
+          <h2 className="text-lg font-semibold text-accent-foreground">
+            Pinned Repositories
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {pinnedRepos.map((repo: GitHubPinnedRepo, index: number) => (
+            <PinnedRepoCard
+              key={`${index}-${repo.name}`}
+              author={repo.author}
+              name={repo.name}
+              description={repo.description}
+              language={repo.language}
+              languageColor={repo.languageColor}
+              stars={repo.stars}
+              link={`https://github.com/${repo.author}/${repo.name}`}
+              forks={repo.forks}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

@@ -52,7 +52,7 @@ export async function getGithubStats() {
   }
 }
 
-export async function getPinnedRepos() {
+export async function getProjects() {
   return unstable_cache(
     async function () {
       // 1. Build dynamic GraphQL query aliases based on your config slugs
@@ -119,7 +119,7 @@ export async function getPinnedRepos() {
         return []
       }
     },
-    ["pinned-repos"],
+    ["featured-projects"],
     { tags: ["github"], revalidate: 3600 }
   )()
 }
@@ -208,5 +208,30 @@ export const getGithubActivity = unstable_cache(
   {
     revalidate: 3600,
     tags: ["github-contributions"],
+  }
+)
+
+export const getPinnedRepos = unstable_cache(
+  async () => {
+    try {
+      const res = await fetch("https://pinned.berrysauce.dev/get/zidvsd")
+
+      if (!res.ok) {
+        throw new Error(
+          `Failed to fetch Pinned Github Repositories: ${res.status}`
+        )
+      }
+
+      const data = await res.json()
+      return data || []
+    } catch (error) {
+      console.error("GitHub Fetch Error:", error)
+      return []
+    }
+  },
+  ["github-pinned-repos"],
+  {
+    revalidate: 3600,
+    tags: ["github-pinned-repos"],
   }
 )

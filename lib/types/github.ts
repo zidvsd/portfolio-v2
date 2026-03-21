@@ -18,21 +18,13 @@ export interface GitHubStats {
   }
 }
 
-export interface GitHubCardProps {
-  data: GitHubStats | null
-}
-
-// lib/types/github.ts
-export interface GithubContributionDay {
-  date: string
-  count: number
-  level: 0 | 1 | 2 | 3 | 4 // GitHub's intensity levels
-}
-
-export interface GithubContributionData {
-  total: {
-    [year: string]: number
-    lastYear: number
-  }
-  contributions: GithubContributionDay[][] // 2D array: weeks -> days
+export interface GitHubPinnedRepo {
+  author: string
+  name: string // The slug used for URLs
+  link: string // The full GitHub link
+  description: string
+  language: string
+  languageColor: string
+  stars: string | number
+  forks: string | number
 }

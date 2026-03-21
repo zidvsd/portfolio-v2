@@ -9,14 +9,14 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { TECH_CONFIG } from "@/lib/constants/tech-data"
-import { getPinnedRepos } from "@/lib/services/github"
+import { getProjects } from "@/lib/services/github"
 import { getProfile } from "@/lib/services/queries"
 import { FeaturedCarousel } from "@/components/FeaturedCarousel"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { PushPinIcon } from "@phosphor-icons/react/dist/ssr"
 export default async function Page() {
   const profile = await getProfile()
-  const githubRepos = await getPinnedRepos()
+  const githubRepos = await getProjects()
 
   const featuredRepos = githubRepos
     .map((repo: any) => {

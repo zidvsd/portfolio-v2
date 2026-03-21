@@ -1,11 +1,9 @@
-import { getPinnedRepos } from "@/lib/services/github"
+import { getProjects } from "@/lib/services/github"
 import EndOfPage from "@/components/ui/end-of-page"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { ProjectCard } from "@/components/ProjectCard"
-
 export default async function ProjectsPage() {
-  const githubRepos = await getPinnedRepos()
-
+  const githubRepos = await getProjects()
   // Merge GitHub data with your local config
   const repos = githubRepos.map((repo: any) => {
     const localConfig = MY_PROJECTS.find((p) => p.slug === repo.slug)
