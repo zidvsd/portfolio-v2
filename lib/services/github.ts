@@ -135,21 +135,27 @@ export async function getRepoDetails(slug: string) {
   )(slug)
 }
 
-export async function getGithubActivity() {
-  try {
-    const res = await fetch(
-      "https://github-contributions-api.deno.dev/zidvsd.json?year=2024",
-      {
-        cache: "no-store",
-      }
-    )
-    if (!res.ok)
-      throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
-    const data = await res.json()
+export const getGithubActivity = unstable_cache(
+  async () => {
+    try {
+      const res = await fetch(
+        "https://github-contributions-api.deno.dev/zidvsd.json?year=2024"
+      )
 
-    return data.contributions
-  } catch (error) {
-    console.log(error)
-    return []
+      if (!res.ok) {
+        throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
+      }
+
+      const data = await res.json()
+      return data.contributions || []
+    } catch (error) {
+      console.error("GitHub Fetch Error:", error)
+      return []
+    }
+  },
+  ["github-activity-2024"],
+  {
+    revalidate: 3600,
+    tags: ["github-contributions"],
   }
-}
+)
