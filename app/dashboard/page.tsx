@@ -28,16 +28,17 @@ export default async function page() {
         </p>
       </div>
       <hr className="border-border" />
+
+      <section className="w-full">
+        <GithubCard />
+      </section>
+      <hr className="border-border" />
       <section>
         <WakaTimeCard weeklyStats={weeklyData} allTimeStats={allTimeStats} />
       </section>
       <hr className="border-border" />
       <section>
         <SpotifyCard />
-      </section>
-      <hr className="border-border" />
-      <section className="w-full">
-        <GithubCard />
       </section>
 
       <EndOfPage />

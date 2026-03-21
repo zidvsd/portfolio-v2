@@ -2,7 +2,7 @@
 
 export default function EndOfPage() {
   return (
-    <div className="flex w-full flex-col items-center justify-center px-4 py-20">
+    <div className="flex w-full flex-col items-center justify-center px-4 py-12">
       {/* Solid horizontal line with center text */}
       <div className="flex w-full items-center">
         <div className="h-px grow bg-current opacity-20" />

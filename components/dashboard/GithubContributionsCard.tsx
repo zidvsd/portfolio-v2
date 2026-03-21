@@ -9,25 +9,12 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
   const getMonthName = (dateStr: string) => {
     return new Date(dateStr).toLocaleString("en-US", { month: "short" })
   }
-
-  const getColor = (level: string) => {
-    switch (level) {
-      case "FIRST_QUARTILE":
-        return "bg-green-500/50"
-      case "SECOND_QUARTILE":
-        // Matches: bg-green-700/60
-        return "bg-green-700/60"
-      case "THIRD_QUARTILE":
-        // Matches: bg-green-500/80
-        return "bg-green-500/100"
-      case "FOURTH_QUARTILE":
-        // Matches: bg-[#1DB954] (Spotify Green)
-        return "bg-[#1DB954] "
-      case "NONE":
-      default:
-        // Matches: bg-zinc-800/50
-        return "bg-zinc-800/20 dark:bg-card"
-    }
+  const getColorByCount = (count: number) => {
+    if (count === 0) return "bg-zinc-800/20 dark:bg-card"
+    if (count < 3) return "bg-green-900/40"
+    if (count < 6) return "bg-green-700/60"
+    if (count < 10) return "bg-green-500/80"
+    return "bg-[#1DB954]"
   }
 
   if (!weeks || weeks.length === 0) {
@@ -67,8 +54,8 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
                       )
                     }
                     onMouseLeave={() => setHoverData(null)}
-                    className={`size-3.5 rounded-sm transition-all hover:scale-110 hover:ring-1 hover:ring-white/30 ${getColor(
-                      day.contributionLevel
+                    className={`size-3.5 rounded-sm transition-all hover:scale-110 hover:ring-1 hover:ring-white/30 ${getColorByCount(
+                      day.contributionCount
                     )}`}
                   />
                 ))}
@@ -81,8 +68,8 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
       <section className="mt-2 flex items-center justify-between">
         <div className="flex items-center gap-2 text-[10px] text-zinc-500 uppercase">
           <span>Less</span>
-          <div className="flex gap-0.75">
-            <div className="size-3.5 rounded-sm bg-zinc-800/50" />
+          <div className="flex items-center gap-0.75">
+            <div className="size-3.5 rounded-sm bg-zinc-800/40" />
             <div className="size-3.5 rounded-sm bg-green-900/40" />
             <div className="size-3.5 rounded-sm bg-green-700/60" />
             <div className="size-3.5 rounded-sm bg-green-500/80" />
