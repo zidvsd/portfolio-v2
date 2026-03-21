@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache"
 import { MY_PROJECTS } from "../constants/projects-config"
-import { GitHubRepoResponse } from "@/lib/types/github"
+import { cache } from "react"
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {
@@ -133,4 +133,23 @@ export async function getRepoDetails(slug: string) {
     [`repo-detail-${slug}`],
     { tags: [`repo-${slug}`], revalidate: 3600 }
   )(slug)
+}
+
+export async function getGithubActivity() {
+  try {
+    const res = await fetch(
+      "https://github-contributions-api.deno.dev/zidvsd.json?year=2024",
+      {
+        cache: "no-store",
+      }
+    )
+    if (!res.ok)
+      throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
+    const data = await res.json()
+
+    return data.contributions
+  } catch (error) {
+    console.log(error)
+    return []
+  }
 }

@@ -20,7 +20,7 @@ export function SpotifyPlaylistCarousel({
   if (!playlists || playlists.length === 0) return null
 
   return (
-    <div className="mt-4 w-full max-w-full overflow-visible px-2">
+    <div className="w-full max-w-full overflow-visible px-2">
       <Carousel
         opts={{ align: "start", loop: true, dragFree: true }}
         plugins={[Autoplay({ delay: 3000 })]}

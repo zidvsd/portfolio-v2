@@ -3,6 +3,9 @@ import { getWakaTimeWeeklyStats } from "@/lib/services/wakatime"
 import { WakaTimeStats } from "../../lib/types/wakatime"
 import WakaTimeCard from "@/components/dashboard/WakaTimeCard"
 import SpotifyCard from "@/components/dashboard/SpotifyCard"
+import { getGithubActivity } from "@/lib/services/github"
+import EndOfPage from "@/components/ui/end-of-page"
+import { GithubContributionsCard } from "@/components/dashboard/GithubContributionsCard"
 export default async function page() {
   const allTimeRes = await getWakaTimeAllTime()
   const weeklyRes = await getWakaTimeWeeklyStats()
@@ -11,6 +14,9 @@ export default async function page() {
   const weeklyData = weeklyRes?.data || weeklyRes
   const allTimeRaw = allTimeRes?.data || allTimeRes
 
+  // Github profile
+  const githubData = await getGithubActivity()
+  console.log(githubData)
   // Format the all-time object so it satisfies the WakaTimeStats interface
   const allTimeStats: WakaTimeStats = {
     ...weeklyData,
@@ -41,6 +47,12 @@ export default async function page() {
         <SpotifyCard />
       </section>
       <hr className="border-border" />
+      <section className="w-full">
+        <GithubContributionsCard weeks={githubData} />
+      </section>
+      <hr className="border-border" />
+
+      <EndOfPage />
     </section>
   )
 }

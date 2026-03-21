@@ -14,7 +14,7 @@ export default async function SpotifyCard() {
   return (
     <div className="space-y-6">
       {/* Header Section */}
-      <div className="space-y-2">
+      <header className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="rounded-lg bg-[#1DB954]/10 p-2">
@@ -34,12 +34,16 @@ export default async function SpotifyCard() {
         <p className="flex items-center leading-relaxed text-muted-foreground">
           Real-time music & coding vibes from the past week
         </p>
-      </div>
+      </header>
 
       {/* Unified Card */}
-      <SpotifyPlayingCard />
+      <div>
+        <SpotifyPlayingCard />
+      </div>
 
-      <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
+      <div className="mt-0">
+        <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
+      </div>
     </div>
   )
 }

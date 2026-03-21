@@ -1,24 +1,38 @@
-export interface GitHubRepoResponse {
-  name: string
-  description: string | null
-  url: string
-  homepageUrl: string | null
-  stargazerCount: number
-  forkCount: number
-  repositoryTopics: {
-    nodes: Array<{
-      topic: {
-        name: string
-      }
-    }>
+// lib/types/github.ts
+
+export interface GitHubStats {
+  // Basic Profile Stats
+  followers: number
+  following: number
+  public_repos: number
+
+  // Contribution Data (Often from a secondary scrape or GraphQL API)
+  contributions: {
+    total: number
+    thisWeek: number
+    bestDay: {
+      date: string
+      count: number
+    }
+    dailyAverage: number
   }
-  languages: {
-    nodes: Array<{
-      name: string
-      color: string
-    }>
+}
+
+export interface GitHubCardProps {
+  data: GitHubStats | null
+}
+
+// lib/types/github.ts
+export interface GithubContributionDay {
+  date: string
+  count: number
+  level: 0 | 1 | 2 | 3 | 4 // GitHub's intensity levels
+}
+
+export interface GithubContributionData {
+  total: {
+    [year: string]: number
+    lastYear: number
   }
-  readme: {
-    text: string
-  } | null
+  contributions: GithubContributionDay[][] // 2D array: weeks -> days
 }
