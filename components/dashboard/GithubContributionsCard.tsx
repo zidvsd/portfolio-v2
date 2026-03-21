@@ -15,13 +15,17 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
       case "FIRST_QUARTILE":
         return "bg-green-900/50"
       case "SECOND_QUARTILE":
+        // Matches: bg-green-700/60
         return "bg-green-700/60"
       case "THIRD_QUARTILE":
+        // Matches: bg-green-500/80
         return "bg-green-500/80"
       case "FOURTH_QUARTILE":
+        // Matches: bg-[#1DB954] (Spotify Green)
         return "bg-[#1DB954] "
       case "NONE":
       default:
+        // Matches: bg-zinc-800/50
         return "bg-zinc-800/20 dark:bg-card"
     }
   }

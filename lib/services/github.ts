@@ -1,6 +1,57 @@
 import { unstable_cache } from "next/cache"
 import { MY_PROJECTS } from "../constants/projects-config"
-import { cache } from "react"
+
+export async function getGithubStats() {
+  const githubId = 172535603
+
+  try {
+    const res = await fetch(`https://api.github.com/user/${githubId}`, {
+      headers: {
+        "User-Agent": "zidvsd-portfolio",
+        Accept: "application/vnd.github+json",
+      },
+      // You can still control caching here without unstable_cache
+      next: { revalidate: 3600 },
+    })
+
+    if (!res.ok) {
+      throw new Error(`GitHub API error: ${res.status}`)
+    }
+
+    const data = await res.json()
+    console.log(data)
+    const date = data.created_at
+      ? new Date(data.created_at)
+      : new Date("2024-01-01")
+
+    // Option A: "May 2024" (Recommended for Bento Grids)
+    const memberSince = date.toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    })
+    return {
+      followers: data.followers ?? 0,
+      following: data.following ?? 0,
+      total_repos: data.public_repos ?? 0,
+      name: data.name ?? "",
+      member_since: memberSince,
+      bio: data.bio ?? "",
+    }
+  } catch (error) {
+    console.error("Error fetching GitHub stats:", error)
+
+    // Return safe defaults so your UI components don't break
+    return {
+      followers: 0,
+      following: 0,
+      public_repos: 0,
+      name: "",
+      bio: "",
+      member_since: "2024",
+    }
+  }
+}
+
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {

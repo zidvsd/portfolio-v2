@@ -17,8 +17,8 @@ export default async function SpotifyCard() {
       <header className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="rounded-lg bg-[#1DB954]/10 p-2">
-              <SpotifyIcon className="size-5 text-[#1DB954]" />
+            <div className="rounded-lg p-2 dark:bg-[#1DB954]/10">
+              <SpotifyIcon className="size-6 text-[#1DB954]" />
             </div>
             <h1 className="text-2xl font-semibold tracking-tight">
               Listening Activity
