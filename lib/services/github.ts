@@ -183,7 +183,7 @@ export async function getGithubActivity() {
     async function () {
       try {
         const res = await fetch(
-          "https://github-contributions-api.deno.dev/zidvsd.json?year=2024"
+          "https://github-contributions-api.deno.dev/zidvsd.json"
         )
 
         if (!res.ok) {
@@ -191,13 +191,19 @@ export async function getGithubActivity() {
         }
 
         const data = await res.json()
-        return data.contributions || []
+        return {
+          contributions: data.contributions || [],
+          totalContributions: data.totalContributions,
+        }
       } catch (error) {
         console.error("GitHub Fetch Error:", error)
-        return []
+        return {
+          contributions: [],
+          totalContribution: 0,
+        }
       }
     },
-    ["github-activity-2024"],
+    ["github-activity-2026"],
     {
       revalidate: 3600,
       tags: ["github-contributions"],

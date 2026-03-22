@@ -4,7 +4,6 @@ import { useState } from "react"
 
 export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
   const [hoverData, setHoverData] = useState<string | null>(null)
-  console.log(hoverData)
   // Function to get short month name (e.g., "Jan")
   const getMonthName = (dateStr: string) => {
     return new Date(dateStr).toLocaleString("en-US", { month: "short" })
