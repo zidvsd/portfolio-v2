@@ -2,10 +2,10 @@ import { CodewarsProfile } from "@/lib/types/codewars"
 import StatTile from "../ui/stat-title"
 import {
   TrophyIcon,
-  UsersIcon,
-  TrendUpIcon,
-  ShieldIcon,
+  FireIcon,
   ArrowSquareOutIcon,
+  RankingIcon,
+  TrendUpIcon,
 } from "@phosphor-icons/react/dist/ssr"
 import CodewarsIcon from "../icons/CodewarsIcon"
 import { Button } from "../ui/button"
@@ -24,8 +24,8 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CodewarsIcon className="size-12" />
-            <h1 className="text-2xl font-semibold tracking-tight text-white">
+            <CodewarsIcon className="size-12 text-red-700" />
+            <h1 className="text-2xl font-semibold tracking-tight">
               Codewars Activity
             </h1>
           </div>
@@ -54,7 +54,7 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
           <StatTile
             label="Honor"
             value={codewarsData.honor.toLocaleString()}
-            icon={<ShieldIcon size={18} weight="duotone" />}
+            icon={<FireIcon size={18} weight="duotone" />}
           />
         </div>
 
@@ -63,7 +63,7 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
           <StatTile
             label="Leaderboard"
             value={`#${codewarsData.leaderboardPosition.toLocaleString()}`}
-            icon={<TrendUpIcon size={18} weight="duotone" />}
+            icon={<RankingIcon size={18} weight="duotone" />}
           />
         </div>
 
@@ -72,7 +72,7 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
             label="Score"
             value={codewarsData.ranks.overall.score.toLocaleString()}
             // Adding an icon here helps balance the visual weight with the others
-            icon={<UsersIcon size={18} weight="duotone" />}
+            icon={<TrendUpIcon size={18} weight="duotone" />}
           />
         </div>
       </div>

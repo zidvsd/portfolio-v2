@@ -9,11 +9,11 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
     return new Date(dateStr).toLocaleString("en-US", { month: "short" })
   }
   const getColorByCount = (count: number) => {
-    if (count === 0) return "bg-zinc-800/20 dark:bg-card"
-    if (count < 3) return "bg-green-900/40"
-    if (count < 6) return "bg-green-700/60"
-    if (count < 10) return "bg-green-500/80"
-    return "bg-[#1DB954]"
+    if (count === 0) return "bg-[#ebedf0] dark:bg-[#161b22]"
+    if (count < 3) return "bg-blue-200 dark:bg-blue-900"
+    if (count < 6) return "bg-blue-400 dark:bg-blue-700"
+    if (count < 10) return "bg-blue-600 dark:bg-blue-500"
+    return "bg-blue-800 dark:bg-blue-300"
   }
 
   if (!weeks || weeks.length === 0) {
@@ -68,11 +68,11 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
         <div className="flex items-center gap-2 text-[10px] text-zinc-500 uppercase">
           <span>Less</span>
           <div className="flex items-center gap-0.75">
-            <div className="size-3.5 rounded-sm bg-zinc-800/40" />
-            <div className="size-3.5 rounded-sm bg-green-900/40" />
-            <div className="size-3.5 rounded-sm bg-green-700/60" />
-            <div className="size-3.5 rounded-sm bg-green-500/80" />
-            <div className="size-3.5 rounded-sm bg-[#1DB954]" />
+            <div className="size-3.5 rounded-sm bg-[#ebedf0] dark:bg-[#161b22]" />
+            <div className="size-3.5 rounded-sm bg-blue-200 dark:bg-blue-900" />
+            <div className="size-3.5 rounded-sm bg-blue-400 dark:bg-blue-700" />
+            <div className="size-3.5 rounded-sm bg-blue-600 dark:bg-blue-500" />
+            <div className="size-3.5 rounded-sm bg-blue-800 dark:bg-blue-300" />
           </div>
           <span className="text-accent-foreground">More</span>
         </div>
