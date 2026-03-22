@@ -63,7 +63,7 @@ export default async function Page() {
             </div>
           </div>
           {/* Social Actions */}
-          <div className="flex flex-col items-start gap-2 sm:flex-row">
+          <div className="flex items-start gap-2 sm:flex-row">
             <SocialLink
               href={profile.socials.github}
               icon={<GithubLogoIcon size={24} />}
