@@ -5,10 +5,12 @@ import WakaTimeCard from "@/components/dashboard/WakaTimeCard"
 import SpotifyCard from "@/components/dashboard/SpotifyCard"
 import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
+import { getCodewarsProfile } from "@/lib/services/codewars"
+import CodewarsCard from "@/components/dashboard/CodewarsCard"
 export default async function page() {
   const allTimeRes = await getWakaTimeAllTime()
   const weeklyRes = await getWakaTimeWeeklyStats()
-
+  const codewarsProfile = await getCodewarsProfile()
   const weeklyData = weeklyRes?.data || weeklyRes
   const allTimeRaw = allTimeRes?.data || allTimeRes
 
@@ -39,6 +41,10 @@ export default async function page() {
       <hr className="border-border" />
       <section>
         <SpotifyCard />
+      </section>
+
+      <section>
+        <CodewarsCard codewarsData={codewarsProfile} />
       </section>
 
       <EndOfPage />

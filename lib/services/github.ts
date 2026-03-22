@@ -10,7 +10,6 @@ export async function getGithubStats() {
         "User-Agent": "zidvsd-portfolio",
         Accept: "application/vnd.github+json",
       },
-      // You can still control caching here without unstable_cache
       next: { revalidate: 3600 },
     })
 
@@ -24,7 +23,6 @@ export async function getGithubStats() {
       ? new Date(data.created_at)
       : new Date("2024-01-01")
 
-    // Option A: "May 2024" (Recommended for Bento Grids)
     const memberSince = date.toLocaleString("en-US", {
       month: "short",
       year: "numeric",
@@ -40,7 +38,6 @@ export async function getGithubStats() {
   } catch (error) {
     console.error("Error fetching GitHub stats:", error)
 
-    // Return safe defaults so your UI components don't break
     return {
       followers: 0,
       following: 0,
@@ -55,9 +52,7 @@ export async function getGithubStats() {
 export async function getProjects() {
   return unstable_cache(
     async function () {
-      // 1. Build dynamic GraphQL query aliases based on your config slugs
       const repoQueries = MY_PROJECTS.map(function (project, index) {
-        // Fallback to project.name if slug is missing in config
         const identifier = project.slug || project.name
 
         return `
@@ -98,12 +93,11 @@ export async function getProjects() {
           return []
         }
 
-        // 2. Map the Aliased results (repo0, repo1...) back to your project list
         return MY_PROJECTS.map(function (project, index) {
           const githubData = result.data[`repo${index}`]
 
           return {
-            name: project.name, // Use the pretty name from config
+            name: project.name,
             slug: project.slug,
             description: githubData?.description || "No description provided.",
             githubUrl:
@@ -125,17 +119,16 @@ export async function getProjects() {
 }
 
 export async function getRepoDetails(slug: string) {
-  // Guard clause for Next.js 15 pre-rendering
   if (!slug || typeof slug !== "string") return null
 
   return unstable_cache(
-    async (repoSlug: string) => {
+    async function (repoSlug: string) {
       const username = "zidvsd"
       const token = process.env.GITHUB_TOKEN
 
       const commonHeaders = {
         Authorization: `Bearer ${token}`,
-        "User-Agent": "Zid-Portfolio-App", // CRITICAL: GitHub REST API often 404s without this
+        "User-Agent": "Zid-Portfolio-App",
         Accept: "application/vnd.github+json",
       }
 
@@ -155,7 +148,6 @@ export async function getRepoDetails(slug: string) {
         ])
 
         if (!repoRes.ok) {
-          // This will help you see if it's a Rate Limit (403) or Not Found (404)
           console.error(`GitHub API Status: ${repoRes.status} for ${repoSlug}`)
           return null
         }
@@ -186,52 +178,56 @@ export async function getRepoDetails(slug: string) {
   )(slug)
 }
 
-export const getGithubActivity = unstable_cache(
-  async () => {
-    try {
-      const res = await fetch(
-        "https://github-contributions-api.deno.dev/zidvsd.json?year=2024"
-      )
-
-      if (!res.ok) {
-        throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
-      }
-
-      const data = await res.json()
-      return data.contributions || []
-    } catch (error) {
-      console.error("GitHub Fetch Error:", error)
-      return []
-    }
-  },
-  ["github-activity-2024"],
-  {
-    revalidate: 3600,
-    tags: ["github-contributions"],
-  }
-)
-
-export const getPinnedRepos = unstable_cache(
-  async () => {
-    try {
-      const res = await fetch("https://pinned.berrysauce.dev/get/zidvsd")
-
-      if (!res.ok) {
-        throw new Error(
-          `Failed to fetch Pinned Github Repositories: ${res.status}`
+export async function getGithubActivity() {
+  return unstable_cache(
+    async function () {
+      try {
+        const res = await fetch(
+          "https://github-contributions-api.deno.dev/zidvsd.json?year=2024"
         )
-      }
 
-      const data = await res.json()
-      return data || []
-    } catch (error) {
-      console.error("GitHub Fetch Error:", error)
-      return []
+        if (!res.ok) {
+          throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
+        }
+
+        const data = await res.json()
+        return data.contributions || []
+      } catch (error) {
+        console.error("GitHub Fetch Error:", error)
+        return []
+      }
+    },
+    ["github-activity-2024"],
+    {
+      revalidate: 3600,
+      tags: ["github-contributions"],
     }
-  },
-  ["github-pinned-repos"],
-  {
-    revalidate: 3600,
-    tags: ["github-pinned-repos"],
-  }
-)
+  )()
+}
+
+export async function getPinnedRepos() {
+  return unstable_cache(
+    async function () {
+      try {
+        const res = await fetch("https://pinned.berrysauce.dev/get/zidvsd")
+
+        if (!res.ok) {
+          throw new Error(
+            `Failed to fetch Pinned Github Repositories: ${res.status}`
+          )
+        }
+
+        const data = await res.json()
+        return data || []
+      } catch (error) {
+        console.error("GitHub Fetch Error:", error)
+        return []
+      }
+    },
+    ["github-pinned-repos"],
+    {
+      revalidate: 3600,
+      tags: ["github-pinned-repos"],
+    }
+  )()
+}
