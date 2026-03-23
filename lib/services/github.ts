@@ -18,7 +18,6 @@ export async function getGithubStats() {
     }
 
     const data = await res.json()
-    console.log(data)
     const date = data.created_at
       ? new Date(data.created_at)
       : new Date("2024-01-01")

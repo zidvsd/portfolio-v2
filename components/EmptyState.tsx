@@ -14,7 +14,7 @@ interface EmptyStateProps {
   title: string
   description: string
   // Using React.ElementType allows you to pass a component like {EmptyIcon}
-  icon: React.ElementType
+  icon: React.ReactNode
   linkHref?: string
   linkText?: string
 }
@@ -22,19 +22,23 @@ interface EmptyStateProps {
 export function EmptyState({
   title,
   description,
-  icon: Icon, // Alias to uppercase so it can be rendered as a tag
+  icon,
   linkHref = "#",
   linkText = "Learn More",
 }: EmptyStateProps) {
   return (
     <Empty>
-      <EmptyHeader>
-        <EmptyMedia variant="icon">
-          {/* Render the passed Phosphor icon */}
-          <Icon />
+      <EmptyHeader className="max-w-xl">
+        <EmptyMedia
+          variant="icon"
+          className="w-fit bg-transparent p-8 text-primary"
+        >
+          {icon}
         </EmptyMedia>
-        <EmptyTitle>{title}</EmptyTitle>
-        <EmptyDescription>{description}</EmptyDescription>
+        <EmptyTitle className="w-full text-2xl font-semibold">
+          {title}
+        </EmptyTitle>
+        <EmptyDescription className="text-md">{description}</EmptyDescription>
       </EmptyHeader>
       <Button
         variant="link"

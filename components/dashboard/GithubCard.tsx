@@ -19,7 +19,6 @@ import { GitHubPinnedRepo } from "@/lib/types/github"
 
 export default async function GithubCard() {
   const githubData = await getGithubActivity()
-  console.log(githubData)
   const contributions = githubData.contributions || []
   const githubStats = await getGithubStats()
   const pinnedRepos = await getPinnedRepos()

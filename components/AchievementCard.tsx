@@ -10,7 +10,6 @@ import {
 import { Button } from "./ui/button"
 import { useState } from "react"
 import { XIcon } from "@phosphor-icons/react"
-
 interface AchievementProps {
   data: {
     name: string

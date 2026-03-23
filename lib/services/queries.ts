@@ -3,6 +3,7 @@ import { Profile } from "@/models/Profile"
 import { Experiences } from "@/models/Experiences"
 import { connectDb } from "../db"
 import { Achievements } from "@/models/Achievements"
+import { Blog } from "@/models/Blogs"
 import { unstable_cache } from "next/cache"
 
 export async function getProfile() {
@@ -36,5 +37,16 @@ export async function getAchievements() {
     },
     ["achievements-data"],
     { tags: ["achievements"], revalidate: 3600 }
+  )()
+}
+export async function getBlogs() {
+  return unstable_cache(
+    async function () {
+      await connectDb()
+      const data = await Blog.find({}).sort({ datePublished: -1 }).lean()
+      return JSON.parse(JSON.stringify(data))
+    },
+    ["blog-data"],
+    { tags: ["blogs"], revalidate: 3600 }
   )()
 }
