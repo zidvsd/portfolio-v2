@@ -11,7 +11,7 @@ interface BlogCardProps {
 
 export default function BlogHero({ blogHero }: BlogCardProps) {
   const noOfWords = blogHero.content.split(/\s+/).length // Splits by any whitespace
-  const readtime = noOfWords / 200
+  const readtime = Math.ceil(noOfWords / 200)
   return (
     <Link href={`/blog/${blogHero.slug}`} className="group block">
       <Card className="h-full overflow-hidden py-0 shadow-sm">
@@ -56,8 +56,11 @@ export default function BlogHero({ blogHero }: BlogCardProps) {
         {/* Footer Section */}
         <CardFooter className="px-8 py-4">
           <div className="space-x-2">
-            {blogHero.tags.map((tag) => (
-              <span className="rounded-background bg-primary px-2 py-1.5 text-xs font-semibold text-white">
+            {blogHero.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="rounded-background bg-primary px-2 py-1.5 text-xs font-semibold text-white"
+              >
                 {" "}
                 {tag}
               </span>

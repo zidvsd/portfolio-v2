@@ -25,7 +25,7 @@ export default function AchievementCard({ data }: AchievementProps) {
   const Icon = data.type === "certificate" ? CertificateIcon : MedalIcon
   const [isFullscreen, setIsFullscreen] = useState(false)
   return (
-    <div className="group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card/50 p-5 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-md border bg-card/50 p-5 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
       {/* Type Badge */}
       <div className="absolute top-3 right-3 z-20">
         <span

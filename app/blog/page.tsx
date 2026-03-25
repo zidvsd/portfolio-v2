@@ -3,7 +3,6 @@ import { getBlogs } from "@/lib/services/queries"
 import BlogList from "@/components/blog/BlogList"
 export default async function page() {
   const blogs = await getBlogs()
-  console.log(blogs)
   return (
     <section className="space-y-6">
       <div className="space-y-2">

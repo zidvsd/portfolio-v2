@@ -10,7 +10,7 @@ function Card({
   return (
     <div
       className={cn(
-        "group/card relative flex flex-col gap-4 overflow-hidden rounded-lg border bg-card/30 py-4 text-xs/relaxed text-card-foreground shadow-md",
+        "group/card relative flex flex-col gap-4 overflow-hidden rounded-md border bg-card/30 py-4 text-xs/relaxed text-card-foreground shadow-md",
         className
       )}
     >

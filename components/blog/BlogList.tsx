@@ -4,7 +4,7 @@ interface BlogDataProps {
 }
 
 import { Blog } from "@/lib/types/blog"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { BlogCategory } from "@/lib/types/blog"
 import { Button } from "../ui/button"
 import BlogCard from "./BlogCard"
@@ -12,26 +12,37 @@ import { SearchInput } from "../SearchInput"
 import { EmptyState } from "../EmptyState"
 import BlogHero from "./BlogHero"
 import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react"
+import SidebarBlogCard from "./SidebarBlogCard"
 export default function BlogList({ blogData }: BlogDataProps) {
   const [searchQuery, setSearchQuery] = useState("")
-  const categories: BlogCategory[] = ["All", "Development", "Music", "Gaming"]
+  const categories: BlogCategory[] = [
+    "All",
+    "Development",
+    "Music",
+    "Gaming",
+    "General",
+  ]
   const [activeFilter, setActiveFilter] = useState<BlogCategory>("All")
+  const [visibleCount, setVisibleCount] = useState(6)
   const isFiltering = searchQuery !== "" || activeFilter !== "All"
   const handleClearFilters = () => {
     setSearchQuery("")
     setActiveFilter("All")
   }
-  const heroBlog = blogData.find((blog) => blog.isFeatured || [blogData[0]])
-  const filteredBlogs = blogData.filter((blog) => {
-    const matchesSearch =
-      blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const heroBlog = blogData.find((blog) => blog.isFeatured)
+  console.log(heroBlog)
+  const filteredBlogs = blogData
+    .filter((blog) => blog._id !== heroBlog?._id)
+    .filter((blog) => {
+      const matchesSearch =
+        blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        blog.description.toLowerCase().includes(searchQuery.toLowerCase())
 
-    const matchesCategory =
-      activeFilter === "All" || blog.category === activeFilter
+      const matchesCategory =
+        activeFilter === "All" || blog.category === activeFilter
 
-    return matchesSearch && matchesCategory
-  })
+      return matchesSearch && matchesCategory
+    })
 
   return (
     <div className="space-y-4">
@@ -54,7 +65,7 @@ export default function BlogList({ blogData }: BlogDataProps) {
         </div>
 
         {/* Bottom Row: Horizontally Scrollable Categories */}
-        <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2">
+        <div className="no-scrollbar flex flex-wrap gap-2 overflow-x-auto pb-2">
           {categories.map((category) => (
             <Button
               key={category}
@@ -79,29 +90,33 @@ export default function BlogList({ blogData }: BlogDataProps) {
           </div>
 
           {/* 30% Section: Secondary Featured Card */}
-          <div className="h-full lg:col-span-3">
-            {/* Fallback to second blog in array if available */}
-            {blogData[1] ? (
-              <div className="flex h-full flex-col">
-                <BlogCard blog={blogData[1]} />
-              </div>
-            ) : (
-              <div className="flex h-full items-center justify-center rounded-3xl border border-dashed border-blue-500/10 p-6 text-center">
-                <p className="text-xs tracking-tighter text-muted-foreground uppercase">
-                  More logs coming soon
-                </p>
-              </div>
-            )}
+          <div className="flex w-full flex-col lg:col-span-3">
+            {/* Show next 4 blogs in the sidebar */}
+            <h1 className="text-2xl font-bold tracking-tight">Recent Blogs</h1>
+            <hr className="my-2 border-border" />
+            {blogData.slice(1, 5).map((blog) => (
+              <SidebarBlogCard key={blog._id} blog={blog} />
+            ))}
           </div>
         </div>
       )}
 
-      <div className="mt-6 grid grid-cols-2 gap-6 xl:grid-cols-3">
-        {filteredBlogs.map((blog) => (
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {filteredBlogs.slice(0, visibleCount).map((blog) => (
           <BlogCard key={blog._id} blog={blog} />
         ))}
       </div>
 
+      {/* Load more content button */}
+      {visibleCount < filteredBlogs.length && (
+        <div className="mt-6 flex justify-center">
+          <Button onClick={() => setVisibleCount((prev) => prev + 3)}>
+            Load More
+          </Button>
+        </div>
+      )}
+
+      {/* Empty state */}
       {(filteredBlogs.length === 0 || null) && (
         <EmptyState
           title="Unable to find any blogs related to your query ://"

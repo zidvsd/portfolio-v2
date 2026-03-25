@@ -29,6 +29,7 @@ export function SearchInput({ onSearch, value }: SearchInputProps) {
   return (
     <InputGroup className="h-8 max-w-md">
       <InputGroupInput
+        autoComplete="off"
         value={localTerm}
         onChange={(e) => setLocalTerm(e.target.value)}
         placeholder="Search entries..."

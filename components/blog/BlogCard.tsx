@@ -10,7 +10,7 @@ interface BlogCardProps {
 
 export default function BlogCard({ blog }: BlogCardProps) {
   const noOfWords = blog.content.split(/\s+/).length // Splits by any whitespace
-  const readtime = noOfWords / 200
+  const readtime = Math.ceil(noOfWords / 200)
   return (
     <Link href={`/blog/${blog.slug}`} className="group block">
       <Card className="flex h-full flex-col overflow-hidden pt-0 shadow-sm">
@@ -32,7 +32,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
 
         {/* Content Section */}
         <CardContent className="space-y-3 px-4">
-          <h3 className="text-xl leading-tight font-bold transition-colors group-hover:text-blue-500">
+          <h3 className="line-clamp-2 text-xl leading-tight font-bold transition-colors group-hover:text-blue-500">
             {blog.title}
           </h3>
           <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">

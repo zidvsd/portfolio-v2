@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
                 ## MY STACK
                 React, Next.js, TypeScript, Tailwind CSS, Supabase, Express, PostgreSQL, MongoDB.
-                Next.js + TypeScript is my go-to. I'm also deep into Cisco Networking lately — VLANs, routing, the whole thing.
+                Next.js + TypeScript is my go-to. 
 
                 ## MY PROJECTS
                 - **GadyetHub** — A full-stack e-commerce store I built with role-based access control. I'm proud of this one.
