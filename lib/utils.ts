@@ -17,3 +17,9 @@ export function formatDate(dateString?: string) {
     return dateString
   }
 }
+
+export function getReadingTime(content: string): number {
+  const wordsPerMinute = 200
+  const noOfWords = content.split(/\s+/).length
+  return Math.ceil(noOfWords / wordsPerMinute)
+}

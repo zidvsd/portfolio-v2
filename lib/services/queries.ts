@@ -50,3 +50,15 @@ export async function getBlogs() {
     { tags: ["blogs"], revalidate: 3600 }
   )()
 }
+export async function getBlogBySlug(blogSlug: string) {
+  return unstable_cache(
+    async function () {
+      await connectDb()
+      const blog = await Blog.findOne({ slug: blogSlug }).lean()
+      console.log(blog)
+      return blog ? JSON.parse(JSON.stringify(blog)) : null
+    },
+    ["blog-data", blogSlug],
+    { tags: ["blogs", `blog-${blogSlug}`], revalidate: 3600 }
+  )()
+}

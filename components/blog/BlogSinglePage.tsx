@@ -1,0 +1,75 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { formatDate } from "@/lib/utils"
+import { CalendarIcon, ClockIcon } from "@phosphor-icons/react"
+import Image from "next/image"
+import { Blog } from "@/lib/types/blog"
+import { getReadingTime } from "@/lib/utils"
+export default function BlogSinglePage({ blog }: { blog: Blog }) {
+  const [loading, setLoading] = useState(false) // optional if you want client-side skeletons
+
+  // Optional: any client-side logic, like comments or animations
+  useEffect(() => {
+    // Example: simulate some client-side work
+    // setLoading(true)
+    // setTimeout(() => setLoading(false), 300)
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="custom-container animate-pulse space-y-4">
+        <div className="h-8 w-3/4 rounded bg-gray-200"></div>
+        <div className="h-6 w-1/2 rounded bg-gray-200"></div>
+        <div className="h-64 rounded bg-gray-300"></div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      <header className="flex items-center gap-4">
+        <p className="text-sm text-muted-foreground">{blog.category}</p>
+
+        <div className="flex items-center gap-2">
+          <CalendarIcon />
+          <p className="text-sm text-muted-foreground">
+            {formatDate(blog.datePublished)}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <ClockIcon />
+          <p className="text-sm text-muted-foreground">
+            {getReadingTime(blog.content)} min read
+          </p>
+        </div>
+      </header>
+      <h1 className="text-3xl font-bold">{blog.title}</h1>
+      <h3>{blog.description}</h3>
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+        <Image
+          src={blog.coverImageUrl}
+          alt={blog.title}
+          fill
+          className="object-cover"
+          priority // Add this so the main image loads faster
+        />
+      </div>
+      <div className="prose max-w-full">
+        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+      </div>
+      <hr className="border-border" />
+      <div className="flex flex-wrap gap-2">
+        {blog.tags?.map((tag: string) => (
+          <span
+            key={tag}
+            className="rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-[10px] font-bold tracking-widest text-blue-500 uppercase"
+          >
+            #{tag}
+          </span>
+        ))}
+      </div>
+      <hr className="border-border" />
+    </div>
+  )
+}
