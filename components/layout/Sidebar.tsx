@@ -55,12 +55,12 @@ export default function Sidebar() {
                   "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all",
                   isActive
                     ? "bg-neutral-100 text-foreground dark:bg-neutral-800"
-                    : "text-muted-foreground hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
+                    : "text-foreground/70 hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
                 )}
               >
                 <Icon
                   size={18}
-                  weight={isActive ? "bold" : "regular"}
+                weight={isActive ? "bold" : "regular"}
                   className={cn(
                     "hover-utility transition-colors group-hover:scale-110 group-hover:-rotate-30",
                     isActive
