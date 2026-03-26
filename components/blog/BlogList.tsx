@@ -5,19 +5,15 @@ interface BlogDataProps {
 }
 
 import { Blog } from "@/lib/types/blog"
-import { useState, useEffect } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
-import { BlogCategory } from "@/lib/types/blog"
 import { Button } from "../ui/button"
 import BlogCard from "./BlogCard"
-import { SearchInput } from "../SearchInput"
 import { EmptyState } from "../EmptyState"
 import BlogHero from "./BlogHero"
 import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react"
-import SidebarBlogCard from "./SidebarBlogCard"
-import { capitalizeFirstChar } from "@/lib/utils"
 import { useBlogFilters } from "@/hooks/useBlogFilters"
 import { BlogFilterBar } from "./BlogFilterBar"
+import StaggerWrapper from "../motion/StaggerWrapper"
+import { StaggerItem } from "../motion/StaggerItem"
 export default function BlogList({ blogData }: BlogDataProps) {
   const {
     searchQuery,
@@ -54,11 +50,13 @@ export default function BlogList({ blogData }: BlogDataProps) {
         <BlogHero blogHero={heroBlog} recentBlogs={blogData.slice(1, 5)} />
       )}
 
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <StaggerWrapper className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {filteredBlogs.slice(0, visibleCount).map((blog) => (
-          <BlogCard key={blog._id} blog={blog} />
+          <StaggerItem key={blog._id}>
+            <BlogCard blog={blog} />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerWrapper>
 
       {/* Load more content button */}
       {visibleCount < filteredBlogs.length && (

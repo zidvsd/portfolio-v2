@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-
+import { motion } from "motion/react"
 export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
   const [hoverData, setHoverData] = useState<string | null>(null)
   // Function to get short month name (e.g., "Jan")
@@ -36,7 +36,13 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
           const showMonth = weekIndex === 0 || currentMonth !== prevMonth
 
           return (
-            <div key={weekIndex} className="flex flex-col gap-0.75">
+            <motion.div
+              key={weekIndex}
+              initial={{ opacity: 0, x: -1 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: weekIndex * 0.03 }} // Very fast stagger
+              className="flex flex-col gap-0.75"
+            >
               {/* Month Label */}
               <span className="h-4 text-[10px] text-zinc-500">
                 {showMonth ? currentMonth : ""}
@@ -59,7 +65,7 @@ export function GithubContributionsCard({ weeks }: { weeks: any[][] }) {
                   />
                 ))}
               </div>
-            </div>
+            </motion.div>
           )
         })}
       </div>

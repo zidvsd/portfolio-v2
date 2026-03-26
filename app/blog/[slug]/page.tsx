@@ -6,7 +6,7 @@ import { Blog } from "@/lib/types/blog"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
-
+import InView from "@/components/motion/InView"
 export const revalidate = 0
 export default async function BlogPage({
   params,
@@ -39,11 +39,11 @@ export default async function BlogPage({
             </Button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <InView className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {relatedBlogs.map((related: Blog) => (
             <BlogCard key={related._id} blog={related} />
           ))}
-        </div>
+        </InView>
       </section>
     </>
   )

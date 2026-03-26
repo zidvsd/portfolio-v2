@@ -6,7 +6,8 @@ import { Blog } from "@/lib/types/blog"
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 import { ClockIcon, CalendarIcon } from "@phosphor-icons/react"
 import SidebarBlogCard from "./SidebarBlogCard"
-
+import { StaggerItem } from "../motion/StaggerItem"
+import StaggerWrapper from "../motion/StaggerWrapper"
 interface BlogHeroProps {
   blogHero: Blog
   recentBlogs: Blog[] // Now this is correctly handled
@@ -87,11 +88,13 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
           <div className="ml-4 h-px flex-1 bg-white/5" />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <StaggerWrapper className="flex flex-col gap-1">
           {recentBlogs.map((blog) => (
-            <SidebarBlogCard key={blog._id} blog={blog} />
+            <StaggerItem key={blog._id}>
+              <SidebarBlogCard blog={blog} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerWrapper>
       </div>
     </div>
   )

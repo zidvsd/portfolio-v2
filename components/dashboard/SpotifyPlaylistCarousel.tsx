@@ -10,6 +10,7 @@ import { SpotifyPlaylist } from "@/lib/types/spotify"
 import SpotifyIcon from "@/components/icons/SpotifyIcon"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
+import { motion } from "motion/react"
 interface SpotifyPlaylistCarouselProps {
   playlists: SpotifyPlaylist[]
 }
@@ -27,7 +28,7 @@ export function SpotifyPlaylistCarousel({
         className="scrollbar-none w-full"
       >
         <CarouselContent className="-ml-4 py-4">
-          {playlists.map((playlist) => (
+          {playlists.map((playlist, index) => (
             <CarouselItem
               key={playlist.uri || playlist.name}
               // Mobile: 1.5 cards (shows a peek of the next one)
@@ -37,41 +38,53 @@ export function SpotifyPlaylistCarousel({
               className="basis-[70%] pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
               {/* Vertical Playlist Card */}
-              <a
-                href={playlist.external_urls.spotify}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/3 shadow-md transition-all duration-300 hover:border-white/10 hover:bg-white/[0.07] dark:border-white/5"
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1, // Staggering each card
+                  ease: [0.21, 0.47, 0.32, 0.98],
+                }}
+                className="h-full"
               >
-                {/* Top Image Section - Takes full width, fixed aspect ratio */}
-                <div className="relative w-full overflow-hidden after:block after:pb-[100%]">
-                  <Image
-                    fill
-                    src={playlist.images[0]?.url}
-                    alt={playlist.name}
-                    className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 will-change-transform group-hover:scale-110"
-                  />
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <SpotifyIcon className="size-8 text-[#1DB954]" />
+                <a
+                  href={playlist.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/3 shadow-md transition-all duration-300 hover:border-white/10 hover:bg-white/[0.07] dark:border-white/5"
+                >
+                  {/* Top Image Section - Takes full width, fixed aspect ratio */}
+                  <div className="relative w-full overflow-hidden after:block after:pb-[100%]">
+                    <Image
+                      fill
+                      src={playlist.images[0]?.url}
+                      alt={playlist.name}
+                      className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 will-change-transform group-hover:scale-110"
+                    />
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <SpotifyIcon className="size-8 text-[#1DB954]" />
+                    </div>
                   </div>
-                </div>
 
-                {/* Bottom Content Section */}
-                <div className="flex flex-col space-y-1 p-4">
-                  <p className="truncate text-sm font-bold text-accent-foreground transition-colors group-hover:text-green-500">
-                    {playlist.name}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs font-medium text-zinc-500">
-                      {playlist.items?.total || 0} tracks
+                  {/* Bottom Content Section */}
+                  <div className="flex flex-col space-y-1 p-4">
+                    <p className="truncate text-sm font-bold text-accent-foreground transition-colors group-hover:text-green-500">
+                      {playlist.name}
                     </p>
-                    <span className="text-[10px] font-bold tracking-wider text-zinc-600 uppercase opacity-0 transition-opacity group-hover:opacity-100">
-                      Play
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-medium text-zinc-500">
+                        {playlist.items?.total || 0} tracks
+                      </p>
+                      <span className="text-[10px] font-bold tracking-wider text-zinc-600 uppercase opacity-0 transition-opacity group-hover:opacity-100">
+                        Play
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </motion.div>
             </CarouselItem>
           ))}
         </CarouselContent>

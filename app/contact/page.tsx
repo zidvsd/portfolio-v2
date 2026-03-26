@@ -11,7 +11,8 @@ import {
   ArrowUpRightIcon,
   MapPinIcon,
 } from "@phosphor-icons/react"
-import { formatDate } from "@/lib/utils"
+import StaggerWrapper from "@/components/motion/StaggerWrapper"
+import { StaggerItem } from "@/components/motion/StaggerItem"
 const socialLinks = [
   {
     title: "Github",
@@ -99,39 +100,38 @@ export default function page() {
               Connect & Follow
             </h2>
             {/* Social Links */}
-            <div className="space-y-4">
+            <StaggerWrapper className="space-y-4">
               {socialLinks.map((link) => (
-                <div
-                  key={link.title}
-                  className="hover-utility flex items-center justify-between rounded-md border bg-zinc-100 p-2 shadow-md transition-colors hover:bg-white/5 dark:bg-card"
-                >
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-lg p-2"
-                  >
-                    <div className="hover-utility flex size-10 shrink-0 items-center justify-center rounded-md bg-background/70 text-accent-foreground group-hover:text-primary">
-                      <link.icon className="size-5" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium">{link.title}</h4>
-                      <p className="text-xs text-muted-foreground">
-                        {link.description}
-                      </p>
-                    </div>
-                  </a>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-lg p-2"
-                  >
-                    <ArrowUpRightIcon className="shrink-0" />
-                  </a>
-                </div>
+                <StaggerItem key={link.title}>
+                  <div className="hover-utility flex items-center justify-between rounded-md border bg-zinc-100 p-2 shadow-md transition-colors hover:bg-white/5 dark:bg-card">
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-lg p-2"
+                    >
+                      <div className="hover-utility flex size-10 shrink-0 items-center justify-center rounded-md bg-background/70 text-accent-foreground group-hover:text-primary">
+                        <link.icon className="size-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium">{link.title}</h4>
+                        <p className="text-xs text-muted-foreground">
+                          {link.description}
+                        </p>
+                      </div>
+                    </a>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-lg p-2"
+                    >
+                      <ArrowUpRightIcon className="shrink-0" />
+                    </a>
+                  </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerWrapper>
           </section>
 
           {/* Social Icons/Links go here */}

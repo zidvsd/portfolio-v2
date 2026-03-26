@@ -16,7 +16,9 @@ import StatTile from "../ui/stat-title"
 import { getPinnedRepos } from "@/lib/services/github"
 import { PinnedRepoCard } from "./GithubRepoCard"
 import { GitHubPinnedRepo } from "@/lib/types/github"
-
+import InView from "../motion/InView"
+import { StaggerItem } from "../motion/StaggerItem"
+import StaggerWrapper from "../motion/StaggerWrapper"
 export default async function GithubCard() {
   const githubData = await getGithubActivity()
   const contributions = githubData.contributions || []
@@ -48,42 +50,42 @@ export default async function GithubCard() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
-        <div className="col-span-1 md:col-span-3">
+        <InView delay={0.1} className="col-span-1 md:col-span-3">
           <StatTile
             label="Contributions"
             value={githubData.totalContributions || "0"}
             icon={<GitForkIcon size={18} weight="duotone" />}
           />
-        </div>
-        <div className="col-span-1 md:col-span-3">
+        </InView>
+        <InView delay={0.2} className="col-span-1 md:col-span-3">
           <StatTile
             label="Joined at"
             value={githubStats.member_since}
             icon={<CalendarIcon size={18} weight="duotone" />}
           />
-        </div>
+        </InView>
 
-        <div className="col-span-1 md:col-span-2">
+        <InView delay={0.3} className="col-span-1 md:col-span-2">
           <StatTile
             label="Following"
             value={githubStats.following}
             icon={<UserPlusIcon size={18} weight="duotone" />}
           />
-        </div>
-        <div className="col-span-1 md:col-span-2">
+        </InView>
+        <InView delay={0.4} className="col-span-1 md:col-span-2">
           <StatTile
             label="Followers"
             value={githubStats.followers}
             icon={<UsersIcon size={18} weight="duotone" />}
           />
-        </div>
-        <div className="col-span-2 md:col-span-2">
+        </InView>
+        <InView delay={0.5} className="col-span-2 md:col-span-2">
           <StatTile
             label="Repos"
             value={githubStats.total_repos.toString()}
             icon={<FolderIcon size={18} weight="duotone" />}
           />
-        </div>
+        </InView>
       </div>
 
       <GithubContributionsCard weeks={githubData.contributions} />
@@ -95,21 +97,22 @@ export default async function GithubCard() {
             Pinned Repositories
           </h2>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <StaggerWrapper className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {pinnedRepos.map((repo: GitHubPinnedRepo, index: number) => (
-            <PinnedRepoCard
-              key={`${index}-${repo.name}`}
-              author={repo.author}
-              name={repo.name}
-              description={repo.description}
-              language={repo.language}
-              languageColor={repo.languageColor}
-              stars={repo.stars}
-              link={`https://github.com/${repo.author}/${repo.name}`}
-              forks={repo.forks}
-            />
+            <StaggerItem key={`${index}-${repo.name}`}>
+              <PinnedRepoCard
+                author={repo.author}
+                name={repo.name}
+                description={repo.description}
+                language={repo.language}
+                languageColor={repo.languageColor}
+                stars={repo.stars}
+                link={`https://github.com/${repo.author}/${repo.name}`}
+                forks={repo.forks}
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerWrapper>
       </div>
     </div>
   )

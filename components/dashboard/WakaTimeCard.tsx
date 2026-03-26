@@ -7,6 +7,8 @@ import { ArrowSquareOutIcon } from "@phosphor-icons/react"
 import { Button } from "../ui/button"
 import StatTile from "../ui/stat-title"
 import ListTile from "../ui/list-tile"
+import InView from "../motion/InView"
+
 interface WakaTimeCardProps {
   weeklyStats: WakaTimeStats
   allTimeStats: WakaTimeStats
@@ -30,7 +32,7 @@ export default function WakaTimeCard({
   const lastUpdate = formatDate(allTimeStats?.modified_at) || "—"
 
   return (
-    <div className="flex flex-col gap-4">
+    <InView delay={0.4} distance={4} className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between">
@@ -55,15 +57,38 @@ export default function WakaTimeCard({
 
       {/* Grid */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <StatTile label="Start Date / Joined WakaTime" value={joinedDate} />
-        <StatTile label="End Date" value={endDate} />
-        <StatTile label="Average Daily Coding Time" value={dailyAvg} />
-        <StatTile label="Total This Week" value={totalWeekly} />
-        <StatTile label="Best Day" value="March 13, 2026 (4 hrs 49 mins)" />
-        <StatTile label="All-Time Coding" value={totalAllTime} />
-        <ListTile title="Top Languages" items={languages} />
-        <ListTile title="Editors" items={editors} />
+        <InView delay={0.1}>
+          <StatTile label="Start Date / Joined WakaTime" value={joinedDate} />
+        </InView>
+
+        <InView delay={0.2}>
+          <StatTile label="End Date" value={endDate} />
+        </InView>
+
+        <InView delay={0.3}>
+          <StatTile label="Average Daily Coding Time" value={dailyAvg} />
+        </InView>
+
+        <InView delay={0.4}>
+          <StatTile label="Total This Week" value={totalWeekly} />
+        </InView>
+
+        <InView delay={0.5}>
+          <StatTile label="Best Day" value="March 13, 2026 (4 hrs 49 mins)" />
+        </InView>
+
+        <InView delay={0.6}>
+          <StatTile label="All-Time Coding" value={totalAllTime} />
+        </InView>
+
+        <InView delay={0.7}>
+          <ListTile title="Top Languages" items={languages} />
+        </InView>
+
+        <InView delay={0.8}>
+          <ListTile title="Editors" items={editors} />
+        </InView>
       </div>
-    </div>
+    </InView>
   )
 }

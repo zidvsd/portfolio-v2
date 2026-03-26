@@ -5,6 +5,7 @@ import { SpotifyPlaylistCarousel } from "./SpotifyPlaylistCarousel"
 import { getSpotifyProfile } from "@/lib/services/spotify"
 import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr"
 import { Button } from "../ui/button"
+import InView from "../motion/InView"
 export default async function SpotifyCard() {
   const playlists = await getUserPlaylist()
   const profile = await getSpotifyProfile()
@@ -12,7 +13,7 @@ export default async function SpotifyCard() {
     playlists.items.filter((p: any) => p.public === true) || []
 
   return (
-    <div className="space-y-6">
+    <InView className="space-y-6">
       {/* Header Section */}
       <header className="space-y-2">
         <div className="flex items-center justify-between">
@@ -44,6 +45,6 @@ export default async function SpotifyCard() {
       <div className="mt-0">
         <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
       </div>
-    </div>
+    </InView>
   )
 }

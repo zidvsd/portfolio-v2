@@ -9,7 +9,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr"
 import CodewarsIcon from "../icons/CodewarsIcon"
 import { Button } from "../ui/button"
-
+import InView from "../motion/InView"
 interface CodewarsCardProps {
   codewarsData: CodewarsProfile
 }
@@ -19,7 +19,7 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
   const profileUri = `https://www.codewars.com/users/${codewarsData.username}`
 
   return (
-    <div className="space-y-6">
+    <InView className="space-y-6">
       {/* Header Section */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
@@ -95,6 +95,6 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
           </div>
         </div>
       )}
-    </div>
+    </InView>
   )
 }

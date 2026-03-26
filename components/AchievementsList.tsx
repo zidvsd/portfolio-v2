@@ -4,7 +4,8 @@ import { useState } from "react"
 import AchievementCard from "./AchievementCard"
 import { Button } from "./ui/button"
 import { Achievement } from "@/lib/types/achievement"
-
+import StaggerWrapper from "./motion/StaggerWrapper"
+import { StaggerItem } from "./motion/StaggerItem"
 // 1. Define the FilterType so useState knows what 'filter' can be
 type FilterType = "all" | "certificate" | "badge"
 
@@ -54,11 +55,16 @@ export default function AchievementList({ initialData }: AchievementListProps) {
           {filtered.length === 1 ? "result" : "results"}
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <StaggerWrapper
+        key={filter}
+        className="grid grid-cols-1 gap-4 md:grid-cols-2"
+      >
         {filtered.map((achievement) => (
-          <AchievementCard key={achievement._id} data={achievement} />
+          <StaggerItem key={achievement._id}>
+            <AchievementCard data={achievement} />
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerWrapper>
       {filtered.length === 0 && (
         <div className="rounded-xl border border-dashed border-border py-20 text-center">
           <p className="text-muted-foreground">

@@ -14,6 +14,8 @@ import { getProfile } from "@/lib/services/queries"
 import { FeaturedCarousel } from "@/components/FeaturedCarousel"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { PushPinIcon } from "@phosphor-icons/react/dist/ssr"
+import StaggerWrapper from "@/components/motion/StaggerWrapper"
+import { StaggerItem } from "@/components/motion/StaggerItem"
 export default async function Page() {
   const profile = await getProfile()
   const githubRepos = await getProjects()
@@ -96,11 +98,13 @@ export default async function Page() {
             Technical Stack
           </h3>
         </div>
-        <div className="flex flex-wrap gap-4">
+        <StaggerWrapper delayStep={0.05} className="flex flex-wrap gap-4">
           {profile.skills?.map((skill: string) => (
-            <SkillBadge key={skill} name={skill} />
+            <StaggerItem key={skill}>
+              <SkillBadge name={skill} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerWrapper>
       </section>
 
       {/* Carousel for featured works */}

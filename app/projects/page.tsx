@@ -2,6 +2,8 @@ import { getProjects } from "@/lib/services/github"
 import EndOfPage from "@/components/ui/end-of-page"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { ProjectCard } from "@/components/ProjectCard"
+import StaggerWrapper from "@/components/motion/StaggerWrapper"
+import { StaggerItem } from "@/components/motion/StaggerItem"
 export default async function ProjectsPage() {
   const githubRepos = await getProjects()
   const repos = githubRepos.map((repo: any) => {
@@ -39,15 +41,20 @@ export default async function ProjectsPage() {
       <hr className="mt-6 border-border" />
 
       {/* Grid container handles the column logic */}
-      <div className="mt-8 grid grid-flow-row-dense grid-cols-1 gap-6 md:grid-cols-2">
+      <StaggerWrapper
+        key={"projects-grid"}
+        className="mt-8 grid grid-flow-row-dense grid-cols-1 gap-6 md:grid-cols-2"
+      >
         {sortedRepos.map((repo: any) => (
-          <ProjectCard key={repo.slug} repo={repo} />
+          <StaggerItem key={repo.slug}>
+            <ProjectCard repo={repo} />
+          </StaggerItem>
         ))}
 
         <div className="col-span-full">
           <EndOfPage />
         </div>
-      </div>
+      </StaggerWrapper>
     </section>
   )
 }
