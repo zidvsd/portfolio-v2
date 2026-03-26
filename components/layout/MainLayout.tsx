@@ -3,6 +3,7 @@ import MobileMenuDrawer from "./MobileMenuDrawer"
 import LogoAndAvatar from "../LogoAndAvatar"
 import ThemeToggle from "../themes/theme-toggle"
 import { Toaster } from "sonner"
+import MotionWrapper from "../motion/MotionWrapper"
 export default function MainLayout({
   children,
 }: {
@@ -27,11 +28,9 @@ export default function MainLayout({
       </header>
 
       {/* Content Area */}
-      <main className="flex w-full min-w-0 flex-col">
+      <main className="flex w-full min-w-0 flex-1 flex-col px-4 py-6 md:px-6 lg:px-8">
         {/* We use w-full here so the internal container handles the content width */}
-        <div className="flex-1 px-4 py-6 md:px-6 lg:px-8">
-          <div className="">{children}</div>
-        </div>
+        <MotionWrapper>{children}</MotionWrapper>
       </main>
       <Toaster position="top-right" richColors={true} />
     </div>

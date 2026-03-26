@@ -29,7 +29,6 @@ export default function WakaTimeCard({
   const joinedDate = formatDate(allTimeStats?.range.start_date) || "—"
   const lastUpdate = formatDate(allTimeStats?.modified_at) || "—"
 
-  
   return (
     <div className="flex flex-col gap-4">
       {/* Header */}

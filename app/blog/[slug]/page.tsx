@@ -19,7 +19,7 @@ export default async function BlogPage({
 
   if (!blog) {
     return (
-      <div className="custom-container py-20 text-center">
+      <div className="py-20 text-center">
         <p className="text-muted-foreground">Blog not found.</p>
       </div>
     )
@@ -29,7 +29,7 @@ export default async function BlogPage({
     <>
       <BlogSinglePage key={slug} blog={blog} />
 
-      <section className="custom-container border-white/10 pt-10">
+      <section className="border-white/10 pt-10">
         <div className="flex items-center justify-between">
           <h3 className="mb-8 text-xl font-bold">More in {blog.category}</h3>
           <Link href="/blog">

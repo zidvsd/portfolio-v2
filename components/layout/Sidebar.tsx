@@ -60,7 +60,7 @@ export default function Sidebar() {
               >
                 <Icon
                   size={18}
-                weight={isActive ? "bold" : "regular"}
+                  weight={isActive ? "bold" : "regular"}
                   className={cn(
                     "hover-utility transition-colors group-hover:scale-110 group-hover:-rotate-30",
                     isActive

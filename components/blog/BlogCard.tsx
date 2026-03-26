@@ -9,7 +9,7 @@ interface BlogCardProps {
   blog: Blog
 }
 export default function BlogCard({ blog }: BlogCardProps) {
-  const noOfWords = blog.content.split(/\s+/).length 
+  const noOfWords = blog.content.split(/\s+/).length
   const readtime = Math.ceil(noOfWords / 200)
   return (
     <Link href={`/blog/${blog.slug}`} className="group block">
