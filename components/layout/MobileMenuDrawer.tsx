@@ -20,7 +20,6 @@ import {
   XIcon,
 } from "@phosphor-icons/react"
 
-// Reuse your exact IconMap from Sidebar
 const IconMap: Record<string, any> = {
   HouseIcon,
   UserIcon,

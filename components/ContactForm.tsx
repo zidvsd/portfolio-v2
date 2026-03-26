@@ -12,7 +12,7 @@ export default function ContactForm({ onSubmit, isLoading }: ContactFormProps) {
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-6 rounded-sm border bg-card p-6 shadow-md"
+      className="space-y-6 rounded-sm border bg-zinc-100 p-6 shadow-md dark:bg-card"
     >
       {/* Row 1: Full Name and Email */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

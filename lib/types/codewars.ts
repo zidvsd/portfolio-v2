@@ -12,7 +12,7 @@ export interface CodewarsProfile {
       color: string
       score: number
     }
-    // Added languages to match your JSON sample
+
     languages: Record<
       string,
       {
@@ -23,7 +23,7 @@ export interface CodewarsProfile {
       }
     >
   }
-  // Added this as it's in your response but missing in your type
+
   codeChallenges: {
     totalAuthored: number
     totalCompleted: number

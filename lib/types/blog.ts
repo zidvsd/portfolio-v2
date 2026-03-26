@@ -6,24 +6,23 @@ export type BlogCategory =
   | "All"
 
 export interface Blog {
-  _id: string // MongoDB ObjectId as a string
+  _id: string 
   title: string
-  slug: string // SEO friendly URL: "my-cisco-vlan-setup"
-  description: string // Short snippet for the blog card
-  content: string // Markdown string for paragraphs, quotes, and bullets
+  slug: string 
+  description: string 
+  content: string 
   isFeatured: boolean
-  // Supabase Integration
-  coverImageUrl: string // The public URL from your Supabase bucket
+ 
+  coverImageUrl: string 
 
-  // Categorization & Social
+ 
   category: BlogCategory
-  tags: string[] // Your hashtags: ["NextJS", "Cisco", "JohnMayer"]
+  tags: string[] 
 
-  // Metadata
   datePublished: string
   isPublished: boolean
-  readingTime?: string // Optional: "5 min read"
+  readingTime?: string
 }
 
-// For creating a new blog (omitting generated fields)
+
 export type CreateBlogInput = Omit<Blog, "_id" | "datePublished">
