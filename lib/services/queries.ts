@@ -62,3 +62,18 @@ export async function getBlogBySlug(blogSlug: string) {
     { tags: ["blogs", `blog-${blogSlug}`], revalidate: 3600 }
   )()
 }
+
+export async function getRelatedBlogs(category: string, currentSlug: string) {
+  await connectDb()
+
+  const related = await Blog.find({
+    category: category,
+    slug: { $ne: currentSlug },
+    isPublished: true,
+  })
+    .limit(2)
+    .sort({ datePublished: -1 })
+    .lean()
+
+  return JSON.parse(JSON.stringify(related))
+}

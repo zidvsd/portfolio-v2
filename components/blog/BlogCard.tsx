@@ -4,12 +4,12 @@ import Link from "next/link"
 import { Blog } from "@/lib/types/blog"
 import { Card, CardContent, CardFooter } from "../ui/card"
 import { ClockIcon } from "@phosphor-icons/react"
+
 interface BlogCardProps {
   blog: Blog
 }
-
 export default function BlogCard({ blog }: BlogCardProps) {
-  const noOfWords = blog.content.split(/\s+/).length // Splits by any whitespace
+  const noOfWords = blog.content.split(/\s+/).length 
   const readtime = Math.ceil(noOfWords / 200)
   return (
     <Link href={`/blog/${blog.slug}`} className="group block">

@@ -16,20 +16,12 @@ export default function BlogSinglePage({ blog }: { blog: Blog }) {
     // setTimeout(() => setLoading(false), 300)
   }, [])
 
-  if (loading) {
-    return (
-      <div className="custom-container animate-pulse space-y-4">
-        <div className="h-8 w-3/4 rounded bg-gray-200"></div>
-        <div className="h-6 w-1/2 rounded bg-gray-200"></div>
-        <div className="h-64 rounded bg-gray-300"></div>
-      </div>
-    )
-  }
-
   return (
     <div className="space-y-6">
       <header className="flex items-center gap-4">
-        <p className="text-sm text-muted-foreground">{blog.category}</p>
+        <p className="rounded-full bg-primary px-2 py-1 text-sm text-white">
+          {blog.category}
+        </p>
 
         <div className="flex items-center gap-2">
           <CalendarIcon />

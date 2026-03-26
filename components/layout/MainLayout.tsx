@@ -2,6 +2,7 @@ import Sidebar from "./Sidebar"
 import MobileMenuDrawer from "./MobileMenuDrawer"
 import LogoAndAvatar from "../LogoAndAvatar"
 import ThemeToggle from "../themes/theme-toggle"
+import { Toaster } from "sonner"
 export default function MainLayout({
   children,
 }: {
@@ -32,6 +33,7 @@ export default function MainLayout({
           <div className="">{children}</div>
         </div>
       </main>
+      <Toaster position="top-right" richColors={true} />
     </div>
   )
 }

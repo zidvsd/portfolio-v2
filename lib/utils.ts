@@ -23,3 +23,7 @@ export function getReadingTime(content: string): number {
   const noOfWords = content.split(/\s+/).length
   return Math.ceil(noOfWords / wordsPerMinute)
 }
+
+export function capitalizeFirstChar(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+}
