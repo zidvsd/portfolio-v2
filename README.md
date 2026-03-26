@@ -455,6 +455,6 @@ This project is open source and available under the MIT License.
 
 ---
 
-**Made with ❤️ by [Your Name](https://github.com/yourusername)**
+**Made by [Rashid Visda](https://github.com/yourusername)**
 
-Have a question? Feel free to [contact me](contact) or reach out on [GitHub](https://github.com/yourusername).
+Have a question? Feel free to contact me or reach out on [GitHub](https://github.com/yourusername).
