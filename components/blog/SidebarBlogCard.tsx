@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import { Blog } from "@/lib/types/blog"
 import { formatDistanceToNow } from "date-fns"
