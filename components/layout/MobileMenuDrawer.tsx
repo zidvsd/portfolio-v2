@@ -6,6 +6,8 @@ import Link from "next/link"
 import navs from "@/lib/json/navs.json"
 import { Button } from "@base-ui/react"
 import { cn } from "@/lib/utils"
+import StaggerWrapper from "../motion/StaggerWrapper"
+import { StaggerItem } from "../motion/StaggerItem"
 import {
   HouseIcon,
   UserIcon,
@@ -49,47 +51,46 @@ export default function MobileMenuDrawer() {
       {/* Horizontal / Expanded Header Dropdown */}
       {isOpen && (
         <nav className="absolute top-full left-0 z-40 w-full animate-in border-b bg-background p-4 shadow-xl backdrop-blur-xl duration-200 fade-in slide-in-from-top-2 lg:hidden">
-          <div className="flex flex-col gap-1">
+          <StaggerWrapper delayStep={0.1} className="flex flex-col gap-1">
             {navs.map((nav) => {
               const Icon = IconMap[nav.icon] || CircleIcon
               const isActive = pathname === nav.href
 
               return (
-                <Link
-                  key={nav.href}
-                  href={nav.href}
-                  onClick={() => toggleMenu(false)}
-                  className={cn(
-                    "group flex items-center gap-3 rounded-lg px-4 py-3 text-base transition-all",
-                    isActive
-                      ? "bg-neutral-100 text-foreground dark:bg-neutral-800"
-                      : "text-muted-foreground hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
-                  )}
-                >
-                  <Icon
-                    size={20}
-                    weight={isActive ? "bold" : "regular"}
+                <StaggerItem key={nav.href}>
+                  <Link
+                    href={nav.href}
+                    onClick={() => toggleMenu(false)}
                     className={cn(
-                      "transition-colors",
-                      isActive ? "text-primary" : "group-hover:text-primary"
-                    )}
-                  />
-
-                  <span className="font-semibold">{nav.title}</span>
-
-                  <ArrowRightIcon
-                    size={16}
-                    className={cn(
-                      "ml-auto transition-all",
+                      "group flex items-center gap-3 rounded-lg px-4 py-3 text-base transition-all",
                       isActive
-                        ? "translate-x-0 text-primary opacity-100"
-                        : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                        ? "bg-neutral-100 text-foreground dark:bg-neutral-800"
+                        : "text-muted-foreground hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
                     )}
-                  />
-                </Link>
+                  >
+                    <Icon
+                      size={20}
+                      weight={isActive ? "bold" : "regular"}
+                      className={cn(
+                        "transition-colors",
+                        isActive ? "text-primary" : "group-hover:text-primary"
+                      )}
+                    />
+                    <span className="font-semibold">{nav.title}</span>
+                    <ArrowRightIcon
+                      size={16}
+                      className={cn(
+                        "ml-auto transition-all",
+                        isActive
+                          ? "translate-x-0 text-primary opacity-100"
+                          : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                      )}
+                    />
+                  </Link>
+                </StaggerItem>
               )
             })}
-          </div>
+          </StaggerWrapper>
         </nav>
       )}
     </div>
