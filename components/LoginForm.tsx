@@ -19,7 +19,7 @@ export function LoginForm({
 }: React.ComponentProps<"form">) {
   const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
-  
+  const [password,setPassword] = useState('')
   return (
     <Card>
       <CardContent>

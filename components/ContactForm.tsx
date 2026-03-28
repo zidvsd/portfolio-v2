@@ -1,17 +1,32 @@
 "use client"
-import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { PaperPlaneRightIcon } from "@phosphor-icons/react/dist/ssr"
+import { ContactSchema, ContactInput } from "@/lib/schemas/contact.schema"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 interface ContactFormProps {
-  isLoading: boolean
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  onSuccess: (data: ContactInput) => void
 }
-export default function ContactForm({ onSubmit, isLoading }: ContactFormProps) {
+export default function ContactForm({ onSuccess }: ContactFormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactInput>({
+    resolver: zodResolver(ContactSchema),
+  })
+
+  const onSubmit = async (data: ContactInput) => {
+    // This only runs if Zod validation passes
+    await onSuccess(data)
+  }
+
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       className="space-y-6 rounded-sm border bg-zinc-100 p-6 shadow-md dark:bg-card"
     >
       {/* Row 1: Full Name and Email */}
@@ -21,27 +36,37 @@ export default function ContactForm({ onSubmit, isLoading }: ContactFormProps) {
             Full Name
           </label>
           <Input
-            name="name"
-            className="py-4"
+            {...register("name")}
+            className={`py-4 ${errors.name ? "border border-destructive" : ""}`}
             autoComplete="off"
             id="name"
             placeholder="John Doe"
             required
           />
+          {errors.name && (
+            <p className="text-xs font-medium text-destructive">
+              {errors.name.message}
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <label htmlFor="email" className="text-xs">
             Email Address
           </label>
           <Input
-            name="email"
-            className="py-4"
+            {...register("email")}
+            className={`py-4 ${errors.email ? "border border-destructive" : ""}`}
             autoComplete="off"
             id="email"
             type="email"
             placeholder="john@example.com"
             required
           />
+          {errors.email && (
+            <p className="text-xs font-medium text-destructive">
+              {errors.email.message}
+            </p>
+          )}
         </div>
       </div>
 
@@ -51,13 +76,18 @@ export default function ContactForm({ onSubmit, isLoading }: ContactFormProps) {
           Subject
         </label>
         <Input
-          name="subject"
-          className="py-4"
+          {...register("subject")}
+          className={`py-4 ${errors.email ? "border border-destructive" : ""}`}
           autoComplete="off"
           id="subject"
           placeholder="Project Inquiry"
           required
         />
+        {errors.subject && (
+          <p className="text-xs font-medium text-destructive">
+            {errors.subject.message}
+          </p>
+        )}
       </div>
 
       {/* Row 3: Message Textbox */}
@@ -66,22 +96,26 @@ export default function ContactForm({ onSubmit, isLoading }: ContactFormProps) {
           Message
         </label>
         <Textarea
-          name="message"
+          {...register("message")}
+          className={`resize-y py-4 ${errors.email ? "border border-destructive" : ""}`}
+          autoComplete="off"
           id="message"
           placeholder="Tell me about your project..."
           rows={6}
-          className="resize-y"
           required
         />
+        <p className="text-xs font-medium text-destructive">
+          {errors.message?.message}
+        </p>
       </div>
 
       {/* Submit Button */}
       <Button
         type="submit"
-        disabled={isLoading}
+        disabled={isSubmitting}
         className="flex w-full gap-4 py-4 md:w-max md:px-8"
       >
-        {isLoading ? "Sending..." : "Send Message"}
+        {isSubmitting ? "Sending..." : "Send Message"}
         <PaperPlaneRightIcon className="size-4" />
       </Button>
     </form>

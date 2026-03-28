@@ -3,7 +3,6 @@ import ContactForm from "@/components/ContactForm"
 import { useState } from "react"
 import axios from "axios"
 import { toast } from "sonner"
-import { ContactSchema } from "@/lib/schema"
 import {
   EnvelopeIcon,
   GithubLogoIcon,
@@ -13,6 +12,7 @@ import {
 } from "@phosphor-icons/react"
 import StaggerWrapper from "@/components/motion/StaggerWrapper"
 import { StaggerItem } from "@/components/motion/StaggerItem"
+import { ContactInput } from "@/lib/schemas/contact.schema"
 const socialLinks = [
   {
     title: "Github",
@@ -35,45 +35,21 @@ const socialLinks = [
   },
 ]
 export default function page() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle")
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-
-    const formData = new FormData(e.currentTarget)
-    const payload = Object.fromEntries(formData.entries())
-    const result = ContactSchema.safeParse(payload)
-    if (!result.success) {
-      setIsLoading(false)
-
-      const firstError = result.error.issues[0]
-      const errorMessage = firstError.message
-      return toast.error("Check your input", { description: errorMessage })
-    }
+  const handleSendMessage = async (data: ContactInput) => {
     try {
-      const res = await axios.post("/api/contact", result.data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      const res = await axios.post("/api/contact", data)
+
       if (res.status === 200 || res.status === 201) {
-        setStatus("success")
-        ;(e.target as HTMLFormElement).reset() // Clear the form on success
-        toast.success("Successfully sent the message")
+        toast.success("Message sent successfully!", {
+          description: "I'll get back to you as soon as possible.",
+        })
       }
     } catch (error: any) {
       console.error("Submission error:", error)
-      setStatus("error")
-      setIsLoading(false)
       const serverError =
         error.response?.data?.error || "Failed to send message"
       toast.error(serverError)
-    } finally {
-      setIsLoading(false)
+      throw error
     }
   }
   return (
@@ -90,7 +66,7 @@ export default function page() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-10">
         {/* 60% Section: Contact Form */}
         <div className="lg:col-span-6">
-          <ContactForm isLoading={isLoading} onSubmit={handleSubmit} />
+          <ContactForm onSuccess={handleSendMessage} />
         </div>
 
         {/* 40% Section: Socials & Google Maps */}
