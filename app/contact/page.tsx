@@ -1,5 +1,5 @@
 "use client"
-import ContactForm from "@/components/ContactForm"
+import ContactForm from "@/components/forms/ContactForm"
 import { useState } from "react"
 import axios from "axios"
 import { toast } from "sonner"

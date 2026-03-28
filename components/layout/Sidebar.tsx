@@ -17,7 +17,7 @@ import navs from "@/lib/json/navs.json"
 import LogoAndAvatar from "../LogoAndAvatar"
 import ThemeToggle from "../themes/theme-toggle"
 import { cn } from "@/lib/utils"
-
+import { LogoutButton } from "../LogotButton"
 const IconMap: Record<string, any> = {
   HouseIcon,
   UserIcon,
@@ -90,6 +90,8 @@ export default function Sidebar() {
         <p>Copyright © 2026</p>
         <p>Rashid Visda. All rights reserved.</p>
       </div>
+
+      <LogoutButton />
     </div>
   )
 }

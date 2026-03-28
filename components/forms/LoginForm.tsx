@@ -1,6 +1,4 @@
-'use client'
-import { authClient } from "@/lib/auth/auth-client"
-import { useState } from "react"
+"use client"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,18 +10,71 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { Card, CardContent } from "./ui/card"
+import { Card, CardContent } from "../ui/card"
+import { loginSchema, LoginInput } from "@/lib/schemas/auth.schema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { authClient } from "@/lib/auth/auth-client"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  const [isLogin, setIsLogin] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password,setPassword] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginInput>({
+    resolver: zodResolver(loginSchema),
+  })
+  const router = useRouter()
+  const onSubmit = async (data: LoginInput) => {
+    await authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: "/dashboard",
+      },
+      {
+        onRequest: () => {
+          toast.loading("Verifying credentials...", { id: "login-toast" })
+        },
+        onSuccess: () => {
+          toast.success("Welcome back!", { id: "login-toast" })
+          router.push("/dashboard")
+          router.refresh()
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Invalid email or password", {
+            id: "login-toast",
+          })
+        },
+      }
+    )
+  }
+
+  const handleSocialLogin = async (provider: "github" | "google") => {
+    await authClient.signIn.social(
+      {
+        provider,
+        callbackURL: "/dashboard",
+      },
+      {
+        onRequest: () => {
+          toast.loading("Connecting...", { id: "login-toast" })
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message, { id: "login-toast" })
+        },
+      }
+    )
+  }
   return (
     <Card>
       <CardContent>
         <form
+          onSubmit={handleSubmit(onSubmit)}
           className={cn("flex flex-col gap-6 p-6 md:p-8", className)}
           {...props}
         >
@@ -37,9 +88,10 @@ export function LoginForm({
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
+                {...register("email")}
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="johndoe@example.com"
                 required
               />
             </Field>
@@ -53,10 +105,18 @@ export function LoginForm({
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input
+                autoComplete="off"
+                {...register("password")}
+                id="password"
+                type="password"
+                required
+              />
             </Field>
             <Field>
-              <Button type="submit">Login</Button>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Logging in..." : "Login"}
+              </Button>
             </Field>
             <FieldSeparator>Or continue with</FieldSeparator>
             <Field>
