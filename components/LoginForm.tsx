@@ -1,3 +1,6 @@
+'use client'
+import { authClient } from "@/lib/auth/auth-client"
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,6 +17,9 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const [isLogin, setIsLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  
   return (
     <Card>
       <CardContent>

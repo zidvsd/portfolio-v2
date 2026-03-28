@@ -1,14 +1,10 @@
-import { LoginForm } from "@/components/login-form"
+import { LoginForm } from "@/components/LoginForm"
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-svh flex-col bg-background">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-lg">
-            <LoginForm />
-          </div>
-        </div>
+    <div className="flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-md">
+        <LoginForm />
       </div>
     </div>
   )
