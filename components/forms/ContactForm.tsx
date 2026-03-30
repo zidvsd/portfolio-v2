@@ -12,6 +12,7 @@ interface ContactFormProps {
 }
 export default function ContactForm({ onSuccess }: ContactFormProps) {
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -22,6 +23,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
   const onSubmit = async (data: ContactInput) => {
     // This only runs if Zod validation passes
     await onSuccess(data)
+    reset()
   }
 
   return (
@@ -77,7 +79,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
         </label>
         <Input
           {...register("subject")}
-          className={`py-4 ${errors.email ? "border border-destructive" : ""}`}
+          className={`py-4 ${errors.subject ? "border border-destructive" : ""}`}
           autoComplete="off"
           id="subject"
           placeholder="Project Inquiry"
@@ -97,7 +99,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
         </label>
         <Textarea
           {...register("message")}
-          className={`resize-y py-4 ${errors.email ? "border border-destructive" : ""}`}
+          className={`resize-y py-4 ${errors.message ? "border border-destructive" : ""}`}
           autoComplete="off"
           id="message"
           placeholder="Tell me about your project..."
