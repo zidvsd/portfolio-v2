@@ -18,6 +18,8 @@ import LogoAndAvatar from "../LogoAndAvatar"
 import ThemeToggle from "../themes/theme-toggle"
 import { cn } from "@/lib/utils"
 import { LogoutButton } from "../LogotButton"
+import { checkSession } from "@/lib/auth/auth-util"
+import { authClient } from "@/lib/auth/auth-client"
 const IconMap: Record<string, any> = {
   HouseIcon,
   UserIcon,
@@ -31,6 +33,7 @@ const IconMap: Record<string, any> = {
 }
 
 export default function Sidebar() {
+  const { data: session } = authClient.useSession()
   const pathname = usePathname()
 
   return (
@@ -91,7 +94,7 @@ export default function Sidebar() {
         <p>Rashid Visda. All rights reserved.</p>
       </div>
 
-      <LogoutButton />
+      {session ? <LogoutButton /> : null}
     </div>
   )
 }

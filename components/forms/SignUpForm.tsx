@@ -25,6 +25,7 @@ export function SignupForm({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<SignupInput>({
     resolver: zodResolver(signupSchema),
@@ -46,6 +47,7 @@ export function SignupForm({
       toast.error(errorMessage)
     } else {
       toast.success("Account created successfully!")
+      reset()
     }
   }
 
