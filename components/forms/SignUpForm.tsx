@@ -31,12 +31,15 @@ export function SignupForm({
     resolver: zodResolver(signupSchema),
   })
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3000"
+
   const onSubmit = async (data: SignupInput) => {
     const { error } = await authClient.signUp.email({
       email: data.email,
       password: data.password,
       name: data.email.split("@")[0],
-      callbackURL: "/",
+      callbackURL: "/dashboard",
     })
 
     if (error) {

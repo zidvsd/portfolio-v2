@@ -7,7 +7,7 @@ const db = client.db("portfolio_v2")
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
-  baseURL: "http://localhost:3000/",
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000/",
   emailAndPassword: { enabled: true, autoSignIn: false },
   socialProviders: {
     github: {
