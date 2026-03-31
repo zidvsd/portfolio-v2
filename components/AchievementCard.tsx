@@ -43,10 +43,11 @@ export default function AchievementCard({ data }: AchievementProps) {
       {/* Image Container */}
       <div
         onClick={() => setIsFullscreen(true)}
-        className="relative flex aspect-video w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-tl-lg rounded-tr-lg border bg-zinc-950 group-hover:shadow-xl"
+        className="relative mx-auto flex aspect-video w-full max-w-125 cursor-zoom-in items-center justify-center overflow-hidden rounded-tl-lg rounded-tr-lg border bg-zinc-950 group-hover:shadow-xl"
       >
         {" "}
         <Image
+          priority={true}
           src={data.supabaseUrl}
           alt={data.alt}
           fill

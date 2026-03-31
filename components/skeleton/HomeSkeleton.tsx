@@ -49,7 +49,8 @@ export function ProjectsSkeleton() {
         <PushPinIcon className="size-8 text-muted-foreground/20" />
         <Skeleton className="h-6 w-48" />
       </div>
-      <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border md:aspect-21/9">
+      <div className="relative grid aspect-video w-full grid-cols-2 gap-4 overflow-hidden rounded-xl border border-border md:aspect-21/9">
+        <Skeleton className="h-full w-full" />
         <Skeleton className="h-full w-full" />
       </div>
     </section>

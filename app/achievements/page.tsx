@@ -1,9 +1,9 @@
-import { getAchievements } from "@/lib/services/queries"
-import AchievementList from "@/components/AchievementsList"
+import { Suspense } from "react"
+import AchievementSection from "@/components/sections/achievements/AchievementsSection"
+import { AchievementSkeleton } from "@/components/skeleton/AchievementsSkeleton"
 import EndOfPage from "@/components/ui/end-of-page"
-export default async function Page() {
-  const achievements = await getAchievements()
 
+export default function AchievementsPage() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -14,8 +14,11 @@ export default async function Page() {
       </div>
       <hr className="border-border" />
 
-      {/* Pass the server-fetched data to the client wrapper */}
-      <AchievementList initialData={achievements} />
+      {/* The data fetching happens inside this component */}
+      <Suspense fallback={<AchievementSkeleton />}>
+        <AchievementSection />
+      </Suspense>
+
       <EndOfPage />
     </section>
   )
