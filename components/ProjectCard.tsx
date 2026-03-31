@@ -29,6 +29,7 @@ export function ProjectCard({ repo }: ProjectCardProps) {
         <CardHeader className="p-0">
           <div className="relative h-56 w-full overflow-hidden border-b bg-muted">
             <Image
+              priority={true}
               src={repo.image || "/images/projects/placeholder.png"}
               alt={repo.name}
               fill

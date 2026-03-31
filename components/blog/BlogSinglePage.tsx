@@ -6,6 +6,7 @@ import { CalendarIcon, ClockIcon } from "@phosphor-icons/react"
 import Image from "next/image"
 import { Blog } from "@/lib/types/blog"
 import { getReadingTime } from "@/lib/utils"
+import { parseMarkdownContent } from "@/lib/markdown-parser"
 export default function BlogSinglePage({ blog }: { blog: Blog }) {
   const [loading, setLoading] = useState(false) // optional if you want client-side skeletons
 
@@ -47,8 +48,12 @@ export default function BlogSinglePage({ blog }: { blog: Blog }) {
           priority // Add this so the main image loads faster
         />
       </div>
-      <div className="prose max-w-full">
-        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+      <div className="prose max-w-full space-y-4">
+        <div
+          dangerouslySetInnerHTML={{
+            __html: parseMarkdownContent(blog.content),
+          }}
+        />
       </div>
       <hr className="border-border" />
       <div className="flex flex-wrap gap-2">
