@@ -1,9 +1,12 @@
 import { Metadata } from "next"
 import { getRepoDetails } from "@/lib/services/github"
 import { notFound } from "next/navigation"
-import ProjectDetail from "@/components/ProjectDetail"
 import { MY_PROJECTS } from "@/lib/constants/projects-config"
+import { Suspense } from "react"
 import BackButton from "@/components/ui/back-button"
+import ProjectDetailSection from "@/components/sections/projects/ProjectDetailSection"
+import { ProjectDetailSkeleton } from "@/components/skeleton/ProjectDetailSkeleton"
+
 interface ProjectDetailPageProps {
   params: Promise<{ projectId: string }>
 }
@@ -31,37 +34,30 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
   const { projectId } = await params
   if (!projectId) notFound()
 
-  // 1. Find local project config for the image and custom name
   const projectConfig = MY_PROJECTS.find((p) => p.slug === projectId)
-
-  // 2. Fetch GitHub data
-  const githubData = await getRepoDetails(projectId)
-
-  if (!githubData) notFound()
-
-  // 3. Combine GitHub data with local config data
-  const combinedData = {
-    ...githubData,
-    // Prioritize the name from config if it exists, otherwise use GitHub name
-    displayTitle: projectConfig?.name || githubData.name,
-    projectImage: projectConfig?.image || null,
-  }
 
   return (
     <div>
       <div className="mb-6">
         <BackButton />
       </div>
-      <div className="mb-2">
+
+      <div className="">
+        {/* Render Name instantly from local config */}
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-          {combinedData.displayTitle}
+          {projectConfig?.name || "Project Details"}
         </h1>
-        <p className="max-w-xl text-lg text-muted-foreground">
-          {combinedData.description}
-        </p>
+
+        {/* We REMOVE the description <p> tag from here because 
+            it's not available yet. It will live inside the Suspense block. */}
       </div>
-      {/* Passing combined data including the image to the UI component */}
-      <ProjectDetail {...combinedData} />
+
+      <Suspense fallback={<ProjectDetailSkeleton />}>
+        <ProjectDetailSection
+          projectId={projectId}
+          projectConfig={projectConfig}
+        />
+      </Suspense>
     </div>
   )
 }

@@ -1,34 +1,7 @@
-import { getProjects } from "@/lib/services/github"
-import EndOfPage from "@/components/ui/end-of-page"
-import { MY_PROJECTS } from "@/lib/constants/projects-config"
-import { ProjectCard } from "@/components/ProjectCard"
-import StaggerWrapper from "@/components/motion/StaggerWrapper"
-import { StaggerItem } from "@/components/motion/StaggerItem"
-export default async function ProjectsPage() {
-  const githubRepos = await getProjects()
-  const repos = githubRepos.map((repo: any) => {
-    const localConfig = MY_PROJECTS.find((p) => p.slug === repo.slug)
-    return {
-      ...repo,
-      image: localConfig?.image || repo.image,
-      isFeatured: localConfig?.isFeatured || false,
-      name: localConfig?.name || repo.name,
-    }
-  })
-
-  // Sort featured projects to the top
-  const sortedRepos = repos.sort(
-    (a: any, b: any) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0)
-  )
-
-  if (sortedRepos.length === 0) {
-    return (
-      <p className="p-10 text-center text-muted-foreground">
-        No projects found.
-      </p>
-    )
-  }
-
+import { Suspense } from "react"
+import { ProjectsSkeleton } from "@/components/skeleton/ProjectsSkeleton"
+import ProjectsSection from "@/components/sections/projects/ProjectsSection"
+export default function ProjectsPage() {
   return (
     <section>
       <div className="space-y-2">
@@ -40,21 +13,9 @@ export default async function ProjectsPage() {
       </div>
       <hr className="mt-6 border-border" />
 
-      {/* Grid container handles the column logic */}
-      <StaggerWrapper
-        key={"projects-grid"}
-        className="mt-8 grid grid-flow-row-dense grid-cols-1 gap-6 md:grid-cols-2"
-      >
-        {sortedRepos.map((repo: any) => (
-          <StaggerItem key={repo.slug}>
-            <ProjectCard repo={repo} />
-          </StaggerItem>
-        ))}
-
-        <div className="col-span-full">
-          <EndOfPage />
-        </div>
-      </StaggerWrapper>
+      <Suspense fallback={<ProjectsSkeleton />}>
+        <ProjectsSection />
+      </Suspense>
     </section>
   )
 }

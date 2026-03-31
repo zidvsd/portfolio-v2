@@ -239,6 +239,10 @@
   @apply text-current hover:text-primary;
 }
 
+.prose p {
+  @apply text-zinc-700 dark:text-zinc-300;
+}
+
 .prose p a {
   @apply text-primary-foreground hover:text-primary;
 }
@@ -256,8 +260,12 @@
   @apply flex flex-wrap gap-1 items-center;
 }
 
+.prose ul li {
+  @apply text-zinc-700 dark:text-zinc-400;
+}
+
 .prose ul li a {
-  @apply text-chart-5 hover:underline;
+  @apply text-chart-3 hover:underline;
 }
 
 .prose ol li p {
