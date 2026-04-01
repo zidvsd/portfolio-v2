@@ -1,8 +1,6 @@
-import { Resend } from "resend"
 import { NextRequest, NextResponse } from "next/server"
 import { ContactSchema } from "@/lib/schemas/contact.schema"
-import { error } from "node:console"
-const resend = new Resend(process.env.RESEND_API_KEY)
+import { resendApi } from "@/lib/services/resend"
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
@@ -19,12 +17,13 @@ export async function POST(req: NextRequest) {
   }
 
   const { name, email, subject, message } = validation.data
+
   try {
-    const { data, error } = await resend.emails.send({
+    const res = await resendApi.post("/emails", {
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "rashidvisda@gmail.com",
       subject: subject || "New Portfolio Message",
-      replyTo: email,
+      reply_to: email,
       html: `
         <div style="font-family: sans-serif; line-height: 1.5;">
           <h1>New Message from: ${name}</h1>
@@ -34,12 +33,21 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     })
-    if (error) {
-      return NextResponse.json({ error }, { status: 400 })
-    }
-    return NextResponse.json({ message: "Email sent!", success: 200, data })
-  } catch (error) {
-    console.error(error)
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
+
+    return NextResponse.json({
+      message: "Email sent!",
+      success: 200,
+      data: res.data,
+    })
+  } catch (error: any) {
+    // 4. Axios errors are caught here. We extract the message from Resend's response.
+    console.error("Resend Error:", error.response?.data || error.message)
+
+    const serverError = error.response?.data?.message || "Failed to send email"
+
+    return NextResponse.json(
+      { error: serverError },
+      { status: error.response?.status || 500 }
+    )
   }
 }
