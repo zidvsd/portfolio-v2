@@ -1,25 +1,14 @@
-import { getWakaTimeAllTime } from "@/lib/services/wakatime"
-import { getWakaTimeWeeklyStats } from "@/lib/services/wakatime"
-import { WakaTimeStats } from "../../lib/types/wakatime"
-import WakaTimeCard from "@/components/dashboard/WakaTimeCard"
-import SpotifyCard from "@/components/dashboard/SpotifyCard"
+import { Suspense } from "react"
 import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
-import { getCodewarsProfile } from "@/lib/services/codewars"
-import CodewarsCard from "@/components/dashboard/CodewarsCard"
+import SpotifyCard from "@/components/dashboard/SpotifyCard"
+import WakaTimeCardWrapper from "@/components/dashboard/WakaTimeWrapper"
+import CodewarsCardWrapper from "@/components/dashboard/CodewarsCardWrapper"
+import GithubCardSkeleton from "@/components/skeleton/GithubCardSkeleton"
+import WakaTimeSkeleton from "@/components/skeleton/WakaTimeSkeleton"
+import CodewarsCardSkeleton from "@/components/skeleton/CodewarsCardSkeleton"
+import SpotifyCardSkeleton from "@/components/skeleton/SpotifyCardSkeleton"
 export default async function page() {
-  const allTimeRes = await getWakaTimeAllTime()
-  const weeklyRes = await getWakaTimeWeeklyStats()
-  const codewarsProfile = await getCodewarsProfile()
-  const weeklyData = weeklyRes?.data || weeklyRes
-  const allTimeRaw = allTimeRes?.data || allTimeRes
-
-  const allTimeStats: WakaTimeStats = {
-    ...weeklyData,
-    ...allTimeRaw,
-    human_readable_total: allTimeRaw?.text || "0 hrs",
-  }
-
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -31,21 +20,24 @@ export default async function page() {
       </div>
       <hr className="border-border" />
 
-      <section className="w-full">
+      <Suspense fallback={<GithubCardSkeleton />}>
         <GithubCard />
-      </section>
-      <hr className="border-border" />
-      <section>
-        <WakaTimeCard weeklyStats={weeklyData} allTimeStats={allTimeStats} />
-      </section>
-      <hr className="border-border" />
-      <section>
-        <SpotifyCard />
-      </section>
+      </Suspense>
 
-      <section>
-        <CodewarsCard codewarsData={codewarsProfile} />
-      </section>
+      <hr className="border-border" />
+
+      <Suspense fallback={<WakaTimeSkeleton />}>
+        <WakaTimeCardWrapper />
+      </Suspense>
+
+      <hr className="border-border" />
+
+      <Suspense fallback={<SpotifyCardSkeleton />}>
+        <SpotifyCard />
+      </Suspense>
+      <Suspense fallback={<CodewarsCardSkeleton />}>
+        <CodewarsCardWrapper />
+      </Suspense>
 
       <EndOfPage />
     </section>

@@ -7,10 +7,12 @@ import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr"
 import { Button } from "../ui/button"
 import InView from "../motion/InView"
 export default async function SpotifyCard() {
-  const playlists = await getUserPlaylist()
-  const profile = await getSpotifyProfile()
-  const spotifyPlaylists =
-    playlists.items.filter((p: any) => p.public === true) || []
+  const [playlistsRes, profile] = await Promise.all([
+    getUserPlaylist(),
+    getSpotifyProfile(),
+  ])
+const spotifyPlaylists =
+  playlistsRes?.items?.filter((p: any) => p.public === true) || []
 
   return (
     <InView className="space-y-6">

@@ -9,13 +9,13 @@ import {
 } from "@phosphor-icons/react/dist/ssr"
 import CodewarsIcon from "../icons/CodewarsIcon"
 import { Button } from "../ui/button"
-import InView from "../motion/InView"
+import InView from "../motion/InView" // Assuming this is your Client Motion Wrapper
+
 interface CodewarsCardProps {
   codewarsData: CodewarsProfile
 }
 
 export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
-  // Use the username from the prop data to keep the link dynamic
   const profileUri = `https://www.codewars.com/users/${codewarsData.username}`
 
   return (
@@ -39,13 +39,13 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
           Algorithmic challenges and rank progression on Codewars.
         </p>
       </div>
+
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
-        {/* Top Row: Perfectly balanced 3 + 3 = 6 */}
         <div className="col-span-1 md:col-span-3">
           <StatTile
             label="Overall Rank"
-            value={codewarsData.ranks.overall.name}
+            value={codewarsData.ranks?.overall?.name || "N/A"}
             icon={<TrophyIcon size={18} weight="duotone" />}
             highlight={true}
           />
@@ -53,16 +53,19 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
         <div className="col-span-1 md:col-span-3">
           <StatTile
             label="Honor"
-            value={codewarsData.honor.toLocaleString()}
+            value={codewarsData.honor?.toLocaleString() || "0"}
             icon={<FireIcon size={18} weight="duotone" />}
           />
         </div>
 
-        {/* Bottom Row: Change col-span-2 to col-span-3 to fill the 6-column grid */}
         <div className="col-span-1 md:col-span-3">
           <StatTile
             label="Leaderboard"
-            value={`#${codewarsData.leaderboardPosition.toLocaleString()}`}
+            value={
+              codewarsData.leaderboardPosition
+                ? `#${codewarsData.leaderboardPosition.toLocaleString()}`
+                : "—"
+            }
             icon={<RankingIcon size={18} weight="duotone" />}
           />
         </div>
@@ -70,8 +73,7 @@ export default function CodewarsCard({ codewarsData }: CodewarsCardProps) {
         <div className="col-span-1 md:col-span-3">
           <StatTile
             label="Score"
-            value={codewarsData.ranks.overall.score.toLocaleString()}
-            // Adding an icon here helps balance the visual weight with the others
+            value={codewarsData.ranks?.overall?.score?.toLocaleString() || "0"}
             icon={<TrendUpIcon size={18} weight="duotone" />}
           />
         </div>

@@ -20,10 +20,11 @@ import InView from "../motion/InView"
 import { StaggerItem } from "../motion/StaggerItem"
 import StaggerWrapper from "../motion/StaggerWrapper"
 export default async function GithubCard() {
-  const githubData = await getGithubActivity()
-  const contributions = githubData.contributions || []
-  const githubStats = await getGithubStats()
-  const pinnedRepos = await getPinnedRepos()
+  const [githubData, githubStats, pinnedRepos] = await Promise.all([
+    getGithubActivity(),
+    getGithubStats(),
+    getPinnedRepos(),
+  ])
 
   return (
     <div className="space-y-6">
