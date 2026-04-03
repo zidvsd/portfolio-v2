@@ -1,13 +1,32 @@
 import { Suspense } from "react"
+import dynamic from "next/dynamic"
 import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
-import SpotifyCard from "@/components/dashboard/SpotifyCard"
-import WakaTimeCardWrapper from "@/components/dashboard/WakaTimeWrapper"
-import CodewarsCardWrapper from "@/components/dashboard/CodewarsCardWrapper"
 import GithubCardSkeleton from "@/components/skeleton/GithubCardSkeleton"
 import WakaTimeSkeleton from "@/components/skeleton/WakaTimeSkeleton"
 import CodewarsCardSkeleton from "@/components/skeleton/CodewarsCardSkeleton"
 import SpotifyCardSkeleton from "@/components/skeleton/SpotifyCardSkeleton"
+
+const WakaTimeCardWrapper = dynamic(
+  () => import("@/components/dashboard/WakaTimeWrapper"),
+  {
+    loading: () => <WakaTimeSkeleton />,
+  }
+)
+
+const SpotifyCard = dynamic(
+  () => import("@/components/dashboard/SpotifyCard"),
+  {
+    loading: () => <SpotifyCardSkeleton />,
+  }
+)
+
+const CodewarsCardWrapper = dynamic(
+  () => import("@/components/dashboard/CodewarsCardWrapper"),
+  {
+    loading: () => <CodewarsCardSkeleton />,
+  }
+)
 export default async function page() {
   return (
     <section className="space-y-6">

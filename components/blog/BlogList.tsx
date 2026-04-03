@@ -1,19 +1,26 @@
 "use client"
+import dynamic from "next/dynamic"
+import { Blog } from "@/lib/types/blog"
+import { Button } from "../ui/button"
+import { EmptyState } from "../EmptyState"
+import BlogHero from "./BlogHero"
+import { MagnifyingGlassIcon } from "@phosphor-icons/react"
+import { useBlogFilters } from "@/hooks/useBlogFilters"
+import { BlogFilterBar } from "./BlogFilterBar"
+import StaggerWrapper from "../motion/StaggerWrapper"
+import { StaggerItem } from "../motion/StaggerItem"
+
+const BlogCard = dynamic(() => import("./BlogCard"), {
+  loading: () => (
+    <div className="h-100 w-full animate-pulse rounded-xl border border-border bg-muted/20" />
+  ),
+  ssr: true,
+})
 
 interface BlogDataProps {
   blogData: Blog[]
 }
 
-import { Blog } from "@/lib/types/blog"
-import { Button } from "../ui/button"
-import BlogCard from "./BlogCard"
-import { EmptyState } from "../EmptyState"
-import BlogHero from "./BlogHero"
-import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react"
-import { useBlogFilters } from "@/hooks/useBlogFilters"
-import { BlogFilterBar } from "./BlogFilterBar"
-import StaggerWrapper from "../motion/StaggerWrapper"
-import { StaggerItem } from "../motion/StaggerItem"
 export default function BlogList({ blogData }: BlogDataProps) {
   const {
     searchQuery,
@@ -44,7 +51,6 @@ export default function BlogList({ blogData }: BlogDataProps) {
         />
       </div>
 
-      {/* Only show this featured section when NOT filtering */}
       {/* Only show this featured section when NOT filtering */}
       {!isFiltering && heroBlog && (
         <BlogHero blogHero={heroBlog} recentBlogs={blogData.slice(1, 5)} />

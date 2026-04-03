@@ -1,6 +1,6 @@
 "use client"
 import ContactForm from "@/components/forms/ContactForm"
-import { useState } from "react"
+import dynamic from "next/dynamic"
 import axios from "axios"
 import { toast } from "sonner"
 import {
@@ -13,6 +13,12 @@ import {
 import StaggerWrapper from "@/components/motion/StaggerWrapper"
 import { StaggerItem } from "@/components/motion/StaggerItem"
 import { ContactInput } from "@/lib/schemas/contact.schema"
+const MapSection = dynamic(() => import("@/components/sections/MapSection"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-75 w-full animate-pulse rounded-md bg-zinc-100" />
+  ),
+})
 const socialLinks = [
   {
     title: "Github",
@@ -112,50 +118,9 @@ export default function page() {
 
           {/* Social Icons/Links go here */}
 
-          <section className="space-y-4">
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase">
-              Based in
-            </h2>
-            {/* Embed Gmaps */}
-            <div className="relative aspect-square overflow-hidden rounded-md border bg-zinc-100 shadow-md lg:aspect-auto lg:h-75 dark:bg-card">
-              {/* 1. The Glass Shield: Prevents all clicking/interaction */}
-              <div className="absolute inset-0 z-20 cursor-default bg-transparent" />
-              {/* 1. The Gradient Overlay - place right inside the parent <form> */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2 rounded-b-sm bg-linear-to-t from-zinc-100 via-zinc-100/50 to-transparent dark:from-card dark:via-card/70 dark:to-transparent" />
-              {/* 2. The Map with Scaling: Pushes "Open in Maps" outside the box */}
-              <iframe
-                title="Google Maps"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123652.7533860528!2d121.04273033502932!3d14.215264879590885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6268802956cf%3A0x6a05367664320984!2sCalamba%2C%20Laguna!5e0!3m2!1sen!2sph!4v1709212345678!5m2!1sen!2sph"
-                width="100%"
-                height="100%"
-                className="scale-[1.3] opacity-75 contrast-[1.2] grayscale invert-[0.9]"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-              />
-              {/* Location with time */}
-              <div className="absolute bottom-2 left-2 z-30 flex items-center gap-3 rounded-lg bg-transparent p-2 pr-4">
-                {/* Icon Container */}
-                <div className="flex size-10 items-center justify-center rounded-full bg-muted-foreground text-white shadow-inner">
-                  <MapPinIcon className="size-5 fill-white" weight="fill" />
-                </div>
-
-                {/* Text Content */}
-                <div className="flex flex-col text-foreground/80">
-                  <span className="tracking-wide">Laguna, Philippines</span>
-                  <span className="text-xs tracking-widest uppercase">
-                    Local Time:
-                    {new Date().toLocaleTimeString("en-US", {
-                      timeZone: "Asia/Manila",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    }) + " PHT"}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section>
+        
+            <MapSection />
+  
         </div>
       </div>
     </section>

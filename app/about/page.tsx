@@ -1,7 +1,15 @@
 import { Suspense } from "react"
+import dynamic from "next/dynamic"
+const ExperienceSection = dynamic(
+  () => import("@/components/sections/about/ExperienceSection"),
+  {
+    loading: () => <AboutSkeleton />,
+    ssr: true,
+  }
+)
 import IntroSection from "@/components/sections/about/IntroSection"
-import ExperienceSection from "@/components/sections/about/ExperienceSection"
 import { AboutSkeleton } from "@/components/skeleton/AboutSkeleton"
+
 export default function AboutPage() {
   return (
     <div className="space-y-8 pb-8">
@@ -17,9 +25,7 @@ export default function AboutPage() {
       <hr className="border-border" />
 
       {/* 2. Work & Education (The Data-Heavy Part) */}
-      <Suspense fallback={<AboutSkeleton />}>
-        <ExperienceSection />
-      </Suspense>
+      <ExperienceSection />
     </div>
   )
 }

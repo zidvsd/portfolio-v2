@@ -10,8 +10,6 @@ export default function MainLayout({
   children: React.ReactNode
 }) {
   return (
-    /* Apply container ONLY at lg (1024px) and above */
-    /* This centers the whole grid on large screens */
     <div className="relative min-h-screen w-full lg:container lg:mx-auto lg:grid lg:grid-cols-[280px_1fr]">
       {/* Sidebar - Desktop Only */}
       <aside className="sticky top-0 hidden h-screen p-6 lg:block">
