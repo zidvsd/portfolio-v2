@@ -21,17 +21,21 @@ export default async function ProfileSection() {
   return (
     <div className="space-y-8">
       {/* Header & Socials */}
-      <section className="space-y-2">
-        <div className="flex flex-row justify-between gap-6 md:items-start">
-          <div className="space-y-2">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+      <section className="space-y-6 md:space-y-4">
+        {" "}
+        {/* Increased mobile vertical spacing */}
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="space-y-3 md:space-y-2">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
               {profile.headline}
             </h1>
+
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium text-muted-foreground md:text-base">
               <span className="flex items-center gap-1.5">
                 <MapPinIcon size={18} weight="bold" className="text-primary" />
                 {profile.location}
               </span>
+              {/* Dot is hidden on mobile to prevent weird wrapping */}
               <span className="hidden text-border md:block">•</span>
               <span className="flex items-center gap-1.5">
                 <BriefcaseIcon
@@ -43,37 +47,43 @@ export default async function ProfileSection() {
               </span>
             </div>
           </div>
-          <div className="flex items-start gap-2 sm:flex-row">
+
+          {/* Social Icons: Now aligned left on mobile, right on desktop */}
+          <div className="flex items-center gap-2 md:justify-end">
             <SocialLink
               href={profile.socials.github}
-              icon={<GithubLogoIcon size={24} />}
+              icon={<GithubLogoIcon size={22} />}
             />
             <SocialLink
               href={profile.socials.linkedin}
-              icon={<LinkedinLogoIcon size={24} />}
+              icon={<LinkedinLogoIcon size={22} />}
             />
             <SocialLink
               href={profile.socials.email}
-              icon={<EnvelopeSimpleIcon size={24} />}
+              icon={<EnvelopeSimpleIcon size={22} />}
             />
           </div>
         </div>
-        <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
+        {/* Bio: Adjusted line-height for better mobile readability */}
+        <p className="text-base leading-relaxed text-muted-foreground md:text-xl md:leading-8">
           {profile.bio}
         </p>
       </section>
 
       <hr className="border-border" />
 
-      {/* Tech Stack - Moved here so it loads with Profile data */}
-      <section className="space-y-4">
+      {/* Tech Stack */}
+      <section className="space-y-6">
         <div className="flex items-center gap-2">
-          <CodeIcon className="size-8 text-primary" />
-          <h3 className="text-lg font-bold tracking-widest uppercase">
+          <CodeIcon className="size-6 text-primary md:size-8" />
+          <h3 className="text-sm font-bold tracking-[0.2em] text-zinc-500 uppercase md:text-lg">
             Technical Stack
           </h3>
         </div>
-        <StaggerWrapper delayStep={0.05} className="flex flex-wrap gap-4">
+        <StaggerWrapper
+          delayStep={0.05}
+          className="flex flex-wrap gap-3 md:gap-4"
+        >
           {profile.skills?.map((skill: string) => (
             <StaggerItem key={skill}>
               <SkillBadge name={skill} />
