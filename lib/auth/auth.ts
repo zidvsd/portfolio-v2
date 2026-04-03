@@ -7,7 +7,16 @@ const db = client.db("portfolio_v2")
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
-  plugins: [ bearer()],
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "user",
+      },
+    },
+  },
+  plugins: [bearer()],
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   trustedOrigins: ["https://localhostL:3000", process.env.BETTER_AUTH_URL!],
   emailAndPassword: { enabled: true, autoSignIn: false },
