@@ -162,116 +162,103 @@
   @apply transition-all duration-250 ease-in-out;
 }
 
-.prose pre {
-  @apply bg-zinc-100 text-foreground dark:bg-zinc-800 rounded-xl p-4 border border-zinc-300 dark:border-zinc-700 overflow-x-auto;
+/* --- Base Typography & Block Elements --- */
+.prose {
+  @apply text-zinc-700 dark:text-zinc-300 leading-relaxed;
 }
 
-.prose code {
-  @apply bg-zinc-300 dark:bg-zinc-700 px-1.5 py-0.5 rounded-md text-sm font-medium;
+.prose p {
+  @apply my-5 leading-7;
 }
 
+/* --- Headings --- */
 .prose h1 {
-  @apply text-4xl font-bold mb-2;
+  @apply hidden;
+  /* Keeping your preference to hide H1 */
 }
 
 .prose h2 {
-  @apply text-2xl font-semibold mt-4 mb-4 border-b border-zinc-300 dark:border-zinc-700 pb-2;
+  @apply text-2xl font-bold mt-10 mb-4 pb-2;
+  @apply border-b border-zinc-300 dark:border-zinc-800;
+  @apply text-zinc-900 dark:text-zinc-100 tracking-tight;
+  scroll-margin-top: 5rem;
 }
 
 .prose h3 {
-  @apply text-xl font-semibold mt-6 mb-2;
+  @apply text-xl font-semibold mt-8 mb-3;
+  @apply text-zinc-800 dark:text-zinc-200;
+  scroll-margin-top: 5rem;
 }
 
-.prose img {
-  @apply rounded-xl shadow-md;
-}
-
+/* --- Links --- */
 .prose a {
-  @apply text-accent no-underline duration-300 ease-in-out transition-colors;
+  @apply font-medium text-primary no-underline transition-colors duration-200;
+  @apply hover:text-primary/80 hover:underline decoration-primary/30 underline-offset-4;
+}
+
+/* Specifically for Table of Contents or list links */
+.prose li a {
+  @apply text-zinc-600 dark:text-zinc-400 hover:text-primary dark:hover:text-primary;
+}
+
+/* --- Lists --- */
+.prose ul,
+.prose ol {
+  @apply my-6 space-y-3;
 }
 
 .prose ul {
   @apply list-disc ml-6;
 }
 
-.prose li::marker {
-  @apply text-accent;
-}
-
-/* Optional: scroll margin for anchor links on headings */
-.prose h1,
-.prose h2,
-.prose h3 {
-  scroll-margin-top: 5rem;
-}
-
-/* Update these specific parts in your CSS file */
-
-.prose ul {
-  /* This ensures bullets show up and align with your theme */
-  list-style-type: disc !important;
-  margin-left: 1.5rem !important;
-  @apply my-4 space-y-2;
-}
-
 .prose ol {
-  list-style-type: decimal !important;
-  margin-left: 1.5rem !important;
-  @apply my-4 space-y-2;
+  @apply list-decimal ml-6;
 }
 
 .prose li {
-  @apply text-muted-foreground leading-7;
+  @apply pl-1 text-zinc-700 dark:text-zinc-400;
 }
 
-/* This targets the actual bullet/number color */
 .prose li::marker {
-  /* Using your theme's primary or accent color */
-  @apply text-primary;
+  @apply text-primary font-bold;
 }
 
-/* Fix for the Table of Contents spacing in your screenshot */
-.prose h2+ul {
-  @apply mt-2;
+/* --- Code & Pre Blocks --- */
+.prose pre {
+  @apply my-8 p-5 rounded-xl overflow-x-auto;
+  @apply bg-zinc-100 dark:bg-zinc-900/50;
+  @apply border border-zinc-200 dark:border-zinc-800;
+  @apply shadow-inner;
 }
 
-.prose li a {
-  @apply text-current hover:text-primary;
+.prose code {
+  @apply p-0 rounded-md text-[0.9em] font-mono font-medium;
+  @apply bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200;
 }
 
-.prose p {
-  @apply text-zinc-700 dark:text-zinc-300;
+/* Prevent double background when code is inside pre */
+.prose pre code {
+  @apply p-0 bg-transparent dark:bg-transparent text-inherit border-none;
 }
 
-.prose p a {
-  @apply text-primary-foreground hover:text-primary;
+/* --- Images & Media --- */
+.prose img {
+  @apply my-8 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xl mx-auto;
 }
 
-.prose img[src*="img.shields.io"] {
-  @apply mb-2 inline-block my-0 align-middle mr-2;
-  /* Optional: Give them a slight rounding and a soft glow */
-  @apply rounded-sm shadow-sm transition-transform hover:scale-105;
-  /* Match the background to your dark mode if they have white edges */
-  @apply border border-transparent dark:border-white/5;
+/* GitHub Shields/Badges optimization */
+.prose img[src*="img.shields.io"],
+.prose img[src*="badge"] {
+  @apply my-0 inline-block mr-2 align-middle border-none shadow-none rounded-sm;
+  @apply hover:scale-105 transition-transform;
 }
 
-/* Ensure they don't break onto new lines unless necessary */
-.prose p:has(img[src*="img.shields.io"]) {
-  @apply flex flex-wrap gap-1 items-center;
+/* Ensure badges stay in a neat row */
+.prose p:has(img[src*="shields.io"]) {
+  @apply flex flex-wrap gap-2 items-center my-4;
 }
 
-.prose ul li {
-  @apply text-zinc-700 dark:text-zinc-400;
-}
-
-.prose ul li a {
-  @apply text-chart-3 hover:underline;
-}
-
-.prose ol li p {
-  @apply text-zinc-600 dark:text-zinc-300;
-}
-
-.prose ol li::marker {
-  @apply text-foreground;
+/* --- Blockquotes --- */
+.prose blockquote {
+  @apply my-6 pl-6 italic border-l-4 border-primary/40 text-zinc-600 dark:text-zinc-400;
 }

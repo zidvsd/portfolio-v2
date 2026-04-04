@@ -6,7 +6,6 @@ import { Suspense } from "react"
 import BackButton from "@/components/ui/back-button"
 import ProjectDetailSection from "@/components/sections/projects/ProjectDetailSection"
 import { ProjectDetailSkeleton } from "@/components/skeleton/ProjectDetailSkeleton"
-
 interface ProjectDetailPageProps {
   params: Promise<{ projectId: string }>
 }
@@ -42,7 +41,7 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
         <BackButton />
       </div>
 
-      <div className="">
+      <div>
         {/* Render Name instantly from local config */}
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
           {projectConfig?.name || "Project Details"}

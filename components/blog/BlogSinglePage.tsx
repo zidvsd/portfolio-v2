@@ -48,7 +48,7 @@ export default function BlogSinglePage({ blog }: { blog: Blog }) {
           priority // Add this so the main image loads faster
         />
       </div>
-      <div className="prose max-w-full space-y-4">
+      <div className="prose break-word max-w-full space-y-4 break-all whitespace-normal">
         <div
           dangerouslySetInnerHTML={{
             __html: parseMarkdownContent(blog.content),

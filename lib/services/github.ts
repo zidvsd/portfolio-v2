@@ -166,6 +166,7 @@ export async function getRepoDetails(slug: string) {
           topics: data.topics || [],
           language: data.language,
           readme: readmeText,
+          created_at: data.created_at,
         }
       } catch (error) {
         console.error("Fetch error:", error)
