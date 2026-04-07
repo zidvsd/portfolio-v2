@@ -1,5 +1,4 @@
 "use client"
-
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
@@ -102,14 +101,8 @@ export default function BlogForm({
             control={control}
             render={({ field }) => (
               <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start"
-                    type="button"
-                  >
-                    {field.value || "Select Category"}
-                  </Button>
+                <DropdownMenuTrigger className="w-full justify-start rounded-md border border-input bg-input/20 px-4 py-1 text-left text-sm dark:bg-input/30">
+                  {field.value || "Select Category"}
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuGroup>

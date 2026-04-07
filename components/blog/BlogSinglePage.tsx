@@ -45,7 +45,7 @@ export default function BlogSinglePage({ blog }: { blog: Blog }) {
           alt={blog.title}
           fill
           className="object-cover"
-          priority // Add this so the main image loads faster
+          priority 
         />
       </div>
       <div className="prose break-word max-w-full space-y-4 break-all whitespace-normal">
