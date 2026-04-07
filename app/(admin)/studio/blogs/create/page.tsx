@@ -4,8 +4,7 @@ import BlogForm from "@/components/forms/BlogForm"
 import axios, { AxiosError } from "axios"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-
-export default function CreateBlogPage() {
+export default function page() {
   const router = useRouter()
 
   const handleCreateBlog = async (formData: FormData) => {

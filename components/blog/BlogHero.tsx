@@ -81,11 +81,11 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
 
       {/* 30% SECTION: THE RECENT BLOGS SIDEBAR */}
       <div className="flex flex-col lg:col-span-3">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-black tracking-[0.2em] text-muted-foreground/70">
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <h2 className="text-sm font-bold tracking-[0.2em] text-nowrap text-zinc-700 dark:text-zinc-300">
             Recent Blogs
           </h2>
-          <div className="ml-4 h-px flex-1 bg-white/5" />
+          <hr className="w-full border-border" />
         </div>
 
         <StaggerWrapper className="flex flex-col gap-1">

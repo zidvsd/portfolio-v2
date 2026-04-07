@@ -11,7 +11,7 @@ export const BlogSchema = z.object({
   isPublished: z.boolean().default(true),
   image: z
     .any()
-    .refine((files) => files?.length === 1, "Cover image is required"),
+    .refine((files) => files?.length === 1, "Cover image is required "),
 })
 export type BlogFormData = z.input<typeof BlogSchema>
 export type BlogFormOutput = z.output<typeof BlogSchema>

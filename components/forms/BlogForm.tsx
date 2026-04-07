@@ -28,9 +28,9 @@ export default function BlogForm({
   } = useForm<BlogFormData>({
     resolver: zodResolver(BlogSchema),
     defaultValues: {
-      title: "", // Always good to initialize all strings
+      title: "", 
       slug: "",
-      description: "", // 👈 CRITICAL: This MUST be here
+      description: "", 
       content: "",
       tags: "",
       isPublished: true,

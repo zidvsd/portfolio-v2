@@ -46,11 +46,19 @@ export async function POST(req: NextRequest) {
     }
 
     const newBlog = await Blog.create({
-      ...blogData,
-      coverImageUrl: publicUrl, // Ensure this matches your Schema
+      title: blogData.title,
+      slug: blogData.slug,
+      content: blogData.content,
+      description: blogData.description,
+      tags: blogData.tags,
+      category: blogData.category,
+      isFeatured: blogData.isFeatured,
+      isPublished: blogData.isPublished,
+      coverImageUrl: publicUrl,
     })
     return NextResponse.json(newBlog, { status: 201 })
   } catch (error: any) {
+    console.error("MONGODB ERROR:", error.message)
     const status = error.response?.status || 500
     const message = error.response?.data?.message || "Internal Server Error"
 

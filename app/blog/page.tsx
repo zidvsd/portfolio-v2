@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic"
 import { Suspense } from "react"
 import BlogSection from "@/components/sections/blog/BlogSection"
 import { BlogListSkeleton } from "@/components/skeleton/BlogListSkeleton"

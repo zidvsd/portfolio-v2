@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 export default async function LoginPage() {
   const session = await isAuthenticated()
   if (session) {
-    redirect("/")
+    redirect("/dashboard")
   }
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
