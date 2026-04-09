@@ -1,5 +1,5 @@
 "use client"
-
+export const dynamic = "force-dynamic"
 import { useState, useEffect } from "react"
 import { formatDate } from "@/lib/utils"
 import { CalendarIcon, ClockIcon } from "@phosphor-icons/react"
@@ -45,7 +45,7 @@ export default function BlogSinglePage({ blog }: { blog: Blog }) {
           alt={blog.title}
           fill
           className="object-cover"
-          priority 
+          priority
         />
       </div>
       <div className="prose break-word max-w-full space-y-4 break-all whitespace-normal">

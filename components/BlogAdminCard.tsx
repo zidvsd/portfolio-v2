@@ -44,7 +44,7 @@ export default function BlogAdminCard({ blog }: { blog: any }) {
       <BlogCard blog={blog} />
 
       {/* Admin Action Overlay */}
-      <div className="pointer-events-none absolute top-3 right-3 z-10 flex gap-2 opacity-0 transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+      <div className="/* Mobile: Always and clickable */ /* Large Screens: Hide by default, show on hover */ pointer-events-auto visible absolute top-3 right-3 z-10 flex gap-2 opacity-100 transition-opacity duration-200 lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100">
         {/* EDIT BUTTON */}
         <Link href={`/studio/blogs/edit/${blog._id}`}>
           <Button
@@ -58,14 +58,8 @@ export default function BlogAdminCard({ blog }: { blog: any }) {
 
         {/* DELETE DIALOG */}
         <AlertDialog>
-          <AlertDialogTrigger>
-            <Button
-              size="icon"
-              variant="secondary"
-              className="hover-utility h-9 w-9 border border-destructive/50 bg-destructive/10 text-destructive shadow-xl backdrop-blur-sm transition-all hover:bg-destructive hover:text-white"
-            >
-              <TrashIcon size={18} weight="bold" />
-            </Button>
+          <AlertDialogTrigger className="hover-utility flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-destructive/50 bg-destructive/10 text-destructive shadow-xl backdrop-blur-sm transition-all hover:bg-destructive hover:text-white">
+            <TrashIcon size={18} weight="bold" />
           </AlertDialogTrigger>
 
           <AlertDialogContent>
@@ -80,11 +74,14 @@ export default function BlogAdminCard({ blog }: { blog: any }) {
                 from storage.
               </AlertDialogDescription>
             </AlertDialogHeader>
+
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800">
+                Cancel
+              </AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDelete}
-                className="text-destructive-foreground bg-destructive hover:bg-destructive/90"
+                className="text-destructive-foreground rounded-md bg-destructive px-4 py-2 text-sm font-medium hover:bg-destructive/90"
               >
                 Delete
               </AlertDialogAction>

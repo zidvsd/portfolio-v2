@@ -1,4 +1,5 @@
 "use client"
+
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
@@ -8,6 +9,9 @@ import { BlogFormData, BlogSchema } from "@/lib/schemas/blog.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Checkbox } from "../ui/checkbox"
 import { toast } from "sonner"
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { Blog } from "@/lib/types/blog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,28 +19,63 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
-export default function BlogForm({
-  onSubmit,
-}: {
+
+interface BlogFormProps {
   onSubmit: (data: FormData) => Promise<void>
-}) {
+  initialData?: Blog
+}
+
+export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
+  const [preview, setPreview] = useState<string | null>(
+    initialData?.coverImageUrl || null
+  )
   const {
     register,
     handleSubmit,
     control,
+    reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<BlogFormData>({
     resolver: zodResolver(BlogSchema),
     defaultValues: {
-      title: "", 
+      title: "",
       slug: "",
-      description: "", 
+      description: "",
       content: "",
       tags: "",
+      category: "General",
       isPublished: true,
       isFeatured: false,
     },
   })
+  const imageFile = watch("image")
+
+  useEffect(() => {
+    if (imageFile && imageFile.length > 0) {
+      const file = imageFile[0]
+      const url = URL.createObjectURL(file)
+      setPreview(url)
+      return () => URL.revokeObjectURL(url) // Cleanup memory
+    }
+  }, [imageFile])
+
+  useEffect(() => {
+    if (initialData) {
+      reset({
+        title: initialData.title || "",
+        slug: initialData.slug || "",
+        description: initialData.description || "",
+        content: initialData.content || "",
+        category: "General",
+        tags: Array.isArray(initialData.tags)
+          ? initialData.tags.join(", ")
+          : "",
+        isPublished: initialData.isPublished ?? true,
+        isFeatured: initialData.isFeatured ?? false,
+      })
+    }
+  }, [initialData, reset])
 
   const handleFormSubmit = async (values: BlogFormData) => {
     const formData = new FormData()
@@ -160,17 +199,31 @@ export default function BlogForm({
           <label className="text-xs font-bold text-zinc-500 uppercase">
             Cover Image
           </label>
-          <Input
-            {...register("image")}
-            type="file"
-            accept="image/*"
-            className={`cursor-pointer ${errors.image ? "border-destructive focus-visible:ring-destructive" : ""}`}
-          />
-          {errors.image && (
-            <p className="text-[10px] font-medium text-destructive">
-              {errors.image.message as string}
-            </p>
-          )}
+          <div className="flex items-center gap-4">
+            {preview && (
+              <div className="relative aspect-video w-32 overflow-hidden rounded border bg-zinc-200">
+                <Image
+                  src={preview}
+                  alt="Preview"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <div className="flex-1">
+              <Input
+                {...register("image")}
+                type="file"
+                accept="image/*"
+                className="cursor-pointer"
+              />
+              <p className="mt-1 text-[10px] text-zinc-400">
+                {initialData
+                  ? "Leave empty to keep current image"
+                  : "Max size 5MB"}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       {/* Short Description - Add this before Tags */}

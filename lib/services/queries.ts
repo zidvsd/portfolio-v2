@@ -62,6 +62,18 @@ export async function getBlogBySlug(blogSlug: string) {
     { tags: ["blogs", `blog-${blogSlug}`], revalidate: 3600 }
   )()
 }
+export async function getBlogById(blogId: string) {
+  return unstable_cache(
+    async function () {
+      await connectDb()
+      const blog = await Blog.findOne({ _id: blogId }).lean()
+      console.log(blog)
+      return blog ? JSON.parse(JSON.stringify(blog)) : null
+    },
+    ["blog-data", blogId],
+    { tags: ["blogs", `blog-${blogId}`], revalidate: 3600 }
+  )()
+}
 
 export async function getRelatedBlogs(category: string, currentSlug: string) {
   await connectDb()

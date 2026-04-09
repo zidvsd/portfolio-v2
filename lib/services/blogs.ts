@@ -9,12 +9,9 @@ export async function deleteBlogAction(id: string) {
   try {
     await connectDb()
 
-    // 1. Fetch the blog to get the image path for Supabase
     const blog = await Blog.findById(id)
     if (!blog) return { success: false, message: "Blog entry not found." }
 
-    // 2. Cleanup Supabase Storage
-    // Assuming your URL ends in /filename.ext
     const fileName = blog.coverImageUrl.split("/").pop()
     if (fileName) {
       const { error: storageError } = await supabaseAdmin.storage
