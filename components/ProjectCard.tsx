@@ -20,10 +20,10 @@ export function ProjectCard({ repo }: ProjectCardProps) {
   const isFeatured = repo.isFeatured === true
 
   return (
-    <Card className="overflow-hidden py-0">
+    <Card className="flex h-full flex-col overflow-hidden py-0">
       <Link
         href={`/projects/${repo.slug}`}
-        className="group flex cursor-pointer flex-col transition-all hover:border-primary/50 hover:shadow-md"
+        className="group flex flex-1 cursor-pointer flex-col transition-all hover:border-primary/50 hover:shadow-md"
       >
         {/* TOP HALF: IMAGE WITH OVERLAY */}
         <CardHeader className="p-0">
@@ -61,7 +61,9 @@ export function ProjectCard({ repo }: ProjectCardProps) {
           <h3 className="text-xl font-bold tracking-tight">{repo.name}</h3>
 
           <p
-            className={`mt-2 text-muted-foreground ${isFeatured ? "text-base" : "line-clamp-2 text-sm"}`}
+            className={`mt-2 line-clamp-2 min-h-10 text-muted-foreground ${
+              isFeatured ? "text-base" : "text-sm"
+            }`}
           >
             {repo.description ||
               "A full-stack web development project built with modern technologies."}
