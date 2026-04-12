@@ -76,7 +76,7 @@ export default async function ProfileSection() {
       <section className="space-y-6">
         <div className="flex items-center gap-2">
           <CodeIcon className="size-6 text-primary md:size-8" />
-          <h3 className="text-sm font-bold tracking-[0.2em] text-zinc-500 uppercase md:text-lg">
+          <h3 className="text-lg font-bold tracking-widest uppercase">
             Technical Stack
           </h3>
         </div>
@@ -100,7 +100,7 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
     <Link
       href={href}
       target="_blank"
-      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-all hover:bg-neutral-100 hover:text-primary dark:hover:bg-neutral-800"
+      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border transition-all hover:bg-neutral-100 hover:text-primary dark:text-white dark:hover:bg-neutral-800 dark:hover:text-primary"
     >
       {icon}
     </Link>

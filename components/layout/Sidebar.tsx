@@ -18,7 +18,6 @@ import LogoAndAvatar from "../LogoAndAvatar"
 import ThemeToggle from "../themes/theme-toggle"
 import { cn } from "@/lib/utils"
 import { LogoutButton } from "../LogotButton"
-import { checkSession } from "@/lib/auth/auth-util"
 import { authClient } from "@/lib/auth/auth-client"
 const IconMap: Record<string, any> = {
   HouseIcon,
@@ -37,15 +36,15 @@ export default function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="flex h-full flex-col p-2">
+    <div className="flex h-full flex-col px-2">
       <div className="space-y-3">
         <LogoAndAvatar />
 
         <div className="flex items-center justify-center self-center">
           <ThemeToggle />
         </div>
-
-        <nav className="flex flex-col gap-1 border-t pt-2">
+        <hr className="border-border" />
+        <nav className="flex flex-col gap-2 pb-2">
           {navs.map((nav) => {
             const Icon = IconMap[nav.icon] || CircleIcon
             const isActive = pathname === nav.href
@@ -88,8 +87,8 @@ export default function Sidebar() {
           })}
         </nav>
       </div>
-
-      <div className="mt-4 border-t px-3 pt-2 text-center text-[10px] leading-relaxed text-muted-foreground/60">
+      <hr className="border-border" />
+      <div className="mt-4 px-3 text-center text-[10px] leading-relaxed text-muted-foreground/60">
         <p>Copyright © 2026</p>
         <p>Rashid Visda. All rights reserved.</p>
       </div>

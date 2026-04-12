@@ -20,7 +20,7 @@ export default async function ProjectsSection() {
   return (
     <section className="w-full space-y-4">
       <div className="flex items-center gap-2">
-        <PushPinIcon className="size-8 text-primary" />
+        <PushPinIcon className="size-6 text-primary" />
         <h3 className="text-lg font-bold tracking-widest uppercase">
           Featured Projects
         </h3>
