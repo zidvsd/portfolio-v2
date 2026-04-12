@@ -164,7 +164,7 @@
 
 /* --- Base Typography & Block Elements --- */
 .prose {
-  @apply text-zinc-700 dark:text-zinc-300 leading-relaxed;
+  @apply text-zinc-800 dark:text-zinc-100 leading-relaxed;
 }
 
 .prose p {
@@ -179,14 +179,14 @@
 
 .prose h2 {
   @apply text-2xl font-bold mt-10 mb-4 pb-2;
-  @apply border-b border-zinc-300 dark:border-zinc-800;
-  @apply text-zinc-900 dark:text-zinc-100 tracking-tight;
+  @apply border-b border-zinc-300 dark:border-zinc-700;
+  @apply text-zinc-950 dark:text-zinc-50 tracking-tight;
   scroll-margin-top: 5rem;
 }
 
 .prose h3 {
   @apply text-xl font-semibold mt-8 mb-3;
-  @apply text-zinc-800 dark:text-zinc-200;
+  @apply text-zinc-900 dark:text-zinc-100;
   scroll-margin-top: 5rem;
 }
 
@@ -216,7 +216,7 @@
 }
 
 .prose li {
-  @apply pl-1 text-zinc-700 dark:text-zinc-400;
+  @apply pl-1 text-zinc-800 dark:text-zinc-200;
 }
 
 .prose li::marker {
@@ -261,4 +261,41 @@
 /* --- Blockquotes --- */
 .prose blockquote {
   @apply my-6 pl-6 italic border-l-4 border-primary/40 text-zinc-600 dark:text-zinc-400;
+}
+
+.prose strong {
+  @apply font-medium text-foreground/80;
+}
+
+/* --- Tables --- */
+.prose table {
+  @apply my-8 w-full border-collapse overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800;
+  @apply text-sm text-left;
+}
+
+.prose thead {
+  @apply bg-zinc-100 dark:bg-zinc-900/80;
+}
+
+.prose th {
+  @apply px-4 py-3 font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100;
+  @apply border-b border-zinc-200 dark:border-zinc-800;
+}
+
+.prose td {
+  @apply px-4 py-3 border-b border-zinc-200 dark:border-zinc-800;
+  @apply text-zinc-800 dark:text-zinc-200;
+}
+
+/* Zebra striping for a cleaner look */
+.prose tbody tr:nth-child(even) {
+  @apply bg-zinc-50/50 dark:bg-zinc-900/30;
+}
+
+.prose tbody tr:hover {
+  @apply bg-zinc-100/50 dark:bg-zinc-800/50 transition-colors;
+}
+
+.prose tbody tr td a {
+  @apply text-chart-3 font-medium;
 }
