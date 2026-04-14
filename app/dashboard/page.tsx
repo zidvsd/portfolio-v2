@@ -2,31 +2,29 @@ import { Suspense } from "react"
 import dynamic from "next/dynamic"
 import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
-import GithubCardSkeleton from "@/components/skeleton/GithubCardSkeleton"
-import WakaTimeSkeleton from "@/components/skeleton/WakaTimeSkeleton"
-import CodewarsCardSkeleton from "@/components/skeleton/CodewarsCardSkeleton"
-import SpotifyCardSkeleton from "@/components/skeleton/SpotifyCardSkeleton"
+import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
 
 const WakaTimeCardWrapper = dynamic(
   () => import("@/components/dashboard/WakaTimeWrapper"),
   {
-    loading: () => <WakaTimeSkeleton />,
+    loading: () => <SkeletonLoader variant="wakatime-card" />,
   }
 )
 
 const SpotifyCard = dynamic(
   () => import("@/components/dashboard/SpotifyCard"),
   {
-    loading: () => <SpotifyCardSkeleton />,
+    loading: () => <SkeletonLoader variant="spotify-card" />,
   }
 )
 
 const CodewarsCardWrapper = dynamic(
   () => import("@/components/dashboard/CodewarsCardWrapper"),
   {
-    loading: () => <CodewarsCardSkeleton />,
+    loading: () => <SkeletonLoader variant="codewars-card" />,
   }
 )
+
 export default async function page() {
   return (
     <section className="space-y-6">
@@ -39,22 +37,23 @@ export default async function page() {
       </div>
       <hr className="border-border" />
 
-      <Suspense fallback={<GithubCardSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="github-card" />}>
         <GithubCard />
       </Suspense>
 
       <hr className="border-border" />
 
-      <Suspense fallback={<WakaTimeSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="wakatime-card" />}>
         <WakaTimeCardWrapper />
       </Suspense>
 
       <hr className="border-border" />
 
-      <Suspense fallback={<SpotifyCardSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="spotify-card" />}>
         <SpotifyCard />
       </Suspense>
-      <Suspense fallback={<CodewarsCardSkeleton />}>
+
+      <Suspense fallback={<SkeletonLoader variant="codewars-card" />}>
         <CodewarsCardWrapper />
       </Suspense>
 

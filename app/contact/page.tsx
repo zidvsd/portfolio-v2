@@ -8,7 +8,6 @@ import {
   GithubLogoIcon,
   LinkedinLogoIcon,
   ArrowUpRightIcon,
-  MapPinIcon,
 } from "@phosphor-icons/react"
 import StaggerWrapper from "@/components/motion/StaggerWrapper"
 import { StaggerItem } from "@/components/motion/StaggerItem"

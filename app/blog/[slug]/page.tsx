@@ -1,11 +1,7 @@
 export const revalidate = 3600
 import { Suspense } from "react"
 import { notFound } from "next/navigation"
-import {
-  BlogContentSkeleton,
-  RelatedBlogsSkeleton,
-} from "@/components/skeleton/BlogContentSkeleton"
-
+import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
 import RelatedBlogsSection from "@/components/sections/blog/RelatedBlogsSection"
 import BlogContentSection from "@/components/sections/blog/BlogContentSection"
 
@@ -19,13 +15,11 @@ export default async function BlogPage({
 
   return (
     <div className="space-y-12">
-      {/* 1. The Main Blog Article */}
-      <Suspense fallback={<BlogContentSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="blog-content" />}>
         <BlogContentSection slug={slug} />
       </Suspense>
 
-      {/* 2. The Related Posts Section */}
-      <Suspense fallback={<RelatedBlogsSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="related-blogs" />}>
         <RelatedBlogsSection slug={slug} />
       </Suspense>
     </div>

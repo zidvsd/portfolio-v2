@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic"
 import { Suspense } from "react"
 import BlogSection from "@/components/sections/blog/BlogSection"
-import { BlogListSkeleton } from "@/components/skeleton/BlogListSkeleton"
+import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
+
 export default function BlogPage() {
   return (
     <section className="space-y-6">
@@ -14,7 +15,7 @@ export default function BlogPage() {
       </div>
       <hr className="border-border" />
 
-      <Suspense fallback={<BlogListSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="blog-list" />}>
         <BlogSection />
       </Suspense>
     </section>

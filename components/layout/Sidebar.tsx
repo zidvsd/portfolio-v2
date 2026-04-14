@@ -10,6 +10,7 @@ import {
   EnvelopeIcon,
   CircleIcon,
   ArrowRightIcon,
+  ChatCenteredDotsIcon,
 } from "@phosphor-icons/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -29,6 +30,7 @@ const IconMap: Record<string, any> = {
   EnvelopeIcon,
   CircleIcon,
   ArrowRightIcon,
+  ChatCenteredDotsIcon,
 }
 
 export default function Sidebar() {

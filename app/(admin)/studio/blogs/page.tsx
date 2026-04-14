@@ -5,7 +5,7 @@ import { Suspense } from "react"
 import { PlusIcon } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { BlogListSkeleton } from "@/components/skeleton/BlogListSkeleton"
+import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
 import BlogSectionAdmin from "@/components/sections/admin/BlogSectionAdmin"
 
 export default function StudioBlogsPage() {
@@ -30,7 +30,7 @@ export default function StudioBlogsPage() {
       <hr className="border-border" />
 
       {/* Blog List with Admin Actions */}
-      <Suspense fallback={<BlogListSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="blog-list" />}>
         <BlogSectionAdmin />
       </Suspense>
     </div>

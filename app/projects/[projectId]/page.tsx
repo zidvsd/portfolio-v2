@@ -5,7 +5,7 @@ import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { Suspense } from "react"
 import BackButton from "@/components/ui/back-button"
 import ProjectDetailSection from "@/components/sections/projects/ProjectDetailSection"
-import { ProjectDetailSkeleton } from "@/components/skeleton/ProjectDetailSkeleton"
+import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
 interface ProjectDetailPageProps {
   params: Promise<{ projectId: string }>
 }
@@ -51,7 +51,7 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
             it's not available yet. It will live inside the Suspense block. */}
       </div>
 
-      <Suspense fallback={<ProjectDetailSkeleton />}>
+      <Suspense fallback={<SkeletonLoader variant="project-detail" />}>
         <ProjectDetailSection
           projectId={projectId}
           projectConfig={projectConfig}

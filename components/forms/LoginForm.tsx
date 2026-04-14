@@ -34,7 +34,7 @@ export function LoginForm({
       {
         email: data.email,
         password: data.password,
-        callbackURL: "/dashboard",
+        callbackURL: "/chatroom",
       },
       {
         onRequest: () => {
@@ -42,7 +42,7 @@ export function LoginForm({
         },
         onSuccess: () => {
           toast.success("Welcome back!", { id: "login-toast" })
-          router.push("/dashboard")
+          router.push("/chatroom")
           router.refresh()
         },
         onError: (ctx) => {
@@ -58,7 +58,7 @@ export function LoginForm({
     await authClient.signIn.social(
       {
         provider,
-        callbackURL: "/dashboard",
+        callbackURL: "/chatroom",
       },
       {
         onRequest: () => {

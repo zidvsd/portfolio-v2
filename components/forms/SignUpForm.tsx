@@ -39,7 +39,7 @@ export function SignupForm({
       email: data.email,
       password: data.password,
       name: data.email.split("@")[0],
-      callbackURL: "/dashboard",
+      callbackURL: "/chatroom",
     })
 
     if (error) {
@@ -58,7 +58,7 @@ export function SignupForm({
     await authClient.signIn.social(
       {
         provider,
-        callbackURL: "/dashboard",
+        callbackURL: "/chatroom",
       },
       {
         // In newer versions, the second argument IS the fetchOptions object
