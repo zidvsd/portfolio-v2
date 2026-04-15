@@ -502,7 +502,7 @@ export function SkeletonLoader({ variant }: SkeletonLoaderProps) {
                   <Skeleton className="h-4 w-24" />
                   <Skeleton className="h-3 w-12" />
                 </div>
-                <Skeleton className="h-12 w-full rounded-lg rounded-tl-none bg-muted/50" />
+                <Skeleton className="h-8 w-1/2 rounded-lg rounded-tl-none" />
               </div>
             </div>
           ))}

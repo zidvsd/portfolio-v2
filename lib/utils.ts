@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { parseISO, format } from "date-fns"
+import { parseISO, format, isValid } from "date-fns"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -26,4 +26,13 @@ export function getReadingTime(content: string): number {
 
 export function capitalizeFirstChar(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+}
+export function formatTime(dateInput: string | Date | undefined) {
+  if (!dateInput) return ""
+
+  const date = typeof dateInput === "string" ? parseISO(dateInput) : dateInput
+
+  if (!isValid(date)) return "Invalid date"
+
+  return format(date, "h:mm a")
 }

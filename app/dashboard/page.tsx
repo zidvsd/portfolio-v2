@@ -53,6 +53,8 @@ export default async function page() {
         <SpotifyCard />
       </Suspense>
 
+      <hr className="border-border" />
+
       <Suspense fallback={<SkeletonLoader variant="codewars-card" />}>
         <CodewarsCardWrapper />
       </Suspense>

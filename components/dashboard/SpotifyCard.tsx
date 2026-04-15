@@ -11,8 +11,8 @@ export default async function SpotifyCard() {
     getUserPlaylist(),
     getSpotifyProfile(),
   ])
-const spotifyPlaylists =
-  playlistsRes?.items?.filter((p: any) => p.public === true) || []
+  const spotifyPlaylists =
+    playlistsRes?.items?.filter((p: any) => p.public === true) || []
 
   return (
     <InView className="space-y-6">
@@ -27,7 +27,7 @@ const spotifyPlaylists =
               Listening Activity
             </h1>
           </div>
-          <a href={profile.external_urls.spotify} target="_blank">
+          <a href={profile?.external_urls?.spotify} target="_blank">
             <Button variant="ghost">
               <ArrowSquareOutIcon />
             </Button>

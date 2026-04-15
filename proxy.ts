@@ -3,11 +3,25 @@ import { getUserSession } from "./lib/auth/auth-util"
 
 export const config = {
   // 1. Keep the matcher broad so we can handle logic in the function
-  matcher: ["/api/:path*", "/studio/:path*", "/contact/:path*"],
+  matcher: [
+    "/api/:path*",
+    "/studio/:path*",
+    "/contact/:path*",
+    "/login",
+    "/signup",
+  ],
 }
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const isAuthPage = pathname === "/login" || pathname === "/signup"
+  if (isAuthPage) {
+    const session = await getUserSession()
+    if (session) {
+      return NextResponse.redirect(new URL("/chatroom", request.url))
+    }
+    return NextResponse.next()
+  }
 
   const isPublic =
     pathname === "/contact" ||

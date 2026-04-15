@@ -4,11 +4,13 @@ import LogoAndAvatar from "../LogoAndAvatar"
 import ThemeToggle from "../themes/theme-toggle"
 import { Toaster } from "sonner"
 import MotionWrapper from "../motion/MotionWrapper"
-export default function MainLayout({
+import { getUserSession } from "@/lib/auth/auth-util"
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const user = await getUserSession()
   return (
     <div className="relative min-h-screen w-full lg:container lg:mx-auto lg:grid lg:grid-cols-[280px_1fr]">
       {/* Sidebar - Desktop Only */}
@@ -21,7 +23,7 @@ export default function MainLayout({
         <LogoAndAvatar />
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <MobileMenuDrawer />
+          <MobileMenuDrawer user={user} />
         </div>
       </header>
 
