@@ -32,10 +32,10 @@ export async function getAchievements() {
   return unstable_cache(
     async function () {
       await connectDb()
-      const data = await Achievements.find({}).sort({ start: -1 }).lean()
+      const data = await Achievements.find({}).sort({ dateIssued: -1 }).lean()
       return JSON.parse(JSON.stringify(data))
     },
-    ["achievements-data"],
+    ["achievements-data-v2"],
     { tags: ["achievements"], revalidate: 3600 }
   )()
 }
