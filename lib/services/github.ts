@@ -215,7 +215,12 @@ export async function getPinnedRepos() {
   return unstable_cache(
     async function () {
       try {
-        const res = await fetch("https://pinned.berrysauce.dev/get/zidvsd")
+        const res = await fetch("https://pinned.berrysauce.dev/get/zidvsd", {
+          headers: {
+            "User-Agent": "Zid-Portfolio-V2",
+          },
+          next: { revalidate: 3600 },
+        })
 
         if (!res.ok) {
           throw new Error(
