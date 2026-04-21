@@ -710,4 +710,3 @@ You're free to use this portfolio as a template for your own projects!
 - [Start a Discussion](../../discussions)
 - Contact via the portfolio's contact form
 
-**Made by the Open Source Community** — contributions welcome!
