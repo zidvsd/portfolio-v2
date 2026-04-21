@@ -90,7 +90,7 @@ export default function Sidebar() {
         </nav>
       </div>
       <hr className="border-border" />
-      <div className="mt-4 px-3 text-center text-[10px] leading-relaxed text-muted-foreground/60">
+      <div className="mt-4 mb-2 px-3 text-center text-[10px] leading-relaxed text-muted-foreground/60">
         <p>Copyright © 2026</p>
         <p>Rashid Visda. All rights reserved.</p>
       </div>

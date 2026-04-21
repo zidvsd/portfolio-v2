@@ -1,13 +1,10 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import {
-  PaperPlaneTiltIcon,
-  ChatCenteredSlashIcon,
-} from "@phosphor-icons/react"
+import { ChatCenteredSlashIcon, SignInIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
@@ -53,14 +50,6 @@ export default function BlogCommentSection({
   const handlePostComment = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!user) {
-      toast.error("Authentication Required", {
-        description: "Redirecting you to login page...",
-      })
-      setTimeout(() => router.push("/login"), 1500)
-      return
-    }
-
     if (!textInput.trim()) return
 
     setIsSending(true)
@@ -92,43 +81,75 @@ export default function BlogCommentSection({
       <hr className="border-border" />
 
       {/* Comment Input Section */}
-      <form onSubmit={handlePostComment} className="flex flex-col gap-4">
-        <div className="flex gap-3">
-          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border bg-muted">
-            {user?.image ? (
-              <Image
-                src={user.image.replace("http://", "https://")}
-                alt="User"
-                width={40}
-                height={40}
-                className="object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-xs font-bold">
-                {user?.name?.[0] || "?"}
-              </div>
-            )}
+      {user ? (
+        <form onSubmit={handlePostComment} className="flex flex-col gap-4">
+          <div className="flex gap-3">
+            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border bg-muted">
+              {user?.image ? (
+                <Image
+                  src={user.image.replace("http://", "https://")}
+                  alt="User"
+                  width={40}
+                  height={40}
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-xs font-bold">
+                  {user?.name?.[0] || "?"}
+                </div>
+              )}
+            </div>
+            <Textarea
+              placeholder="Write a comment..."
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              disabled={isSending}
+              className="min-h-25 resize-none focus-visible:ring-1"
+            />
           </div>
-          <Textarea
-            placeholder={
-              user ? "Write a comment..." : "Log in to join the discussion"
-            }
-            value={textInput}
-            onChange={(e) => setTextInput(e.target.value)}
-            disabled={isSending || !user}
-            className="min-h-25 resize-none focus-visible:ring-1"
-          />
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={isSending || !textInput.trim()}
+              className="p-4"
+            >
+              {isSending ? "Posting..." : "Post Comment"}
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div className="rounded-lg border border-border bg-linear-to-br from-muted/50 to-muted/30 p-6 backdrop-blur-sm">
+          <div className="flex flex-col items-center justify-center gap-4 text-center">
+            <div className="rounded-full bg-primary/10 p-3">
+              <SignInIcon className="size-6 text-primary" />
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-semibold text-foreground">
+                Join the Discussion
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                Sign in to share your thoughts and join our community
+              </p>
+            </div>
+            <div className="flex w-full gap-3 sm:w-auto sm:flex-row">
+              <Button
+                onClick={() => router.push("/login")}
+                variant="default"
+                className="flex-1 sm:flex-none"
+              >
+                Sign In
+              </Button>
+              <Button
+                onClick={() => router.push("/signup")}
+                variant="outline"
+                className="flex-1 sm:flex-none"
+              >
+                Create Account
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="flex justify-end">
-          <Button
-            type="submit"
-            disabled={isSending || !textInput.trim() || !user}
-            className="p-4"
-          >
-            {isSending ? "Posting..." : "Post Comment"}
-          </Button>
-        </div>
-      </form>
+      )}
 
       {/* Comments List */}
       <div className="space-y-6">

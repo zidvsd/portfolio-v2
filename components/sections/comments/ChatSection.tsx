@@ -7,6 +7,7 @@ import { toast } from "sonner"
 import {
   PaperPlaneTiltIcon,
   ChatCenteredSlashIcon,
+  SignInIcon,
 } from "@phosphor-icons/react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Button } from "@/components/ui/button"
@@ -52,16 +53,6 @@ export default function ChatSection({ user }: { user: any }) {
 
   const handlePostComment = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!user) {
-      toast.error("Authentication Required", {
-        description: "Redirecting you to login page...",
-      })
-      setTimeout(() => {
-        router.push("/login")
-      }, 1500)
-      return
-    }
 
     if (!textInput.trim()) return
 
@@ -148,26 +139,63 @@ export default function ChatSection({ user }: { user: any }) {
         onSubmit={handlePostComment}
         className="flex gap-2 border-t bg-background p-4"
       >
-        <Input
-          placeholder="Type a message..."
-          value={textInput}
-          autoComplete="off"
-          onChange={(e) => setTextInput(e.target.value)}
-          disabled={isSending} // Only disable during actual sending
-          className="flex-1"
-        />
-        <Button
-          type="submit"
-          size="icon"
-          disabled={isSending || (user && !textInput.trim())}
-          className={!user ? "cursor-pointer" : ""} // UI hint for guests
-        >
-          <PaperPlaneTiltIcon
-            size={18}
-            weight="bold"
-            className={isSending ? "animate-pulse" : ""}
-          />
-        </Button>
+        {user ? (
+          <>
+            <Input
+              placeholder="Type a message..."
+              value={textInput}
+              autoComplete="off"
+              onChange={(e) => setTextInput(e.target.value)}
+              disabled={isSending}
+              className="flex-1"
+            />
+            <Button
+              type="submit"
+              size="icon"
+              disabled={isSending || !textInput.trim()}
+            >
+              <PaperPlaneTiltIcon
+                size={18}
+                weight="bold"
+                className={isSending ? "animate-pulse" : ""}
+              />
+            </Button>
+          </>
+        ) : (
+          <div className="flex w-full items-center gap-4 rounded-lg border border-border bg-linear-to-br from-muted/50 to-muted/30 p-4 backdrop-blur-sm">
+            <div className="flex shrink-0 items-center gap-3">
+              <div className="rounded-full bg-primary/10 p-2">
+                <SignInIcon className="size-5 text-primary" />
+              </div>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium text-foreground">
+                Join the conversation
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Sign in to share your thoughts
+              </p>
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <Button
+                type="button"
+                onClick={() => router.push("/login")}
+                variant="default"
+                size="sm"
+              >
+                Sign In
+              </Button>
+              <Button
+                type="button"
+                onClick={() => router.push("/signup")}
+                variant="outline"
+                size="sm"
+              >
+                Sign Up
+              </Button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   )
