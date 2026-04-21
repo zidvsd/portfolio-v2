@@ -25,7 +25,6 @@ export default async function GithubCard() {
     getGithubStats(),
     getPinnedRepos(),
   ])
-  console.log(pinnedRepos)
   return (
     <div className="space-y-6">
       {/* Header Section */}

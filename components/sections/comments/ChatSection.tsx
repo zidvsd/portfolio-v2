@@ -30,7 +30,6 @@ export default function ChatSection({ user }: { user: any }) {
     const fetchMessages = async () => {
       try {
         const res = await axios.get("/api/comments?type=global")
-        console.log(res)
         setMessages(res.data)
       } catch (err: any) {
         console.error(

@@ -55,7 +55,6 @@ export async function getBlogBySlug(blogSlug: string) {
     async function () {
       await connectDb()
       const blog = await Blog.findOne({ slug: blogSlug }).lean()
-      console.log(blog)
       return blog ? JSON.parse(JSON.stringify(blog)) : null
     },
     ["blog-data", blogSlug],
@@ -67,7 +66,6 @@ export async function getBlogById(blogId: string) {
     async function () {
       await connectDb()
       const blog = await Blog.findOne({ _id: blogId }).lean()
-      console.log(blog)
       return blog ? JSON.parse(JSON.stringify(blog)) : null
     },
     ["blog-data", blogId],
