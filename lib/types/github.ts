@@ -20,7 +20,7 @@ export interface GitHubStats {
 
 export interface GitHubPinnedRepo {
   author: string
-  name: string // The slug used for URLs
+  repo: string // name
   link: string // The full GitHub link
   description: string
   language: string

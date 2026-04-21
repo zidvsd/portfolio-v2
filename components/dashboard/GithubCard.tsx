@@ -25,7 +25,7 @@ export default async function GithubCard() {
     getGithubStats(),
     getPinnedRepos(),
   ])
-
+  console.log(pinnedRepos)
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -100,16 +100,16 @@ export default async function GithubCard() {
         </div>
         <StaggerWrapper className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {pinnedRepos.map((repo: GitHubPinnedRepo, index: number) => (
-            <StaggerItem key={`${index}-${repo.name}`}>
+            <StaggerItem key={`${index}-${repo.repo}`}>
               <PinnedRepoCard
-                author={repo.author}
-                name={repo.name}
+                author="zidvsd"
+                repo={repo.repo}
                 description={repo.description}
                 language={repo.language}
                 languageColor={repo.languageColor}
                 stars={repo.stars}
-                link={`https://github.com/${repo.author}/${repo.name}`}
                 forks={repo.forks}
+                link={repo.link}
               />
             </StaggerItem>
           ))}

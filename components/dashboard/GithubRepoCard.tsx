@@ -14,7 +14,7 @@ import {
 import { GitHubPinnedRepo } from "@/lib/types/github"
 
 export function PinnedRepoCard({
-  name,
+  repo,
   description,
   language,
   languageColor,
@@ -33,7 +33,7 @@ export function PinnedRepoCard({
         <CardHeader className="p-0">
           <div className="flex items-center justify-between">
             <CardTitle className="truncate font-bold tracking-tight text-accent-foreground transition-colors group-hover:text-chart-3">
-              {name}
+              {repo}
             </CardTitle>
 
             <div className="flex shrink-0 items-center gap-3 text-zinc-500">

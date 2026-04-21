@@ -215,23 +215,55 @@ export async function getPinnedRepos() {
   return unstable_cache(
     async function () {
       try {
-        const res = await fetch("https://pinned.berrysauce.dev/get/zidvsd", {
+        const query = `
+          {
+            user(login: "zidvsd") {
+              pinnedItems(first: 6, types: [REPOSITORY]) {
+                nodes {
+                  ... on Repository {
+                    name
+                    description
+                    url
+                    stargazerCount
+                    forkCount
+                    primaryLanguage {
+                      name
+                      color
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `
+
+        const res = await fetch("https://api.github.com/graphql", {
+          method: "POST",
           headers: {
-            "User-Agent": "Zid-Portfolio-V2",
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({ query }),
           next: { revalidate: 3600 },
         })
 
         if (!res.ok) {
-          throw new Error(
-            `Failed to fetch Pinned Github Repositories: ${res.status}`
-          )
+          throw new Error(`GitHub API returned ${res.status}`)
         }
 
-        const data = await res.json()
-        return data || []
+        const json = await res.json()
+
+        return json.data.user.pinnedItems.nodes.map((repo: any) => ({
+          repo: repo.name,
+          description: repo.description,
+          link: repo.url,
+          stars: repo.stargazerCount,
+          forks: repo.forkCount,
+          language: repo.primaryLanguage?.name,
+          languageColor: repo.primaryLanguage?.color,
+        }))
       } catch (error) {
-        console.error("GitHub Fetch Error:", error)
+        console.error("Official GitHub Fetch Error:", error)
         return []
       }
     },
