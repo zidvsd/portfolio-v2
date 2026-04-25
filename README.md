@@ -4,6 +4,7 @@
 
 A modern, feature-rich developer portfolio built with **Next.js 16**, **React 19**, and **TypeScript**. Showcase your projects, write about your journey, and connect real-time integrations with GitHub, Spotify, Codewars, WakaTime, and more—all powered by AI chat and a beautiful, responsive design.
 
+**Live demo:** https://portfolio-v2-psi-ecru.vercel.app/
 ## Table of Contents
 
 - [What You Get](#what-you-get)
