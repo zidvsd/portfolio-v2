@@ -10,6 +10,6 @@ export const getCodewarsProfile = async () => {
       return res.json()
     },
     ["codewars-profile"],
-    { tags: ["codewars"], revalidate: 3600 }
+    { tags: ["codewars"], revalidate: 60 }
   )()
 }

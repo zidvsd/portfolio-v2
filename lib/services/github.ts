@@ -10,7 +10,7 @@ export async function getGithubStats() {
         "User-Agent": "zidvsd-portfolio",
         Accept: "application/vnd.github+json",
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     })
 
     if (!res.ok) {
@@ -113,7 +113,7 @@ export async function getProjects() {
       }
     },
     ["featured-projects-v2"],
-    { tags: ["github"], revalidate: 3600 }
+    { tags: ["github"], revalidate: 60 }
   )()
 }
 
@@ -135,14 +135,14 @@ export async function getRepoDetails(slug: string) {
         const [repoRes, readmeRes] = await Promise.all([
           fetch(`https://api.github.com/repos/${username}/${repoSlug}`, {
             headers: commonHeaders,
-            next: { revalidate: 3600 },
+            next: { revalidate: 60 },
           }),
           fetch(`https://api.github.com/repos/${username}/${repoSlug}/readme`, {
             headers: {
               ...commonHeaders,
               Accept: "application/vnd.github.raw",
             },
-            next: { revalidate: 3600 },
+            next: { revalidate: 60 },
           }),
         ])
 
@@ -174,7 +174,7 @@ export async function getRepoDetails(slug: string) {
       }
     },
     [`repo-detail-${slug}`],
-    { tags: [`repo-${slug}`], revalidate: 3600 }
+    { tags: [`repo-${slug}`], revalidate: 60 }
   )(slug)
 }
 
@@ -205,7 +205,7 @@ export async function getGithubActivity() {
     },
     ["github-activity-2026"],
     {
-      revalidate: 3600,
+      revalidate: 60,
       tags: ["github-contributions"],
     }
   )()
@@ -244,7 +244,7 @@ export async function getPinnedRepos() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ query }),
-          next: { revalidate: 3600 },
+          next: { revalidate: 60 },
         })
 
         if (!res.ok) {
@@ -269,7 +269,7 @@ export async function getPinnedRepos() {
     },
     ["github-pinned-repos"],
     {
-      revalidate: 3600,
+      revalidate: 60,
       tags: ["github-pinned-repos"],
     }
   )()

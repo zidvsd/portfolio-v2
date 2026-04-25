@@ -29,13 +29,13 @@ export function getWakaTimeWeeklyStats() {
         "https://wakatime.com/api/v1/users/current/stats/last_7_days",
         {
           headers: { Authorization: `Basic ${encodedKey}` },
-          next: { revalidate: 3600 },
+          next: { revalidate: 60 },
         }
       )
       const json = await res.json()
       return json.data // This will contain .languages, .editors, etc.
     },
     ["waka-weekly-stats"],
-    { revalidate: 3600 }
+    { revalidate: 60 }
   )()
 }

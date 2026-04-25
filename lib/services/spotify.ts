@@ -39,7 +39,7 @@ export const getSpotifyProfile = async () => {
       return res.json()
     },
     ["spotify-profile"],
-    { tags: ["spotify"], revalidate: 3600 }
+    { tags: ["spotify"], revalidate: 60 }
   )()
 }
 
@@ -90,7 +90,7 @@ export const getUserPlaylist = async () => {
       return res.json()
     },
     ["spotify-user-playlists"],
-    { tags: ["spotify"], revalidate: 3600 }
+    { tags: ["spotify"], revalidate: 60 }
   )()
 }
 
@@ -108,6 +108,6 @@ export const getPublicPlaylist = async () => {
       return res.json()
     },
     ["spotify-public-playlists"],
-    { tags: ["spotify"], revalidate: 3600 }
+    { tags: ["spotify"], revalidate: 60 }
   )()
 }

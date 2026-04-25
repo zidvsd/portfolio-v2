@@ -1,4 +1,4 @@
-export const revalidate = 3600
+export const revalidate = 60
 import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"

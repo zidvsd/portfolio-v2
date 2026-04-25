@@ -14,7 +14,7 @@ export async function getProfile() {
       return JSON.parse(JSON.stringify(data))
     },
     ["profile-data"],
-    { tags: ["profile"], revalidate: 3600 }
+    { tags: ["profile"], revalidate: 60 }
   )()
 }
 export async function getExperience() {
@@ -25,7 +25,7 @@ export async function getExperience() {
       return JSON.parse(JSON.stringify(data))
     },
     ["experience-data"],
-    { tags: ["experience"], revalidate: 3600 }
+    { tags: ["experience"], revalidate: 60 }
   )()
 }
 export async function getAchievements() {
@@ -36,7 +36,7 @@ export async function getAchievements() {
       return JSON.parse(JSON.stringify(data))
     },
     ["achievements-data-v2"],
-    { tags: ["achievements"], revalidate: 3600 }
+    { tags: ["achievements"], revalidate: 60 }
   )()
 }
 export async function getBlogs() {
@@ -47,7 +47,7 @@ export async function getBlogs() {
       return JSON.parse(JSON.stringify(data))
     },
     ["blog-data"],
-    { tags: ["blogs"], revalidate: 3600 }
+    { tags: ["blogs"], revalidate: 60 }
   )()
 }
 export async function getBlogBySlug(blogSlug: string) {
@@ -58,7 +58,7 @@ export async function getBlogBySlug(blogSlug: string) {
       return blog ? JSON.parse(JSON.stringify(blog)) : null
     },
     ["blog-data", blogSlug],
-    { tags: ["blogs", `blog-${blogSlug}`], revalidate: 3600 }
+    { tags: ["blogs", `blog-${blogSlug}`], revalidate: 60 }
   )()
 }
 export async function getBlogById(blogId: string) {
@@ -69,7 +69,7 @@ export async function getBlogById(blogId: string) {
       return blog ? JSON.parse(JSON.stringify(blog)) : null
     },
     ["blog-data", blogId],
-    { tags: ["blogs", `blog-${blogId}`], revalidate: 3600 }
+    { tags: ["blogs", `blog-${blogId}`], revalidate: 60 }
   )()
 }
 
