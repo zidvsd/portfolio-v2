@@ -25,6 +25,12 @@ export const MY_PROJECTS = [
     image: "/images/projects/clothora.png",
   },
   {
+    name: "Smash'd",
+    slug: "smash-d",
+    deployUrl: "https://smash-d.vercel.app/",
+    image: "/images/projects/smash-d.png",
+  },
+  {
     name: "Recipe App",
     slug: "recipe-app",
     deployUrl: "https://recipe-app-azure-gamma.vercel.app/",
