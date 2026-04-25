@@ -112,7 +112,7 @@ export async function getProjects() {
         return []
       }
     },
-    ["featured-projects"],
+    ["featured-projects-v2"],
     { tags: ["github"], revalidate: 3600 }
   )()
 }
