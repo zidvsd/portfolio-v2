@@ -75,7 +75,10 @@ export default function MobileMenuDrawer({ user }: { user: any }) {
           <StaggerWrapper delayStep={0.1} className="flex flex-col gap-1">
             {navs.map((nav) => {
               const Icon = IconMap[nav.icon] || CircleIcon
-              const isActive = pathname === nav.href
+              const isActive =
+                nav.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(nav.href)
 
               return (
                 <StaggerItem key={nav.href}>

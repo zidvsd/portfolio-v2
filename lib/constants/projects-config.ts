@@ -2,7 +2,7 @@ export const MY_PROJECTS = [
   {
     name: "Portfolio v2",
     slug: "portfolio-v2",
-    deployUrl: "https://gadyet-hub.vercel.app/",
+    deployUrl: "https://www.zidvsd.site/",
     image: "/images/projects/portfolio-v2.png",
     isFeatured: true,
   },

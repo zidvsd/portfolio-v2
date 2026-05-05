@@ -15,7 +15,7 @@ export function FeaturedCarousel({ projects }: { projects: any[] }) {
   return (
     <div className="mt-4 px-2">
       <Carousel
-        opts={{ align: "start", loop: true, dragFree: true }}
+        opts={{ align: "start", loop: true, dragFree: false }}
         className="w-full overflow-visible"
         plugins={[Autoplay({ delay: 3000 })]}
       >

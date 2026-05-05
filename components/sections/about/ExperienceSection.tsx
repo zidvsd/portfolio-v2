@@ -61,7 +61,7 @@ function ExperienceCard({ item }: { item: any }) {
   const fullPath = `/icons/experiences/${cleanLogo}`
 
   return (
-    <Card className="group relative overflow-hidden rounded-xl border border-border p-2 transition-all hover:shadow-md">
+    <Card className="group relative overflow-hidden rounded-xl border border-border p-0 transition-all hover:shadow-md md:p-4">
       <CardContent className="p-4">
         <div className="flex gap-5">
           {/* Logo Container */}
@@ -72,7 +72,7 @@ function ExperienceCard({ item }: { item: any }) {
                 alt={`${item.company} logo`}
                 width={56}
                 height={56}
-                className="object-contain p-2"
+                className="object-contain p-1"
               />
             ) : (
               <BriefcaseIcon size={28} className="text-muted-foreground" />
