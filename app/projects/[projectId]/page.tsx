@@ -51,6 +51,9 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
   if (!projectId) notFound()
 
   const projectConfig = MY_PROJECTS.find((p) => p.slug === projectId)
+  const githubData = await getRepoDetails(projectId)
+
+  if (!githubData) notFound()
 
   return (
     <div>
@@ -59,19 +62,16 @@ const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
       </div>
 
       <div>
-        {/* Render Name instantly from local config */}
         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-          {projectConfig?.name || "Project Details"}
+          {projectConfig?.name || githubData.name || "Project Details"}
         </h1>
-
-        {/* We REMOVE the description <p> tag from here because 
-            it's not available yet. It will live inside the Suspense block. */}
       </div>
 
       <Suspense fallback={<SkeletonLoader variant="project-detail" />}>
         <ProjectDetailSection
           projectId={projectId}
           projectConfig={projectConfig}
+          githubData={githubData}
         />
       </Suspense>
     </div>

@@ -8,7 +8,7 @@ import ScrollToTop from "@/components/ScrollToTop"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Rashid Visda - Full-Stack Developer Portfolio",
+  title: "rabid Visda - Full-Stack Developer Portfolio",
   description:
     "Rashid Visda portfolio. Full-stack developer specializing in React, Next.js, and modern web applications.",
   metadataBase: new URL("https://zidvsd.site"),

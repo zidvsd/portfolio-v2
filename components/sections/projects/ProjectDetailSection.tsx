@@ -1,13 +1,11 @@
 // components/sections/projects/ProjectDetailSection.tsx
-import { getRepoDetails } from "@/lib/services/github"
 import notFound from "@/app/not-found"
 import ProjectDetail from "@/components/ProjectDetail"
 export default async function ProjectDetailSection({
   projectId,
   projectConfig,
+  githubData,
 }: any) {
-  const githubData = await getRepoDetails(projectId)
-
   if (!githubData) notFound()
 
   return (

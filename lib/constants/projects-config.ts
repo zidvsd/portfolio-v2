@@ -2,7 +2,7 @@ export const MY_PROJECTS = [
   {
     name: "Portfolio v2",
     slug: "portfolio-v2",
-    deployUrl: "https://www.zidvsd.site/",
+    deployUrl: "https://zidvsd.site/",
     image: "/images/projects/portfolio-v2.png",
     isFeatured: true,
   },
@@ -31,12 +31,6 @@ export const MY_PROJECTS = [
     image: "/images/projects/smash-d.png",
   },
   {
-    name: "Recipe App",
-    slug: "recipe-app",
-    deployUrl: "https://recipe-app-azure-gamma.vercel.app/",
-    image: "/images/projects/recipe-app.png",
-  },
-  {
     name: "Stash",
     slug: "stash",
     deployUrl: "https://stash-lemon.vercel.app/",
@@ -54,5 +48,11 @@ export const MY_PROJECTS = [
     slug: "portfolio",
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
     image: "/images/projects/portfolio.png",
+  },
+  {
+    name: "Recipe App",
+    slug: "recipe-app",
+    deployUrl: "https://recipe-app-azure-gamma.vercel.app/",
+    image: "/images/projects/recipe-app.png",
   },
 ]

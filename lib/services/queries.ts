@@ -41,13 +41,25 @@ export async function getAchievements() {
 }
 export async function getBlogs() {
   return unstable_cache(
-    async function () {
-      await connectDb()
-      const data = await Blog.find({}).sort({ datePublished: -1 }).lean()
-      return JSON.parse(JSON.stringify(data))
+    function () {
+      return (async function () {
+        try {
+          await connectDb()
+
+          const data = await Blog.find({}).sort({ datePublished: -1 }).lean()
+
+          return JSON.parse(JSON.stringify(data))
+        } catch (err) {
+          console.error("getBlogs error:", err)
+          return []
+        }
+      })()
     },
     ["blog-data"],
-    { tags: ["blogs"], revalidate: 60 }
+    {
+      tags: ["blogs"],
+      revalidate: 60,
+    }
   )()
 }
 export async function getBlogBySlug(blogSlug: string) {

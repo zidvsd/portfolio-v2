@@ -13,16 +13,19 @@ import {
 } from "@phosphor-icons/react/dist/ssr"
 
 export default function ProjectDetail(repo: any) {
-  // remove readme text from md
-  const cleanedReadme = repo.readme?.replace(
-    /Live demo:\s*https?:\/\/[^\s\n]+/gi,
-    ""
-  )
+  const topics = repo?.topics ?? []
+  const stars = repo?.stars ?? 0
+  const forks = repo?.forks ?? 0
+
+  const readme = repo?.readme ?? ""
+
+  const cleanedReadme = readme.replace(/Live demo:\s*https?:\/\/[^\s\n]+/gi, "")
+
   return (
     <div className="space-y-4">
-      {/* GitHub Actions/Links */}
+      {/* Links */}
       <div className="flex items-center gap-6 border-y border-border/50 py-4">
-        {repo.deployUrl && (
+        {repo?.deployUrl && (
           <a
             href={repo.deployUrl}
             target="_blank"
@@ -32,27 +35,31 @@ export default function ProjectDetail(repo: any) {
             <GlobeIcon size={22} /> Live Demo
           </a>
         )}
-        <a
-          href={repo.githubUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-        >
-          <GithubLogoIcon size={22} /> Source Code
-        </a>
+
+        {repo?.githubUrl && (
+          <a
+            href={repo.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+          >
+            <GithubLogoIcon size={22} /> Source Code
+          </a>
+        )}
 
         <div className="ml-auto hidden items-center gap-4 text-muted-foreground md:flex">
           <div className="flex items-center gap-1">
-            <StarIcon size={18} /> {repo.stars}
+            <StarIcon size={18} /> {stars}
           </div>
           <div className="flex items-center gap-1">
-            <GitForkIcon size={18} /> {repo.forks}
+            <GitForkIcon size={18} /> {forks}
           </div>
         </div>
       </div>
+
       {/* Tech Stack */}
       <div className="flex flex-wrap gap-2">
-        {repo.topics.map((topic: string) => (
+        {topics.map((topic: string) => (
           <Badge
             key={topic}
             variant="secondary"
@@ -63,12 +70,12 @@ export default function ProjectDetail(repo: any) {
         ))}
       </div>
 
-      {/* Image  */}
-      {repo.projectImage && (
+      {/* Image */}
+      {repo?.projectImage && (
         <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-sm">
           <Image
             src={repo.projectImage}
-            alt={`${repo.displayTitle} preview`}
+            alt={`${repo.displayTitle ?? "Project"} preview`}
             fill
             className="object-cover"
             priority
@@ -76,6 +83,7 @@ export default function ProjectDetail(repo: any) {
           />
         </div>
       )}
+
       {/* README */}
       <article className="prose prose-zinc dark:prose-invert max-w-none">
         <ReactMarkdown
