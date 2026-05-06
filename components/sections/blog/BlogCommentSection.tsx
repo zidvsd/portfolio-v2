@@ -16,9 +16,10 @@ import { StaggerItem } from "@/components/motion/StaggerItem"
 import { IUser } from "@/lib/types/user"
 import { ChatCircleIcon } from "@phosphor-icons/react"
 import { formatTime, formatDate } from "@/lib/utils"
+import { SessionUser } from "@/lib/types/auth"
 
 interface BlogCommentSectionProps {
-  user: IUser | null
+  user: SessionUser | null
   blogId: string
 }
 
