@@ -8,7 +8,7 @@ import ScrollToTop from "@/components/ScrollToTop"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "rabid Visda - Full-Stack Developer Portfolio",
+  title: "Rashid Visda - Full-Stack Developer Portfolio",
   description:
     "Rashid Visda portfolio. Full-stack developer specializing in React, Next.js, and modern web applications.",
   metadataBase: new URL("https://zidvsd.site"),
@@ -31,7 +31,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  icons: "/icons/logo.png",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Rashid Visda - Web Developer Portfolio",
     description:

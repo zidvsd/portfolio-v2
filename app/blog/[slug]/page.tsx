@@ -55,16 +55,20 @@ export default async function BlogPage({
 }) {
   const { slug } = await params
   if (!slug) notFound()
+
   const user = await getUserSession()
   const blog = await getBlogBySlug(slug)
+
+  if (!blog) notFound()
+
   return (
     <div className="space-y-12">
       <Suspense fallback={<SkeletonLoader variant="blog-content" />}>
-        <BlogContentSection slug={slug} />
+        <BlogContentSection blog={blog} />
       </Suspense>
 
       <Suspense fallback={<SkeletonLoader variant="related-blogs" />}>
-        <RelatedBlogsSection slug={slug} />
+        <RelatedBlogsSection blog={blog} />
       </Suspense>
       <Suspense fallback={<SkeletonLoader variant="related-blogs" />}>
         <BlogCommentSection user={user} blogId={blog._id.toString()} />

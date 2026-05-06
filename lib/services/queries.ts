@@ -41,19 +41,17 @@ export async function getAchievements() {
 }
 export async function getBlogs() {
   return unstable_cache(
-    function () {
-      return (async function () {
-        try {
-          await connectDb()
+    async function () {
+      try {
+        await connectDb()
 
-          const data = await Blog.find({}).sort({ datePublished: -1 }).lean()
+        const data = await Blog.find({}).sort({ datePublished: -1 }).lean()
 
-          return JSON.parse(JSON.stringify(data))
-        } catch (err) {
-          console.error("getBlogs error:", err)
-          return []
-        }
-      })()
+        return JSON.parse(JSON.stringify(data))
+      } catch (err) {
+        console.error("getBlogs error:", err)
+        return []
+      }
     },
     ["blog-data"],
     {
@@ -65,37 +63,71 @@ export async function getBlogs() {
 export async function getBlogBySlug(blogSlug: string) {
   return unstable_cache(
     async function () {
-      await connectDb()
-      const blog = await Blog.findOne({ slug: blogSlug }).lean()
-      return blog ? JSON.parse(JSON.stringify(blog)) : null
+      try {
+        await connectDb()
+
+        const blog = await Blog.findOne({ slug: blogSlug }).lean()
+
+        return blog ? JSON.parse(JSON.stringify(blog)) : null
+      } catch (err) {
+        console.error("getBlogBySlug error:", err)
+        return null
+      }
     },
     ["blog-data", blogSlug],
-    { tags: ["blogs", `blog-${blogSlug}`], revalidate: 60 }
+    {
+      tags: ["blogs", `blog-${blogSlug}`],
+      revalidate: 60,
+    }
   )()
 }
 export async function getBlogById(blogId: string) {
   return unstable_cache(
     async function () {
-      await connectDb()
-      const blog = await Blog.findOne({ _id: blogId }).lean()
-      return blog ? JSON.parse(JSON.stringify(blog)) : null
+      try {
+        await connectDb()
+
+        const blog = await Blog.findOne({ _id: blogId }).lean()
+
+        return blog ? JSON.parse(JSON.stringify(blog)) : null
+      } catch (err) {
+        console.error("getBlogById error:", err)
+        return null
+      }
     },
     ["blog-data", blogId],
-    { tags: ["blogs", `blog-${blogId}`], revalidate: 60 }
+    {
+      tags: ["blogs", `blog-${blogId}`],
+      revalidate: 60,
+    }
   )()
 }
 
 export async function getRelatedBlogs(category: string, currentSlug: string) {
-  await connectDb()
+  return unstable_cache(
+    async function () {
+      try {
+        await connectDb()
 
-  const related = await Blog.find({
-    category: category,
-    slug: { $ne: currentSlug },
-    isPublished: true,
-  })
-    .limit(2)
-    .sort({ datePublished: -1 })
-    .lean()
+        const related = await Blog.find({
+          category,
+          slug: { $ne: currentSlug },
+          isPublished: true,
+        })
+          .limit(2)
+          .sort({ datePublished: -1 })
+          .lean()
 
-  return JSON.parse(JSON.stringify(related))
+        return JSON.parse(JSON.stringify(related))
+      } catch (err) {
+        console.error("getRelatedBlogs error:", err)
+        return []
+      }
+    },
+    ["related-blogs", category, currentSlug],
+    {
+      tags: ["blogs"],
+      revalidate: 60,
+    }
+  )()
 }

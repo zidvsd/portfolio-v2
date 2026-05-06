@@ -6,11 +6,10 @@ import Link from "next/link"
 import InView from "@/components/motion/InView"
 import { Blog } from "@/lib/types/blog"
 
-export default async function RelatedBlogsSection({ slug }: { slug: string }) {
-  const blog = await getBlogBySlug(slug) // De-duplicated by Next.js
+export default async function RelatedBlogsSection({ blog }: { blog: any }) {
   if (!blog) return null
 
-  const relatedBlogs = await getRelatedBlogs(blog.category, slug)
+  const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug)
   if (relatedBlogs.length === 0) return null
 
   return (

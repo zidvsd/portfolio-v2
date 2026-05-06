@@ -18,7 +18,7 @@ import { ChatCircleIcon } from "@phosphor-icons/react"
 import { formatTime, formatDate } from "@/lib/utils"
 
 interface BlogCommentSectionProps {
-  user: IUser[] | null | any
+  user: IUser | null
   blogId: string
 }
 
@@ -36,7 +36,7 @@ export default function BlogCommentSection({
     const fetchComments = async () => {
       try {
         const res = await axios.get(`/api/comments?blogId=${blogId}&type=blog`)
-        setMessages(res.data)
+        setMessages(res.data ?? [])
       } catch (err: any) {
         console.error("Fetch blog comments error:", err.message)
         toast.error("Failed to load comments")
@@ -49,7 +49,7 @@ export default function BlogCommentSection({
 
   const handlePostComment = async (e: React.FormEvent) => {
     e.preventDefault()
-
+    if (isSending) return
     if (!textInput.trim()) return
 
     setIsSending(true)
