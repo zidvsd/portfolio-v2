@@ -6,6 +6,7 @@ import { Suspense } from "react"
 import BackButton from "@/components/ui/back-button"
 import ProjectDetailSection from "@/components/sections/projects/ProjectDetailSection"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
+
 interface ProjectDetailPageProps {
   params: Promise<{ projectId: string }>
 }
@@ -16,15 +17,31 @@ export const generateMetadata = async ({
   const { projectId } = await params
   const repo = await getRepoDetails(projectId)
 
-  if (!repo) return { title: "Project Not Found" }
+  if (!repo) {
+    return {
+      title: "Project Not Found | Rashid Visda",
+      description: "The requested project could not be found.",
+    }
+  }
+
+  const title = `${repo.name} | Projects - Rashid Visda`
+  const description =
+    repo.description ||
+    "A full-stack web development project built with React and Next.js."
 
   return {
-    title: `${repo.name} | Rashid Visda`,
-    description: repo.description,
+    title,
+    description,
+
+    alternates: {
+      canonical: `https://zidvsd.site/projects/${projectId}`,
+    },
+
     openGraph: {
-      title: repo.name,
-      description: repo.description,
+      title,
+      description,
       type: "article",
+      url: `https://zidvsd.site/projects/${projectId}`,
     },
   }
 }

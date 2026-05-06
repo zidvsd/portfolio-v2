@@ -6,7 +6,48 @@ import RelatedBlogsSection from "@/components/sections/blog/RelatedBlogsSection"
 import BlogContentSection from "@/components/sections/blog/BlogContentSection"
 import BlogCommentSection from "@/components/sections/blog/BlogCommentSection"
 import { getUserSession } from "@/lib/auth/auth-util"
+import type { Metadata } from "next"
 import { getBlogBySlug } from "@/lib/services/queries"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+
+  const blog = await getBlogBySlug(slug)
+
+  if (!blog) {
+    return {
+      title: "Blog Not Found",
+      description: "The requested blog post does not exist.",
+    }
+  }
+
+  const title = `${blog.title} | Rashid Visda Blog`
+  const description =
+    blog.excerpt ||
+    blog.content?.slice(0, 150) ||
+    "Read this article on web development, React, and Next.js."
+
+  return {
+    title,
+    description,
+
+    alternates: {
+      canonical: `https://zidvsd.site/blog/${slug}`,
+    },
+
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `https://zidvsd.site/blog/${slug}`,
+    },
+  }
+}
+
 export default async function BlogPage({
   params,
 }: {

@@ -1,9 +1,19 @@
 import { GoogleGenAI } from "@google/genai"
 import { NextRequest, NextResponse } from "next/server"
+import { checkRateLimit } from "@/lib/rate-limit"
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 export async function POST(req: NextRequest) {
+  const { rateLimited } = await checkRateLimit(req, {
+    limit: 2,
+    windowMs: 30_000,
+  })
+
+  if (rateLimited) {
+    return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 })
+  }
+
   try {
     const { message } = await req.json()
 

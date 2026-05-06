@@ -4,7 +4,18 @@ import { Comment } from "@/models/Comments"
 import User from "@/models/User"
 import mongoose from "mongoose"
 import { auth } from "@/lib/auth/auth"
+import { checkRateLimit } from "@/lib/rate-limit"
 export async function GET(req: NextRequest) {
+  const { rateLimited } = await checkRateLimit(req, {
+    limit: 30,
+    windowMs: 60_000,
+  })
+  if (rateLimited) {
+    return NextResponse.json(
+      { error: "You're sending comments too fast. Slow down." },
+      { status: 429 }
+    )
+  }
   try {
     await connectDb()
     const UserModel = mongoose.models.User || User
@@ -40,6 +51,16 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const { rateLimited } = await checkRateLimit(req, {
+    limit: 5,
+    windowMs: 60_000,
+  })
+  if (rateLimited) {
+    return NextResponse.json(
+      { error: "You're sending comments too fast. Slow down." },
+      { status: 429 }
+    )
+  }
   try {
     await connectDb()
     const session = await auth.api.getSession({

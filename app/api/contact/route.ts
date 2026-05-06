@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 import { ContactSchema } from "@/lib/schemas/contact.schema"
 import { resendApi } from "@/lib/services/resend"
-
+import { checkRateLimit } from "@/lib/rate-limit"
 export async function POST(req: NextRequest) {
+  const { rateLimited } = await checkRateLimit(req, {
+    limit: 3,
+    windowMs: 60_000,
+  })
+  if (rateLimited) {
+    return NextResponse.json(
+      { error: "You're sending comments too fast. Slow down." },
+      { status: 429 }
+    )
+  }
   const body = await req.json()
 
   const validation = ContactSchema.safeParse(body)
