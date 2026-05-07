@@ -18,6 +18,7 @@ import Image from "next/image"
 import { Message } from "@/lib/types/chat"
 import StaggerWrapper from "@/components/motion/StaggerWrapper"
 import { StaggerItem } from "@/components/motion/StaggerItem"
+import { Spinner } from "@/components/ui/spinner"
 
 export default function ChatSection({ user }: { user: any }) {
   const router = useRouter() // Initialize router
@@ -149,16 +150,17 @@ export default function ChatSection({ user }: { user: any }) {
               disabled={isSending}
               className="flex-1"
             />
+
             <Button
               type="submit"
               size="icon"
               disabled={isSending || !textInput.trim()}
             >
-              <PaperPlaneTiltIcon
-                size={18}
-                weight="bold"
-                className={isSending ? "animate-pulse" : ""}
-              />
+              {isSending ? (
+                <Spinner className="size-4" />
+              ) : (
+                <PaperPlaneTiltIcon size={18} weight="bold" />
+              )}
             </Button>
           </>
         ) : (

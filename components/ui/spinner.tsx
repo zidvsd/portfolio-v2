@@ -1,9 +1,14 @@
 import { cn } from "@/lib/utils"
 import { SpinnerIcon } from "@phosphor-icons/react"
-
+import { CircleNotchIcon } from "@phosphor-icons/react/dist/ssr"
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (
-    <SpinnerIcon role="status" aria-label="Loading" className={cn("size-4 animate-spin", className)} {...props} />
+    <CircleNotchIcon
+      role="status"
+      aria-label="Loading"
+      className={cn("size-4 animate-spin", className)}
+      {...props}
+    />
   )
 }
 

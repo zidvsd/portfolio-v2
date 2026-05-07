@@ -6,6 +6,7 @@ import {
   XIcon,
   PaperPlaneRightIcon,
 } from "@phosphor-icons/react"
+import { Spinner } from "./ui/spinner"
 import axios from "axios"
 import { Button } from "./ui/button"
 interface Message {
@@ -81,9 +82,8 @@ export default function ChatToggle() {
           >
             {messages.length === 0 && (
               <p className="text-xs text-muted-foreground italic">
-                Yo! I'm Zid, I'm probably deep into a project or chasing a John
-                Mayer tone right now, but my digital self is here. What's on
-                your mind?
+                Yo! I'm Zid, I'm probably deep into a project or locked in on
+                gaming right now, but my digital self is here. What's up?
               </p>
             )}
             {messages.map((msg, i) => (
@@ -104,7 +104,8 @@ export default function ChatToggle() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="animate-pulse rounded-2xl bg-muted px-3 py-2 text-xs text-muted-foreground">
+                <div className="flex items-center gap-2 rounded-2xl border border-border bg-muted px-3 py-2 text-xs text-muted-foreground">
+                  <Spinner className="size-3" />
                   Thinking...
                 </div>
               </div>
@@ -127,7 +128,11 @@ export default function ChatToggle() {
               disabled={isLoading || !input.trim()}
               className="text-primary transition-transform hover:scale-110 disabled:opacity-50"
             >
-              <PaperPlaneRightIcon className="size-6" />
+              {isLoading ? (
+                <Spinner className="size-5" />
+              ) : (
+                <PaperPlaneRightIcon className="size-6" />
+              )}
             </Button>
           </form>
         </div>

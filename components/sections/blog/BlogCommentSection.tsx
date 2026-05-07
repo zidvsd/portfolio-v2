@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { ChatCenteredSlashIcon, SignInIcon } from "@phosphor-icons/react"
@@ -13,11 +13,10 @@ import Image from "next/image"
 import { Message } from "@/lib/types/chat"
 import StaggerWrapper from "@/components/motion/StaggerWrapper"
 import { StaggerItem } from "@/components/motion/StaggerItem"
-import { IUser } from "@/lib/types/user"
 import { ChatCircleIcon } from "@phosphor-icons/react"
 import { formatTime, formatDate } from "@/lib/utils"
 import { SessionUser } from "@/lib/types/auth"
-
+import { Spinner } from "@/components/ui/spinner"
 interface BlogCommentSectionProps {
   user: SessionUser | null
   blogId: string
@@ -65,7 +64,12 @@ export default function BlogCommentSection({
       setTextInput("")
       toast.success("Comment posted!")
     } catch (err) {
-      toast.error("Failed to post comment")
+      const error = err as AxiosError<{ error: string }>
+
+      const message =
+        error.response?.data?.error || error.message || "Failed to post comment"
+
+      toast.error(message)
     } finally {
       setIsSending(false)
     }
@@ -112,9 +116,16 @@ export default function BlogCommentSection({
             <Button
               type="submit"
               disabled={isSending || !textInput.trim()}
-              className="p-4"
+              className="flex items-center gap-2 p-4"
             >
-              {isSending ? "Posting..." : "Post Comment"}
+              {isSending ? (
+                <>
+                  <Spinner className="size-4" />
+                  Posting...
+                </>
+              ) : (
+                "Post Comment"
+              )}
             </Button>
           </div>
         </form>

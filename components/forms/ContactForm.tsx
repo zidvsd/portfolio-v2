@@ -6,6 +6,8 @@ import { PaperPlaneRightIcon } from "@phosphor-icons/react/dist/ssr"
 import { ContactSchema, ContactInput } from "@/lib/schemas/contact.schema"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Spinner } from "../ui/spinner"
+import { CircleNotchIcon } from "@phosphor-icons/react"
 
 interface ContactFormProps {
   onSuccess: (data: ContactInput) => void
@@ -24,7 +26,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
     await onSuccess(data)
     reset()
   }
-
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -112,8 +114,17 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
         disabled={isSubmitting}
         className="flex w-full gap-4 py-4 md:w-max md:px-8"
       >
-        {isSubmitting ? "Sending..." : "Send Message"}
-        <PaperPlaneRightIcon className="size-4" />
+        {isSubmitting ? (
+          <>
+            <Spinner />
+            Sending...
+          </>
+        ) : (
+          <>
+            Send Message
+            <PaperPlaneRightIcon className="size-4" />
+          </>
+        )}
       </Button>
     </form>
   )
