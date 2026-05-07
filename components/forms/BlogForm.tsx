@@ -93,6 +93,7 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
       tags: values.tags.split(",").map((t) => t.trim()),
       isFeatured: values.isFeatured,
       isPublished: values.isPublished,
+      existingImageUrl: initialData?.coverImageUrl ?? null,
     }
 
     formData.append("document", JSON.stringify(documentData))

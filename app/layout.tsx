@@ -64,6 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
+      data-scroll-behavior="smooth"
       lang="en"
       suppressHydrationWarning
       className={cn(
@@ -84,6 +85,10 @@ export default function RootLayout({
               jobTitle: "Full-Stack Developer",
               alternateName: ["Zid Visda", "zidvsd", "Zid"],
               url: "https://zidvsd.site",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://zidvsd.site/favicon.png",
+              },
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Laguna",
