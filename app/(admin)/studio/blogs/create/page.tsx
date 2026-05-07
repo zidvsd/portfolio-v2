@@ -8,7 +8,6 @@ export default function page() {
   const router = useRouter()
 
   const handleCreateBlog = async (formData: FormData) => {
-    // 1. Start a loading toast
     const toastId = toast.loading("Publishing your story...")
 
     try {

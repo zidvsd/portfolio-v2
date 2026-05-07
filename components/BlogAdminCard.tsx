@@ -43,9 +43,7 @@ export default function BlogAdminCard({ blog }: { blog: any }) {
     <div className="group relative w-full">
       <BlogCard blog={blog} />
 
-      {/* Admin Action Overlay */}
-      <div className="/* Mobile: Always and clickable */ /* Large Screens: Hide by default, show on hover */ pointer-events-auto visible absolute top-3 right-3 z-10 flex gap-2 opacity-100 transition-opacity duration-200 lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100">
-        {/* EDIT BUTTON */}
+      <div className="pointer-events-auto visible absolute top-3 right-3 z-10 flex gap-2 opacity-100 transition-opacity duration-200 lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100">
         <Link href={`/studio/blogs/edit/${blog._id}`}>
           <Button
             size="icon"
@@ -56,7 +54,6 @@ export default function BlogAdminCard({ blog }: { blog: any }) {
           </Button>
         </Link>
 
-        {/* DELETE DIALOG */}
         <AlertDialog>
           <AlertDialogTrigger className="hover-utility flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-destructive/50 bg-destructive/10 text-destructive shadow-xl backdrop-blur-sm transition-all hover:bg-destructive hover:text-white">
             <TrashIcon size={18} weight="bold" />

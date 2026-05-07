@@ -26,7 +26,6 @@ export default function AchievementCard({ data }: AchievementProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-md border bg-card/50 p-5 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
-      {/* Type Badge */}
       <div className="absolute top-3 right-3 z-20">
         <span
           className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-black tracking-[0.12em] uppercase shadow-lg ring-1 backdrop-blur-sm ${
@@ -40,7 +39,6 @@ export default function AchievementCard({ data }: AchievementProps) {
         </span>
       </div>
 
-      {/* Image Container */}
       <div
         onClick={() => setIsFullscreen(true)}
         className="relative mx-auto flex aspect-video w-full max-w-125 cursor-zoom-in items-center justify-center overflow-hidden rounded-tl-lg rounded-tr-lg border bg-zinc-950 group-hover:shadow-xl"
@@ -51,13 +49,12 @@ export default function AchievementCard({ data }: AchievementProps) {
           src={data.supabaseUrl}
           alt={data.alt}
           fill
+          sizes="(max-width: 768px) 100vw, 500px"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {/* Hover Gradient Overlay */}
         <div className="hover-utility pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-500/80 to-transparent opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 dark:from-zinc-950/80" />
       </div>
 
-      {/* Content Wrapper - flex-1 pushes everything below it to the bottom */}
       <div className="mt-4 flex flex-1 flex-col justify-between space-y-4">
         <div className="space-y-2">
           <h3 className="line-clamp-2 font-semibold transition-colors group-hover:text-primary">
@@ -73,7 +70,6 @@ export default function AchievementCard({ data }: AchievementProps) {
           </div>
         </div>
 
-        {/* Action Button - Always at the bottom */}
         <Button variant="accent" size="lg" className="w-full">
           <a
             href={data.supabaseUrl}
@@ -98,10 +94,11 @@ export default function AchievementCard({ data }: AchievementProps) {
 
           <div className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl shadow-2xl">
             <Image
+              sizes="100vw"
               src={data.supabaseUrl}
               alt={data.alt}
               fill
-              className="object-contain" // Contain ensures you see the full cert
+              className="object-contain"
             />
           </div>
         </div>

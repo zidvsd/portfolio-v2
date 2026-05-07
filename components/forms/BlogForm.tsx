@@ -56,7 +56,7 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
       const file = imageFile[0]
       const url = URL.createObjectURL(file)
       setPreview(url)
-      return () => URL.revokeObjectURL(url) // Cleanup memory
+      return () => URL.revokeObjectURL(url)
     }
   }, [imageFile])
 
@@ -110,7 +110,6 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
       className="space-y-6 rounded-sm border bg-zinc-100 p-6 shadow-md dark:bg-card"
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {/* Title */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-zinc-500 uppercase">
             Title
@@ -131,7 +130,6 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
           )}
         </div>
 
-        {/* Category */}
         <div className="flex flex-col space-y-2">
           <label className="text-xs font-bold text-zinc-500 uppercase">
             Category
@@ -195,7 +193,7 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
           )}
         </div>
 
-        {/* Image */}
+        {/* Cover Image */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-zinc-500 uppercase">
             Cover Image
@@ -207,6 +205,7 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
                   src={preview}
                   alt="Preview"
                   fill
+                  sizes="128px"
                   className="object-cover"
                 />
               </div>
@@ -227,7 +226,6 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
           </div>
         </div>
       </div>
-      {/* Short Description - Add this before Tags */}
       <div className="space-y-2">
         <label className="text-xs font-bold text-zinc-500 uppercase">
           Short Description
@@ -247,7 +245,6 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
           </p>
         )}
       </div>
-      {/* Tags */}
       <div className="space-y-2">
         <label className="text-xs font-bold text-zinc-500 uppercase">
           Tags
@@ -268,7 +265,6 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
         )}
       </div>
 
-      {/* Booleans */}
       <div className="flex gap-8 py-2">
         <div className="flex items-center gap-2">
           <Controller
@@ -298,11 +294,7 @@ export default function BlogForm({ onSubmit, initialData }: BlogFormProps) {
         </div>
       </div>
 
-      {/* Content */}
       <div className="space-y-2">
-        <label className="text-xs font-bold text-zinc-500 uppercase">
-          Content
-        </label>
         <Textarea
           {...register("content")}
           rows={12}

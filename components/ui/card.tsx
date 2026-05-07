@@ -14,13 +14,11 @@ function Card({
         className
       )}
     >
-      {/* Base gradient */}
       <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-white/2 to-white/1" />
 
       {/* Hover gradient (animated) */}
       <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-white/5 to-white/2 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100" />
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col gap-4">{props.children}</div>
     </div>
   )

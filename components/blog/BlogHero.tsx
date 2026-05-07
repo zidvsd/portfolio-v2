@@ -10,7 +10,7 @@ import { StaggerItem } from "../motion/StaggerItem"
 import StaggerWrapper from "../motion/StaggerWrapper"
 interface BlogHeroProps {
   blogHero: Blog
-  recentBlogs: Blog[] // Now this is correctly handled
+  recentBlogs: Blog[]
 }
 
 export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
@@ -19,19 +19,18 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-10">
-      {/* 70% SECTION: THE MAIN FEATURED CARD */}
       <div className="lg:col-span-7">
         <Link href={`/blog/${blogHero.slug}`} className="group block h-full">
           <Card className="h-full overflow-hidden border-white/5 bg-white/2 py-0 shadow-sm transition-colors hover:bg-white/4">
-            {/* Image Section */}
             <div className="relative aspect-video w-full overflow-hidden">
               {blogHero.coverImageUrl ? (
                 <Image
                   src={blogHero.coverImageUrl}
                   alt={blogHero.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 70vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  priority // Good for LCP
+                  priority
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-blue-500/10 text-blue-500/40">
@@ -40,7 +39,6 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
               )}
             </div>
 
-            {/* Header */}
             <CardHeader className="flex flex-row items-center gap-6 px-8 text-xs text-muted-foreground">
               <div className="flex items-center gap-2">
                 <CalendarIcon size={16} />
@@ -52,7 +50,6 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
               </div>
             </CardHeader>
 
-            {/* Content Section */}
             <CardContent className="space-y-3 px-8">
               <h3 className="text-3xl leading-tight font-bold tracking-tight transition-colors group-hover:text-blue-500">
                 {blogHero.title}
@@ -62,7 +59,6 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
               </p>
             </CardContent>
 
-            {/* Footer Section (Tags) */}
             <CardFooter className="px-8 pt-4 pb-8">
               <div className="flex flex-wrap gap-2">
                 {blogHero.tags.map((tag, index) => (
@@ -79,7 +75,6 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
         </Link>
       </div>
 
-      {/* 30% SECTION: THE RECENT BLOGS SIDEBAR */}
       <div className="flex flex-col lg:col-span-3">
         <div className="mb-4 flex items-center justify-between gap-2">
           <h2 className="text-sm font-bold tracking-[0.2em] text-nowrap text-zinc-700 dark:text-zinc-300">

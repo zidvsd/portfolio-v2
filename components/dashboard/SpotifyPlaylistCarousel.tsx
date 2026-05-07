@@ -31,10 +31,6 @@ export function SpotifyPlaylistCarousel({
           {playlists.map((playlist, index) => (
             <CarouselItem
               key={playlist.uri || playlist.name}
-              // Mobile: 1.5 cards (shows a peek of the next one)
-              // Tablet: 3 cards
-              // Desktop: 4 cards
-              // Large Screens: 5 cards
               className="basis-[70%] pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
               {/* Vertical Playlist Card */}
@@ -44,7 +40,7 @@ export function SpotifyPlaylistCarousel({
                 viewport={{ once: true }}
                 transition={{
                   duration: 0.5,
-                  delay: index * 0.1, // Staggering each card
+                  delay: index * 0.1,
                   ease: [0.21, 0.47, 0.32, 0.98],
                 }}
                 className="h-full"
@@ -55,21 +51,19 @@ export function SpotifyPlaylistCarousel({
                   rel="noopener noreferrer"
                   className="group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/3 shadow-md transition-all duration-300 hover:border-white/10 hover:bg-white/[0.07] dark:border-white/5"
                 >
-                  {/* Top Image Section - Takes full width, fixed aspect ratio */}
                   <div className="relative w-full overflow-hidden after:block after:pb-[100%]">
                     <Image
                       fill
+                      sizes="(max-width: 640px) 70vw, (max-width: 1024px) 33vw, 25vw"
                       src={playlist.images[0]?.url}
                       alt={playlist.name}
                       className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-500 will-change-transform group-hover:scale-110"
                     />
-                    {/* Hover Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <SpotifyIcon className="size-8 text-[#1DB954]" />
                     </div>
                   </div>
 
-                  {/* Bottom Content Section */}
                   <div className="flex flex-col space-y-1 p-4">
                     <p className="truncate text-sm font-bold text-accent-foreground transition-colors group-hover:text-green-500">
                       {playlist.name}

@@ -25,7 +25,6 @@ export function ProjectCard({ repo }: ProjectCardProps) {
         href={`/projects/${repo.slug}`}
         className="group flex flex-1 cursor-pointer flex-col transition-all hover:border-primary/50 hover:shadow-md"
       >
-        {/* TOP HALF: IMAGE WITH OVERLAY */}
         <CardHeader className="p-0">
           <div className="relative h-56 w-full overflow-hidden border-b bg-muted">
             <Image
@@ -33,10 +32,10 @@ export function ProjectCard({ repo }: ProjectCardProps) {
               src={repo.image || "/images/projects/placeholder.png"}
               alt={repo.name}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
 
-            {/* Featured Badge */}
             {isFeatured && (
               <div className="absolute top-4 right-4 z-10">
                 <span className="flex items-center gap-1.5 rounded-full bg-yellow-400 px-3 py-1 text-[10px] font-bold tracking-widest text-black uppercase shadow-lg ring-1 ring-yellow-500/50">
@@ -46,7 +45,6 @@ export function ProjectCard({ repo }: ProjectCardProps) {
               </div>
             )}
 
-            {/* HOVER OVERLAY */}
             <div className="absolute inset-0 flex items-center justify-center bg-background/10 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100 dark:bg-background/10">
               <div className="flex translate-y-2 items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold tracking-widest text-primary-foreground uppercase shadow-xl transition-transform duration-300 group-hover:translate-y-0">
                 View Project
@@ -56,7 +54,6 @@ export function ProjectCard({ repo }: ProjectCardProps) {
           </div>
         </CardHeader>
 
-        {/* BOTTOM HALF: CONTENT & TAGS */}
         <CardContent className="flex grow flex-col p-5">
           <h3 className="text-xl font-bold tracking-tight">{repo.name}</h3>
 
@@ -69,7 +66,6 @@ export function ProjectCard({ repo }: ProjectCardProps) {
               "A full-stack web development project built with modern technologies."}
           </p>
 
-          {/* TAGS */}
           <div className="mt-4 flex flex-wrap gap-2">
             {repo.languages.map((lang) => (
               <span

@@ -13,7 +13,6 @@ import React from "react"
 interface EmptyStateProps {
   title: string
   description: string
-  // Using React.ElementType allows you to pass a component like {EmptyIcon}
   icon: React.ReactNode
   linkHref?: string
   linkText?: string

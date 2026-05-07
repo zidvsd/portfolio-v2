@@ -22,20 +22,19 @@ export default function SpotifyProfileCard({ data }: SpotifyProfileCardProps) {
         target="_blank"
         className="flex flex-col items-center gap-4 p-6"
       >
-        {/* Avatar with subtle glow */}
         <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/10 p-1 transition-transform group-hover:scale-105">
           {profileImage && (
             <Image
               src={profileImage}
               alt={name}
               fill
+              sizes="80px"
               className="rounded-full object-cover"
             />
           )}
           <span className="pointer-events-none absolute inset-0 rounded-full opacity-0 shadow-[0_0_20px_#1DB954] transition-opacity group-hover:opacity-30"></span>
         </div>
 
-        {/* Info */}
         <div className="text-center">
           <h3 className="max-w-45 truncate text-lg font-bold text-zinc-100 transition-colors group-hover:text-[#1DB954]">
             {name}
@@ -45,7 +44,6 @@ export default function SpotifyProfileCard({ data }: SpotifyProfileCardProps) {
           </p>
         </div>
 
-        {/* Footer */}
         <CardFooter className="mt-auto flex w-full justify-center border-t border-white/5 bg-white/1 py-2">
           <span className="text-[10px] font-black tracking-widest text-zinc-500 transition-colors group-hover:text-zinc-100">
             View Profile →

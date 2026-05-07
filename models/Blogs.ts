@@ -3,7 +3,7 @@ import mongoose, { model, models } from "mongoose"
 const BlogSchema = new mongoose.Schema({
   title: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
-  content: { type: String, required: true }, // Store Markdown here
+  content: { type: String, required: true },
   description: { type: String, required: true },
   tags: [{ type: String }], // Your hashtags: ["NextJS", "Gaming", "ToneHunt"]
   isFeatured: {
@@ -11,14 +11,12 @@ const BlogSchema = new mongoose.Schema({
     default: false,
   },
 
-  // Supabase Storage
-  coverImageUrl: { type: String, required: true }, // The URL from your Supabase bucket
+  coverImageUrl: { type: String, required: true },
 
-  // Metadata
   category: {
     type: String,
     required: true,
-    enum: ["Development", "Gaming", "Music", "General"], // Restricts categories
+    enum: ["Development", "Gaming", "Music", "General"],
   },
 
   datePublished: { type: Date, default: Date.now },

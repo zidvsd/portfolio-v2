@@ -21,7 +21,6 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
   })
 
   const onSubmit = async (data: ContactInput) => {
-    // This only runs if Zod validation passes
     await onSuccess(data)
     reset()
   }
@@ -31,7 +30,6 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-6 rounded-sm border bg-zinc-100 p-6 shadow-md dark:bg-card"
     >
-      {/* Row 1: Full Name and Email */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <label htmlFor="name" className="text-xs">
@@ -72,7 +70,6 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
         </div>
       </div>
 
-      {/* Row 2: Subject */}
       <div className="space-y-2">
         <label htmlFor="subject" className="text-xs">
           Subject
@@ -92,7 +89,6 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
         )}
       </div>
 
-      {/* Row 3: Message Textbox */}
       <div className="space-y-2">
         <label htmlFor="message" className="text-xs">
           Message
@@ -111,7 +107,6 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
         </p>
       </div>
 
-      {/* Submit Button */}
       <Button
         type="submit"
         disabled={isSubmitting}

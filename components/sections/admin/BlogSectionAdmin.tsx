@@ -1,4 +1,3 @@
-// components/sections/blog/BlogSectionAdmin.tsx
 import { getBlogs } from "@/lib/services/queries"
 import BlogAdminCard from "@/components/BlogAdminCard"
 export default async function BlogSectionAdmin() {

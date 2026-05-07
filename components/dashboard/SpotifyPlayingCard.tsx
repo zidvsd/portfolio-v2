@@ -28,21 +28,19 @@ export default async function SpotifyPlayingCard() {
     <Link href={profileUrl} target="_blank" className="block w-full">
       <Card className="group transition- relative overflow-hidden border py-0 shadow-md backdrop-blur-md">
         <CardContent className="p-0">
-          {/* Main Layout: Horizontal for shorter height */}
           <div className="flex items-stretch">
-            {/* Left Section: Profile Avatar - Full Height */}
             <div className="relative flex w-24 shrink-0 overflow-hidden border-r border-white/5 sm:w-30 md:w-32 lg:w-34">
               {profileImage && (
                 <Image
                   src={profileImage}
                   alt={profileName}
                   fill
+                  sizes="128px"
                   className="object-cover"
                 />
               )}
             </div>
 
-            {/* Right Section: Content */}
             <div className="flex min-w-0 flex-1 flex-col justify-center px-4 py-4 sm:py-6 lg:py-4">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="truncate text-lg font-bold transition-colors group-hover:text-green-500">
@@ -54,7 +52,6 @@ export default async function SpotifyPlayingCard() {
                 </div>
               </div>
 
-              {/* Dynamic Bottom Section */}
               <div className="mt-2 border-t pt-2">
                 {isPlaying ? (
                   <div className="flex items-center gap-2">
@@ -64,6 +61,7 @@ export default async function SpotifyPlayingCard() {
                           src={albumImageUrl}
                           alt={title}
                           fill
+                          sizes="80px"
                           className="object-cover"
                         />
                       )}
@@ -85,7 +83,6 @@ export default async function SpotifyPlayingCard() {
             </div>
           </div>
 
-          {/* Bottom Progress/Glow Line */}
           <div
             className={`h-px w-full transition-colors ${isPlaying ? "animate-pulse bg-green-500" : "bg-white/5"}`}
           />

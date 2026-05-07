@@ -32,7 +32,7 @@ export function FeaturedCarousel({ projects }: { projects: any[] }) {
                 viewport={{ once: true }}
                 transition={{
                   duration: 0.7,
-                  delay: index * 0.07, // Staggering each card
+                  delay: index * 0.07,
                   ease: [0.21, 0.47, 0.32, 0.98],
                 }}
                 className="h-full"

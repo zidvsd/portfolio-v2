@@ -24,7 +24,6 @@ export function BlogFilterBar({
 }: FilterBarProps) {
   return (
     <div className="flex w-full flex-col gap-4">
-      {/* Search Row */}
       <div className="flex w-full items-center gap-2">
         <div className="w-full">
           <SearchInput onSearch={setSearchQuery} value={searchQuery} />
@@ -36,7 +35,6 @@ export function BlogFilterBar({
         )}
       </div>
 
-      {/* Categories Row */}
       <div className="no-scrollbar flex flex-wrap gap-2 overflow-x-auto pb-2">
         {categories.map((category) => (
           <Button

@@ -20,7 +20,6 @@ export default function ChatToggle() {
   const [isLoading, setIsLoading] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
@@ -59,7 +58,6 @@ export default function ChatToggle() {
     <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end">
       {isOpen && (
         <div className="mb-4 flex h-112 w-80 animate-in flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl duration-300 slide-in-from-bottom-5 fade-in">
-          {/* Header */}
           <div className="flex items-center justify-between border-b bg-muted/30 p-4">
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold tracking-tight">
@@ -77,7 +75,6 @@ export default function ChatToggle() {
             </Button>
           </div>
 
-          {/* Messages Area */}
           <div
             ref={scrollRef}
             className="flex-1 space-y-4 overflow-y-auto p-4 text-sm"
@@ -114,7 +111,6 @@ export default function ChatToggle() {
             )}
           </div>
 
-          {/* Input Area */}
           <form
             onSubmit={handleSendMessage}
             className="flex gap-2 border-t bg-muted/10 p-4"
@@ -137,7 +133,6 @@ export default function ChatToggle() {
         </div>
       )}
 
-      {/* Toggle Button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
         className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition-all hover:scale-110 active:scale-90"

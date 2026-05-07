@@ -61,7 +61,6 @@ export function SignupForm({
         callbackURL: "/chatroom",
       },
       {
-        // In newer versions, the second argument IS the fetchOptions object
         onRequest: () => {
           toast.loading("Connecting to account...", { id: "auth-toast" })
         },
@@ -130,7 +129,6 @@ export function SignupForm({
                     />
                   </Field>
                 </div>
-                {/* Show password errors if they exist */}
                 {(errors.password || errors.confirmPassword) && (
                   <p className="mt-1 text-[10px] text-red-500">
                     {errors.password?.message ||

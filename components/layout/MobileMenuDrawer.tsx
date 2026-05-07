@@ -1,14 +1,14 @@
 "use client"
 
 import { useToggle } from "@uidotdev/usehooks"
-import { usePathname, useRouter } from "next/navigation" // Added useRouter
+import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 import navs from "@/lib/json/navs.json"
 import { Button } from "@base-ui/react"
 import { cn } from "@/lib/utils"
 import StaggerWrapper from "../motion/StaggerWrapper"
 import { StaggerItem } from "../motion/StaggerItem"
-import { authClient } from "@/lib/auth/auth-client" // Import your client
+import { authClient } from "@/lib/auth/auth-client"
 import Image from "next/image"
 import { toast } from "sonner"
 import {
@@ -40,7 +40,6 @@ const IconMap: Record<string, any> = {
   ChatCenteredDotsIcon,
 }
 
-// 1. Pass 'user' as a prop from the Server Layout/Header
 export default function MobileMenuDrawer({ user }: { user: any }) {
   const [isOpen, toggleMenu] = useToggle(false)
   const pathname = usePathname()

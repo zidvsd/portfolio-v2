@@ -1,4 +1,3 @@
-// app/studio/blogs/page.tsx
 export const dynamic = "force-dynamic"
 
 import { Suspense } from "react"
@@ -11,7 +10,6 @@ import BlogSectionAdmin from "@/components/sections/admin/BlogSectionAdmin"
 export default function StudioBlogsPage() {
   return (
     <div className="space-y-8">
-      {/* Header Section */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="space-y-2">
           <h1 className="text-2xl font-bold tracking-tight">Manage Blogs</h1>
@@ -29,7 +27,6 @@ export default function StudioBlogsPage() {
 
       <hr className="border-border" />
 
-      {/* Blog List with Admin Actions */}
       <Suspense fallback={<SkeletonLoader variant="blog-list" />}>
         <BlogSectionAdmin />
       </Suspense>

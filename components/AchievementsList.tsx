@@ -6,16 +6,13 @@ import { Button } from "./ui/button"
 import { Achievement } from "@/lib/types/achievement"
 import StaggerWrapper from "./motion/StaggerWrapper"
 import { StaggerItem } from "./motion/StaggerItem"
-// 1. Define the FilterType so useState knows what 'filter' can be
 type FilterType = "all" | "certificate" | "badge"
 
-// 2. Define the Props interface correctly
 interface AchievementListProps {
   initialData: Achievement[]
 }
 
 export default function AchievementList({ initialData }: AchievementListProps) {
-  // 3. Apply the FilterType here
   const [filter, setFilter] = useState<FilterType>("all")
 
   const filtered = initialData.filter((item) =>

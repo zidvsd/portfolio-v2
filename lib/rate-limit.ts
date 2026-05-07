@@ -46,7 +46,6 @@ export async function checkRateLimit(
     return { rateLimited: true }
   }
 
-  // increment
   entry.count += 1
   store.set(key, entry)
 
