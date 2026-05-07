@@ -6,7 +6,7 @@ import MainLayout from "@/components/layout/MainLayout"
 import ChatToggle from "@/components/ChatToggle"
 import ScrollToTop from "@/components/ScrollToTop"
 import type { Metadata } from "next"
-
+import NextTopLoader from "nextjs-toploader"
 export const metadata: Metadata = {
   title: "Rashid Visda - Full-Stack Developer Portfolio",
   description:
@@ -113,6 +113,7 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
+          <NextTopLoader height={2} showSpinner={false} color="#432dd7" />
           <MainLayout>{children}</MainLayout>
           <ScrollToTop />
         </ThemeProvider>
