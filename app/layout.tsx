@@ -7,6 +7,7 @@ import ChatToggle from "@/components/ChatToggle"
 import ScrollToTop from "@/components/ScrollToTop"
 import type { Metadata } from "next"
 import NextTopLoader from "nextjs-toploader"
+
 export const metadata: Metadata = {
   title: "Rashid Visda - Full-Stack Developer Portfolio",
   description:

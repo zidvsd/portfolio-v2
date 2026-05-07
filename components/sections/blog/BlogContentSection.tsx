@@ -1,7 +1,6 @@
-import { getBlogBySlug } from "@/lib/services/queries"
 import BlogSinglePage from "@/components/blog/BlogSinglePage"
-import { notFound } from "next/navigation"
+import { Blog } from "@/lib/types/blog"
 
-export default async function BlogContentSection({ blog }: { blog: any }) {
+export default async function BlogContentSection({ blog }: { blog: Blog }) {
   return <BlogSinglePage blog={blog} />
 }

@@ -74,7 +74,7 @@ export async function getBlogBySlug(blogSlug: string) {
         return null
       }
     },
-    ["blog-data", blogSlug],
+    ["blog-by-slug", blogSlug],
     {
       tags: ["blogs", `blog-${blogSlug}`],
       revalidate: 60,
@@ -95,7 +95,7 @@ export async function getBlogById(blogId: string) {
         return null
       }
     },
-    ["blog-data", blogId],
+    ["blog-by-id", blogId],
     {
       tags: ["blogs", `blog-${blogId}`],
       revalidate: 60,

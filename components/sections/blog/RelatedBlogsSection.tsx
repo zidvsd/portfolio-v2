@@ -6,7 +6,7 @@ import Link from "next/link"
 import InView from "@/components/motion/InView"
 import { Blog } from "@/lib/types/blog"
 
-export default async function RelatedBlogsSection({ blog }: { blog: any }) {
+export default async function RelatedBlogsSection({ blog }: { blog: Blog }) {
   if (!blog) return null
 
   const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug)

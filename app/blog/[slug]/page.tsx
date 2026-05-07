@@ -55,9 +55,10 @@ export default async function BlogPage({
 }) {
   const { slug } = await params
   if (!slug) notFound()
-
-  const user = await getUserSession()
-  const blog = await getBlogBySlug(slug)
+  const [user, blog] = await Promise.all([
+    getUserSession(),
+    getBlogBySlug(slug),
+  ])
 
   if (!blog) notFound()
 
