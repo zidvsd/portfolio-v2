@@ -32,26 +32,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  icons: {
-    icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon.ico" },
-    ],
-    apple: "/apple-touch-icon.png",
-    other: [
-      {
-        rel: "android-chrome",
-        url: "/android-chrome-192x192.png",
-        sizes: "192x192",
-      },
-      {
-        rel: "android-chrome",
-        url: "/android-chrome-512x512.png",
-        sizes: "512x512",
-      },
-    ],
-  },
   openGraph: {
     title: "Rashid Visda - Web Developer Portfolio",
     description:
@@ -103,7 +83,9 @@ export default function RootLayout({
               url: "https://zidvsd.site",
               logo: {
                 "@type": "ImageObject",
-                url: "https://zidvsd.site/favicon.ico",
+                url: "android-chrome-512x512.png",
+                width: 512,
+                height: 512,
               },
               address: {
                 "@type": "PostalAddress",
