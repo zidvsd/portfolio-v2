@@ -48,8 +48,8 @@ export async function getBlogs() {
         const data = await Blog.find({}).sort({ datePublished: -1 }).lean()
 
         return JSON.parse(JSON.stringify(data))
-      } catch (err) {
-        console.error("getBlogs error:", err)
+      } catch (err: any) {
+        console.error("getBlogs error:", err.message)
         return []
       }
     },
