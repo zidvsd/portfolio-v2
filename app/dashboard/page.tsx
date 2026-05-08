@@ -1,9 +1,12 @@
 import { Suspense } from "react"
-import dynamic from "next/dynamic"
+import dynamicImport from "next/dynamic"
 import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
 import type { Metadata } from "next"
+
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "Dashboard | Rashid Visda",
 
@@ -23,21 +26,21 @@ export const metadata: Metadata = {
   },
 }
 
-const WakaTimeCardWrapper = dynamic(
+const WakaTimeCardWrapper = dynamicImport(
   () => import("@/components/dashboard/WakaTimeWrapper"),
   {
     loading: () => <SkeletonLoader variant="wakatime-card" />,
   }
 )
 
-const SpotifyCard = dynamic(
+const SpotifyCard = dynamicImport(
   () => import("@/components/dashboard/SpotifyCard"),
   {
     loading: () => <SkeletonLoader variant="spotify-card" />,
   }
 )
 
-const CodewarsCardWrapper = dynamic(
+const CodewarsCardWrapper = dynamicImport(
   () => import("@/components/dashboard/CodewarsCardWrapper"),
   {
     loading: () => <SkeletonLoader variant="codewars-card" />,
