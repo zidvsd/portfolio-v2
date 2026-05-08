@@ -33,17 +33,25 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-  icon: [
-    { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    { url: "/favicon.ico" },
-  ],
-  apple: "/apple-touch-icon.png",
-  other: [
-    { rel: "android-chrome", url: "/android-chrome-192x192.png", sizes: "192x192" },
-    { rel: "android-chrome", url: "/android-chrome-512x512.png", sizes: "512x512" },
-  ],
-},
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "android-chrome",
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+      },
+      {
+        rel: "android-chrome",
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+      },
+    ],
+  },
   openGraph: {
     title: "Rashid Visda - Web Developer Portfolio",
     description:
@@ -83,36 +91,6 @@ export default function RootLayout({
       )}
     >
       <head>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/android-chrome-192x192.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="512x512"
-          href="/android-chrome-512x512.png"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -125,7 +103,7 @@ export default function RootLayout({
               url: "https://zidvsd.site",
               logo: {
                 "@type": "ImageObject",
-                url: "https://zidvsd.site/favicon.png",
+                url: "https://zidvsd.site/favicon.ico",
               },
               address: {
                 "@type": "PostalAddress",
