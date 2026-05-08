@@ -5,6 +5,7 @@
 A modern, feature-rich developer portfolio built with **Next.js 16**, **React 19**, and **TypeScript**. Showcase your projects, write about your journey, and connect real-time integrations with GitHub, Spotify, Codewars, WakaTime, and more—all powered by AI chat and a beautiful, responsive design.
 
 **Live demo:** https://zidvsd.site/
+
 ## Table of Contents
 
 - [What You Get](#what-you-get)
@@ -12,6 +13,13 @@ A modern, feature-rich developer portfolio built with **Next.js 16**, **React 19
 - [Configuration](#configuration)
 - [Project Structure](#project-structure)
 - [Core Features & Integrations](#core-features--integrations)
+  - [Authentication](#authentication)
+  - [GitHub Integration](#github-integration)
+  - [Spotify Integration](#spotify-integration)
+  - [AI Chat Assistant](#ai-chat-assistant)
+  - [WakaTime & Codewars Integration](#wakatime--codewars-integration)
+  - [Contact Form with Email](#contact-form-with-email)
+- [Admin Dashboard](#admin-dashboard)
 - [Customization](#customization)
 - [API Routes](#api-routes)
 - [Database](#database)
@@ -21,6 +29,18 @@ A modern, feature-rich developer portfolio built with **Next.js 16**, **React 19
 - [License](#license)
 
 ## What You Get
+
+### ✨ Feature Highlights
+
+✅ **Real-time Integrations** — GitHub, Spotify, Codewars, WakaTime  
+✅ **AI Chat Assistant** — Google Gemini-powered visitor interactions  
+✅ **Blog System** — Markdown support with admin dashboard  
+✅ **Comments** — Global and blog-specific comment threads  
+✅ **Authentication** — Better Auth with session management  
+✅ **Dark/Light Theme** — Seamless theme switching  
+✅ **Mobile-First Design** — Fully responsive and accessible  
+✅ **Email Integration** — Contact form with Resend  
+✅ **Deployment Ready** — Optimized for Vercel or any Node.js host
 
 ### Modern Tech Stack
 
@@ -260,6 +280,28 @@ portfolio-v2/
 
 ## Core Features & Integrations
 
+### Authentication
+
+This portfolio uses **Better Auth** for secure authentication with MongoDB integration:
+
+- **Session Management** — Automatic session handling with secure tokens
+- **User Management** — Sign up, login, and profile management
+- **Bearer Token Support** — API authentication for protected routes
+- **Protected Routes** — Admin sections require authentication
+
+```tsx
+// app/(admin)/studio/page.tsx
+import { auth } from "@/lib/auth/auth"
+
+export default async function AdminPage() {
+  const session = await auth.api.getSession()
+  if (!session) {
+    redirect("/login")
+  }
+  return <AdminDashboard />
+}
+```
+
 ### GitHub Integration
 
 Automatically fetch and display your repositories with real-time data:
@@ -364,6 +406,17 @@ Submit contact requests with automatic email delivery via Resend:
 
 Responses are validated with Zod and sent to your email instantly.
 
+## Admin Dashboard
+
+Access the protected admin studio at `/admin/studio` to manage your portfolio content:
+
+- **Blog Management** — Create, edit, and publish blog posts with Markdown support
+- **View Submissions** — Review contact form submissions and comments
+- **Profile Updates** — Manage your profile information and settings
+- **Integration Status** — Monitor connected services and API status
+
+The admin dashboard requires authentication via Better Auth. Ensure you're logged in to access restricted features.
+
 ## Customization
 
 ### Update Your Profile
@@ -463,6 +516,65 @@ Then import and use in [app/dashboard/page.tsx](app/dashboard/page.tsx).
 
 All API routes enforce request validation with Zod and return JSON responses.
 
+### GET/POST `/api/comments`
+
+Fetch or create comments with support for global and blog-specific comments.
+
+**GET Request:**
+
+```bash
+# Get global comments
+GET /api/comments?type=global
+
+# Get comments for a specific blog post
+GET /api/comments?type=blog&blogId=<blogId>
+```
+
+**GET Response:**
+
+```json
+{
+  "comments": [
+    {
+      "_id": "...",
+      "content": "Great article!",
+      "author": {
+        "name": "John Doe",
+        "email": "john@example.com"
+      },
+      "type": "blog",
+      "createdAt": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+**POST Request:**
+
+```json
+{
+  "content": "This is a comment",
+  "type": "blog",
+  "blogId": "<blogId>"
+}
+```
+
+**POST Response:**
+
+```json
+{
+  "success": true,
+  "comment": {
+    "_id": "...",
+    "content": "This is a comment",
+    "type": "blog",
+    "createdAt": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+**Rate Limiting:** Comments are rate-limited to 30 requests per minute per IP address.
+
 ### POST `/api/chat`
 
 Send a message to the AI chat assistant powered by Google Gemini.
@@ -536,9 +648,41 @@ This project uses **MongoDB** with **Mongoose** for schema validation and querie
 
 ### Mongoose Models
 
+#### User
+
+Manages user accounts, authentication, and sessions via Better Auth.
+
+```ts
+// models/User.ts
+{
+  email: string,
+  name: string,
+  password: string (hashed),
+  emailVerified: boolean,
+  image?: string,
+  createdAt: Date,
+  updatedAt: Date,
+}
+```
+
 #### Profile
 
 Stores user profile information and settings.
+
+#### Comments
+
+Blog post and global comments with user references.
+
+```ts
+// models/Comments.ts
+{
+  content: string,
+  blogPost: ObjectId (optional),
+  author: ObjectId (User reference),
+  type: "global" | "blog",
+  createdAt: Date,
+}
+```
 
 #### Blogs
 
@@ -620,7 +764,68 @@ npm run typecheck && npm run lint && npm run format
 - **Utility Functions** — Keep logic in `lib/` for reusability
 - **API Organization** — Group related API routes by feature
 
+## Deployment & Performance
+
+### Deploy to Vercel (Recommended)
+
+Vercel is the official Next.js platform with zero-config deployments:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Set environment variables in Vercel dashboard
+```
+
+[Deploy with Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
+
+### Performance Optimizations
+
+The portfolio is pre-optimized for speed:
+
+- **Server Components** — Reduces client-side JavaScript
+- **Image Optimization** — Next.js Image component with lazy loading
+- **Dynamic Imports** — Code splitting for better initial load time
+- **Database Caching** — Mongoose query optimization
+- **CDN Integration** — Static assets served globally on Vercel
+- **Turbopack** — 5-10x faster hot module replacement during development
+
+### Security Best Practices
+
+- **Environment Variables** — Never commit `.env.local` to version control
+- **API Route Protection** — Use authentication middleware for sensitive endpoints
+- **Rate Limiting** — Comments API includes built-in rate limiting (30 req/min)
+- **CORS** — Configured for cross-origin requests
+- **Input Validation** — All user inputs validated with Zod schemas
+- **Token Refresh** — Automatic token rotation for external services
+
 ## Troubleshooting
+
+### Common Issues
+
+#### "Cannot find module '@/...'"
+
+This means the path alias isn't configured correctly. Ensure your `tsconfig.json` has:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
+
+#### Authentication Not Working
+
+- Ensure `MONGODB_URI` is set in `.env.local`
+- Check that your MongoDB cluster has network access enabled
+- Clear browser cookies and restart the dev server
+- Verify Better Auth configuration in `lib/auth/auth.ts`
 
 ### Integrations Not Showing Data
 
@@ -652,6 +857,36 @@ mongosh "your-connection-string"
 # Use a different port
 npm run dev -- -p 3001
 ```
+
+## Quick Reference
+
+### Common Tasks
+
+| Task                     | Command             |
+| ------------------------ | ------------------- |
+| Start development server | `npm run dev`       |
+| Type checking            | `npm run typecheck` |
+| Format code              | `npm run format`    |
+| Lint code                | `npm run lint`      |
+| Build for production     | `npm run build`     |
+| Run production server    | `npm start`         |
+
+### Key Files to Edit
+
+| File                               | Purpose               |
+| ---------------------------------- | --------------------- |
+| `app/page.tsx`                     | Home page layout      |
+| `lib/constants/projects-config.ts` | Featured projects     |
+| `models/Profile.ts`                | User profile schema   |
+| `lib/services/gemini.ts`           | AI chat configuration |
+| `tailwind.config.ts`               | Theme customization   |
+
+### Environment Variables Quick Setup
+
+1. Copy `.env.example` to `.env.local` (if example exists)
+2. Add `MONGODB_URI` (required)
+3. Add optional integration keys (GitHub, Spotify, etc.)
+4. Restart dev server: `npm run dev`
 
 ## Contributing
 
@@ -710,4 +945,3 @@ You're free to use this portfolio as a template for your own projects!
 - [Request a Feature](../../issues/new)
 - [Start a Discussion](../../discussions)
 - Contact via the portfolio's contact form
-
