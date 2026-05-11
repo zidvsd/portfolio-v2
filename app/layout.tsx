@@ -32,6 +32,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/https://zidvsd.site",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+      },
+    ],
+  },
   openGraph: {
     title: "Rashid Visda - Web Developer Portfolio",
     description:
