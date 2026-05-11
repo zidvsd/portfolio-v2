@@ -33,6 +33,16 @@ const nextConfig = {
     appIsrStatus: false, // Disables the "Static" or "Dynamic" indicator
     buildActivity: false, // Disables the "Building..." animation
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.zidvsd.site" }],
+        destination: "https://zidvsd.site/:path*",
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

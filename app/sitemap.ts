@@ -23,39 +23,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url: "https://zidvsd.site",
-      lastModified: new Date(),
+      lastModified: new Date("2026-05-01"),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: "https://zidvsd.site/about",
-      lastModified: new Date(),
+      lastModified: new Date("2026-05-01"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: "https://zidvsd.site/projects",
-      lastModified: new Date(),
+      lastModified: new Date("2026-05-01"),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://zidvsd.site/blog",
-      lastModified: new Date(),
+      lastModified: new Date("2026-05-01"),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: "https://zidvsd.site/achievements",
-      lastModified: new Date(),
+      lastModified: new Date("2026-05-01"),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: "https://zidvsd.site/contact",
-      lastModified: new Date(),
+      lastModified: new Date("2026-05-01"),
       changeFrequency: "yearly",
-      priority: 0.7,
+      priority: 0.5, // ✅ Lowered — contact pages aren't that important for SEO
     },
     ...blogUrls,
   ]

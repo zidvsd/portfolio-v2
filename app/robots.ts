@@ -8,5 +8,6 @@ export default function robots() {
       },
     ],
     sitemap: "https://zidvsd.site/sitemap.xml",
+    host: "https://zidvsd.site",
   }
 }

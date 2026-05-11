@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "Web Developer Portfolio",
   ],
   alternates: {
-    canonical: "/",
+    canonical: "/https://zidvsd.site",
   },
   openGraph: {
     title: "Rashid Visda - Web Developer Portfolio",
@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     siteName: "Rashid Visda Portfolio",
     locale: "en_US",
     type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -81,12 +85,7 @@ export default function RootLayout({
               jobTitle: "Full-Stack Developer",
               alternateName: ["Zid Visda", "zidvsd", "Zid"],
               url: "https://zidvsd.site",
-              logo: {
-                "@type": "ImageObject",
-                url: "android-chrome-512x512.png",
-                width: 512,
-                height: 512,
-              },
+              image: "https://zidvsd.site/android-chrome-512x512.png",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Laguna",
