@@ -6,7 +6,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 export async function POST(req: NextRequest) {
   const { rateLimited } = await checkRateLimit(req, {
-    limit: 2,
+    limit: 5,
     windowMs: 30_000,
   })
 
