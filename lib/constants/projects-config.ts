@@ -49,10 +49,4 @@ export const MY_PROJECTS = [
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
     image: "/images/projects/portfolio.png",
   },
-  {
-    name: "Recipe App",
-    slug: "recipe-app",
-    deployUrl: "https://recipe-app-azure-gamma.vercel.app/",
-    image: "/images/projects/recipe-app.png",
-  },
 ]
