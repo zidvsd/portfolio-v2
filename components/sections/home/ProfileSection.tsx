@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
+
 import {
+  DownloadSimpleIcon,
   GithubLogoIcon,
   LinkedinLogoIcon,
   EnvelopeSimpleIcon,
@@ -62,6 +64,15 @@ export default async function ProfileSection() {
               href={profile.socials.email}
               icon={<EnvelopeSimpleIcon size={22} />}
             />
+            <Link
+              href="/Rashid_Visda_Resume.pdf"
+              download
+              target="_blank"
+              className="flex h-10 items-center gap-2 rounded-lg border border-border px-3 text-sm font-medium transition-all hover:bg-neutral-100 hover:text-primary dark:text-white dark:hover:bg-neutral-800 dark:hover:text-primary"
+            >
+              <DownloadSimpleIcon size={18} weight="bold" />
+              <span className="hidden sm:inline">Resume</span>
+            </Link>
           </div>
         </div>
         {/* Bio: Adjusted line-height for better mobile readability */}
