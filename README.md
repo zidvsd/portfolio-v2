@@ -30,17 +30,17 @@ A modern, feature-rich developer portfolio built with **Next.js 16**, **React 19
 
 ## What You Get
 
-### ✨ Feature Highlights
+### Feature Highlights
 
-✅ **Real-time Integrations** — GitHub, Spotify, Codewars, WakaTime  
-✅ **AI Chat Assistant** — Google Gemini-powered visitor interactions  
-✅ **Blog System** — Markdown support with admin dashboard  
-✅ **Comments** — Global and blog-specific comment threads  
-✅ **Authentication** — Better Auth with session management  
-✅ **Dark/Light Theme** — Seamless theme switching  
-✅ **Mobile-First Design** — Fully responsive and accessible  
-✅ **Email Integration** — Contact form with Resend  
-✅ **Deployment Ready** — Optimized for Vercel or any Node.js host
+**Real-time Integrations** — GitHub, Spotify, Codewars, WakaTime  
+**AI Chat Assistant** — Google Gemini-powered visitor interactions  
+**Blog System** — Markdown support with admin dashboard  
+**Comments** — Global and blog-specific comment threads  
+**Authentication** — Better Auth with session management  
+**Dark/Light Theme** — Seamless theme switching  
+**Mobile-First Design** — Fully responsive and accessible  
+**Email Integration** — Contact form with Resend  
+**Deployment Ready** — Optimized for Vercel or any Node.js host
 
 ### Modern Tech Stack
 

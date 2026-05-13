@@ -5,6 +5,7 @@ import ThemeToggle from "../themes/theme-toggle"
 import { Toaster } from "sonner"
 import MotionWrapper from "../motion/MotionWrapper"
 import { getUserSession } from "@/lib/auth/auth-util"
+
 export default async function MainLayout({
   children,
 }: {
