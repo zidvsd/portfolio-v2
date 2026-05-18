@@ -19,6 +19,12 @@ export const MY_PROJECTS = [
     image: "/images/projects/kita-jobs-app.png",
   },
   {
+    name: "Corte",
+    slug: "corte",
+    deployUrl: "https://corte-beige.vercel.app/",
+    image: "/images/projects/corte.png",
+  },
+  {
     name: "Clothora",
     slug: "clothora",
     deployUrl: "https://clothora-amber.vercel.app/",
