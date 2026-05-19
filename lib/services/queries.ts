@@ -39,6 +39,31 @@ export async function getAchievements() {
     { tags: ["achievements"], revalidate: 60 }
   )()
 }
+export async function getAchievementById(id: string) {
+  return unstable_cache(
+    async function () {
+      await connectDb()
+      const data = await Achievements.findById(id).lean()
+      return JSON.parse(JSON.stringify(data))
+    },
+    [`achievement-${id}`],
+    { tags: ["achievements", `achievement-${id}`], revalidate: 60 }
+  )()
+}
+
+// uncached fetch
+export async function getAchievementsAdmin() {
+  await connectDb()
+  const data = await Achievements.find({}).sort({ dateIssued: -1 }).lean()
+  return JSON.parse(JSON.stringify(data))
+}
+
+export async function getAdminAchievementById(id: string) {
+  await connectDb()
+  const data = await Achievements.findById(id).lean()
+  return JSON.parse(JSON.stringify(data))
+}
+
 export async function getBlogs() {
   return unstable_cache(
     async function () {
