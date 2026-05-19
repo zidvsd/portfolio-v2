@@ -44,12 +44,6 @@ export const MY_PROJECTS = [
     isFeatured: true,
   },
   {
-    name: "Le Dream",
-    slug: "le-dream",
-    deployUrl: "https://le-dream.vercel.app/",
-    image: "/images/projects/le-dream.png",
-  },
-  {
     name: "Portfolio",
     slug: "portfolio",
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
