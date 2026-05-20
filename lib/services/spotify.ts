@@ -38,6 +38,12 @@ export const getSpotifyProfile = async () => {
         },
       })
 
+      console.log(
+        "Spotify profile status:",
+        res.status,
+        await res.clone().text()
+      )
+
       if (!res.ok) return null
       return res.json()
     },

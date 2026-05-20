@@ -7,16 +7,12 @@ import { ArrowSquareOutIcon } from "@phosphor-icons/react/dist/ssr"
 import { Button } from "../ui/button"
 import InView from "../motion/InView"
 export default async function SpotifyCard() {
-  const [playlistsRes, profile] = await Promise.all([
-    getUserPlaylist(),
-    getSpotifyProfile(),
-  ])
+  const playlistsRes = await getUserPlaylist()
   const spotifyPlaylists =
     playlistsRes?.items?.filter((p: any) => p.public === true) || []
 
   return (
     <InView className="space-y-6">
-      {/* Header Section */}
       <header className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -27,26 +23,18 @@ export default async function SpotifyCard() {
               Listening Activity
             </h1>
           </div>
-          <a href={profile?.external_urls?.spotify} target="_blank">
+          <a href="https://open.spotify.com" target="_blank">
             <Button variant="ghost">
               <ArrowSquareOutIcon />
             </Button>
           </a>
         </div>
-
-        <p className="flex items-center leading-relaxed text-muted-foreground">
-          Real-time music & coding vibes from the past week
+        <p className="text-muted-foreground">
+          Playlists & real-time listening stats via Last.fm
         </p>
       </header>
 
-      {/* Unified Card */}
-      <div>
-        <SpotifyPlayingCard />
-      </div>
-
-      <div className="mt-0">
-        <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
-      </div>
+      <SpotifyPlaylistCarousel playlists={spotifyPlaylists} />
     </InView>
   )
 }
