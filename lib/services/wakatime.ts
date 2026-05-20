@@ -1,12 +1,13 @@
 // src/lib/queries.ts
 import { unstable_cache } from "next/cache"
-const encodedKey = Buffer.from(process.env.WAKATIME_API_KEY || "").toString(
-  "base64"
-)
 
 export function getWakaTimeAllTime() {
   return unstable_cache(
     async () => {
+      const encodedKey = Buffer.from(
+        process.env.WAKATIME_API_KEY || ""
+      ).toString("base64")
+
       const res = await fetch(
         "https://wakatime.com/api/v1/users/current/all_time_since_today",
         {
@@ -14,6 +15,10 @@ export function getWakaTimeAllTime() {
           next: { revalidate: 86400 }, // Lifetime doesn't need to update every hour
         }
       )
+      if (!res.ok) {
+        console.error(`WakaTime all-time error: ${res.status}`)
+        return null
+      }
       const json = await res.json()
       return json.data
     },
@@ -25,6 +30,10 @@ export function getWakaTimeAllTime() {
 export function getWakaTimeWeeklyStats() {
   return unstable_cache(
     async () => {
+      const encodedKey = Buffer.from(
+        process.env.WAKATIME_API_KEY || ""
+      ).toString("base64")
+
       const res = await fetch(
         "https://wakatime.com/api/v1/users/current/stats/last_7_days",
         {
@@ -32,6 +41,10 @@ export function getWakaTimeWeeklyStats() {
           next: { revalidate: 60 },
         }
       )
+      if (!res.ok) {
+        console.error(`WakaTime all-time error: ${res.status}`)
+        return null
+      }
       const json = await res.json()
       return json.data // This will contain .languages, .editors, etc.
     },

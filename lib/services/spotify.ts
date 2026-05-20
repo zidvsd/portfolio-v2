@@ -20,7 +20,10 @@ async function getAccessToken() {
       refresh_token: refresh_token!,
     }),
   })
-
+  if (!response.ok) {
+    console.error(`Spotify token error: ${response.status}`)
+    return { access_token: null }
+  }
   return response.json()
 }
 
