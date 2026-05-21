@@ -44,6 +44,12 @@ export const MY_PROJECTS = [
     isFeatured: true,
   },
   {
+    name: "Pulse Fit",
+    slug: "pulse-fit",
+    deployUrl: "https://pulse-fit-theta.vercel.app/",
+    image: "/images/projects/pulse-fit.png",
+  },
+  {
     name: "Portfolio",
     slug: "portfolio",
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
