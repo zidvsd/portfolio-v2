@@ -11,9 +11,7 @@ export default async function ProjectDetailSection({
   return (
     <div className="space-y-6">
       {/* Description now streams in here */}
-      <p className="max-w-xl text-lg text-muted-foreground">
-        {githubData?.description}
-      </p>
+      <p className="text-lg text-muted-foreground">{githubData?.description}</p>
 
       <ProjectDetail
         {...githubData}
