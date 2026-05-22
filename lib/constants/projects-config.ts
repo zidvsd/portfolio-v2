@@ -50,6 +50,12 @@ export const MY_PROJECTS = [
     image: "/images/projects/pulse-fit.png",
   },
   {
+    name: "Lumina Dental",
+    slug: "lumina-dental",
+    deployUrl: "https://pulse-fit-theta.vercel.app/",
+    image: "/images/projects/lumina-dental.png",
+  },
+  {
     name: "Portfolio",
     slug: "portfolio",
     deployUrl: "https://portfolio-five-sand-23.vercel.app/",
