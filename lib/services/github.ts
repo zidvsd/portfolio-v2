@@ -1,3 +1,4 @@
+"use server"
 import { unstable_cache } from "next/cache"
 import { MY_PROJECTS } from "../constants/projects-config"
 
@@ -182,24 +183,65 @@ export async function getGithubActivity() {
   return unstable_cache(
     async function () {
       try {
-        const res = await fetch(
-          "https://github-contributions-api.deno.dev/zidvsd.json"
-        )
+        const res = await fetch("https://api.github.com/graphql", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: `
+              query($userName: String!) {
+                user(login: $userName) {
+                  contributionsCollection {
+                    contributionCalendar {
+                      totalContributions
+                      weeks {
+                        contributionDays {
+                          contributionCount
+                          date
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            variables: { userName: "zidvsd" },
+          }),
+        })
 
         if (!res.ok) {
           throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
         }
 
-        const data = await res.json()
+        const json = await res.json()
+
+        if (json.errors) {
+          throw new Error(
+            `GitHub GraphQL error: ${JSON.stringify(json.errors)}`
+          )
+        }
+
+        const calendar =
+          json.data.user.contributionsCollection.contributionCalendar
+
+        // Keep the weeks[][] shape the card component expects,
+        // just pass contributionDays straight through since it
+        // already has { date, contributionCount }
+        const contributions = calendar.weeks.map(
+          (week: any) => week.contributionDays
+        )
+
         return {
-          contributions: data.contributions || [],
-          totalContributions: data.totalContributions,
+          contributions,
+          totalContributions: calendar.totalContributions,
         }
       } catch (error) {
         console.error("GitHub Fetch Error:", error)
         return {
           contributions: [],
-          totalContribution: 0,
+          totalContributions: 0,
         }
       }
     },
@@ -210,7 +252,75 @@ export async function getGithubActivity() {
     }
   )()
 }
+export async function getGithubActivityByYear(year: number) {
+  return unstable_cache(
+    async function () {
+      try {
+        const from = `${year}-01-01T00:00:00Z`
+        const to = `${year}-12-31T23:59:59Z`
 
+        const res = await fetch("https://api.github.com/graphql", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: `
+              query($userName: String!, $from: DateTime!, $to: DateTime!) {
+                user(login: $userName) {
+                  contributionsCollection(from: $from, to: $to) {
+                    contributionCalendar {
+                      totalContributions
+                      weeks {
+                        contributionDays {
+                          contributionCount
+                          date
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            variables: { userName: "zidvsd", from, to },
+          }),
+        })
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch GitHub activity: ${res.status}`)
+        }
+
+        const json = await res.json()
+        if (json.errors) {
+          throw new Error(
+            `GitHub GraphQL error: ${JSON.stringify(json.errors)}`
+          )
+        }
+
+        const calendar =
+          json.data.user.contributionsCollection.contributionCalendar
+
+        const contributions = calendar.weeks.map(
+          (week: any) => week.contributionDays
+        )
+
+        return {
+          contributions,
+          totalContributions: calendar.totalContributions,
+        }
+      } catch (error) {
+        console.error("GitHub Fetch Error:", error)
+        return { contributions: [], totalContributions: 0 }
+      }
+    },
+    [`github-activity-${year}`],
+    {
+      revalidate: 3600,
+      tags: ["github-contributions", `github-contributions-${year}`],
+    }
+  )()
+}
 export async function getPinnedRepos() {
   return unstable_cache(
     async function () {
