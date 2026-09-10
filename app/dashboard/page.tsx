@@ -33,12 +33,12 @@ const WakaTimeCardWrapper = dynamicImport(
   }
 )
 
-// const SpotifyCard = dynamicImport(
-//   () => import("@/components/dashboard/SpotifyCard"),
-//   {
-//     loading: () => <SkeletonLoader variant="spotify-card" />,
-//   }
-// )
+const SpotifyCard = dynamicImport(
+  () => import("@/components/dashboard/SpotifyCard"),
+  {
+    loading: () => <SkeletonLoader variant="spotify-card" />,
+  }
+)
 
 const CodewarsCardWrapper = dynamicImport(
   () => import("@/components/dashboard/CodewarsCardWrapper"),
@@ -71,9 +71,9 @@ export default async function page() {
 
       <hr className="border-border" />
 
-      {/* <Suspense fallback={<SkeletonLoader variant="spotify-card" />}>
+      <Suspense fallback={<SkeletonLoader variant="spotify-card" />}>
         <SpotifyCard />
-      </Suspense> */}
+      </Suspense>
 
       <hr className="border-border" />
 
