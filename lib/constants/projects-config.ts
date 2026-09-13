@@ -14,6 +14,13 @@ export const MY_PROJECTS = [
     isFeatured: true,
   },
   {
+    name: "Taply",
+    slug: "taply",
+    deployUrl: "https://taply-sooty.vercel.app/",
+    image: "/images/projects/taply.png",
+    isFeatured: true,
+  },
+  {
     name: "Kita Jobs",
     slug: "kita-jobs-app",
     image: "/images/projects/kita-jobs-app.png",
