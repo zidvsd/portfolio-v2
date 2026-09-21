@@ -28,41 +28,42 @@ async function getAccessToken() {
 }
 
 export const getSpotifyProfile = async () => {
-  return unstable_cache(
-    async () => {
-      const { access_token } = await getAccessToken()
+  const { access_token } = await getAccessToken()
 
-      const res = await fetch("https://api.spotify.com/v1/me", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      })
-
-      console.log(
-        "Spotify profile status:",
-        res.status,
-        await res.clone().text()
-      )
-
-      if (!res.ok) return null
-      return res.json()
+  const res = await fetch("https://api.spotify.com/v1/me", {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
     },
-    ["spotify-profile"],
-    { tags: ["spotify"], revalidate: 60 }
-  )()
+  })
+
+  console.log("Spotify profile:", res.status, await res.clone().text())
+
+  if (!res.ok) return null
+
+  return res.json()
 }
 
 export const getNowPlaying = async () => {
   return unstable_cache(
     async () => {
       const { access_token } = await getAccessToken()
+
       const res = await fetch(
         "https://api.spotify.com/v1/me/player/currently-playing",
         {
-          headers: { Authorization: `Bearer ${access_token}` },
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
         }
       )
-      if (res.status === 204 || res.status > 400) return null
+
+      console.log("Spotify now playing status:", res.status)
+      console.log("Spotify now playing response:", await res.clone().text())
+
+      if (res.status === 204) return null
+
+      if (!res.ok) return null
+
       return res.json()
     },
     ["spotify-now-playing"],

@@ -68,7 +68,7 @@ export default async function SpotifyPlayingCard() {
                     </div>
                     <div className="min-w-0">
                       <p className="truncate text-xs font-bold">{title}</p>
-                      <p className="text-[10px truncate">{artist}</p>
+                      <p className="truncate text-[10px]">{artist}</p>
                     </div>
                   </div>
                 ) : (
