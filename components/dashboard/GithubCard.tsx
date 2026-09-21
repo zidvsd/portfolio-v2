@@ -25,7 +25,6 @@ export default async function GithubCard() {
     getGithubStats(),
     getPinnedRepos(),
   ])
-  console.log("TOKEN PREFIX:", process.env.GITHUB_TOKEN?.slice(0, 10))
   return (
     <div className="space-y-6">
       {/* Header Section */}

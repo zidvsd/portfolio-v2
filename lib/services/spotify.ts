@@ -9,7 +9,18 @@ const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64")
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 
 async function getAccessToken() {
-  const response = await fetch(TOKEN_ENDPOINT, {
+  const clientId = process.env.SPOTIFY_CLIENT_ID
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
+  const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN
+
+  if (!clientId || !clientSecret || !refreshToken) {
+    console.error("Missing Spotify environment variables")
+    return { access_token: null }
+  }
+
+  const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
+
+  const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
       Authorization: `Basic ${basic}`,
@@ -17,16 +28,19 @@ async function getAccessToken() {
     },
     body: new URLSearchParams({
       grant_type: "refresh_token",
-      refresh_token: refresh_token!,
+      refresh_token: refreshToken,
     }),
   })
+
+  const data = await response.json()
+
   if (!response.ok) {
-    console.error(`Spotify token error: ${response.status}`)
+    console.error("Spotify token error:", response.status, data)
     return { access_token: null }
   }
-  return response.json()
-}
 
+  return data
+}
 export const getSpotifyProfile = async () => {
   const { access_token } = await getAccessToken()
 
