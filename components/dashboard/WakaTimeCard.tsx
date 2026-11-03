@@ -27,8 +27,8 @@ export default function WakaTimeCard({
 
   const editors = weeklyStats?.editors?.slice(0, 2) ?? []
 
-  const endDate = formatDate(allTimeStats?.range.end_date) || "—"
-  const joinedDate = formatDate(allTimeStats?.range.start_date) || "—"
+  const endDate = formatDate(allTimeStats?.range?.end_date) || "—"
+  const joinedDate = formatDate(allTimeStats?.range?.start_date) || "—"
   const lastUpdate = formatDate(allTimeStats?.modified_at) || "—"
 
   return (
