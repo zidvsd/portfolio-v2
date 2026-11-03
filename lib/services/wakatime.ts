@@ -1,54 +1,53 @@
-// src/lib/queries.ts
+
 import { unstable_cache } from "next/cache"
+
+async function fetchWakaTime(endpoint: string) {
+  const token = process.env.WAKATIME_ACCESS_TOKEN
+
+  if (!token) {
+    console.error("Missing WAKATIME_ACCESS_TOKEN")
+    return null
+  }
+
+  try {
+    const res = await fetch(
+      `https://api.wakatime.com/api/v1/users/current/${endpoint}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    if (!res.ok) {
+      console.error(
+        `WakaTime API error (${endpoint}):`,
+        res.status,
+        await res.text()
+      )
+      return null
+    }
+
+    const json = await res.json()
+    return json.data ?? null
+  } catch (error) {
+    console.error("WakaTime request failed:", error)
+    return null
+  }
+}
 
 export function getWakaTimeAllTime() {
   return unstable_cache(
-    async () => {
-      const encodedKey = Buffer.from(
-        process.env.WAKATIME_ACCESS_TOKEN || ""
-      ).toString("base64")
-
-      const res = await fetch(
-        "https://wakatime.com/api/v1/users/current/all_time_since_today",
-        {
-          headers: { Authorization: `Basic ${encodedKey}` },
-          next: { revalidate: 86400 }, // Lifetime doesn't need to update every hour
-        }
-      )
-      if (!res.ok) {
-        console.error(`WakaTime all-time error: ${res.status}`)
-        return null
-      }
-      const json = await res.json()
-      return json.data
-    },
-    ["waka-all-time"],
+    () => fetchWakaTime("all_time_since_today"),
+    ["waka-all-time-v2"],
     { revalidate: 86400 }
   )()
 }
 
 export function getWakaTimeWeeklyStats() {
   return unstable_cache(
-    async () => {
-      const encodedKey = Buffer.from(
-        process.env.WAKATIME_ACCESS_TOKEN || ""
-      ).toString("base64")
-
-      const res = await fetch(
-        "https://wakatime.com/api/v1/users/current/stats/last_7_days",
-        {
-          headers: { Authorization: `Basic ${encodedKey}` },
-          next: { revalidate: 60 },
-        }
-      )
-      if (!res.ok) {
-        console.error(`WakaTime all-time error: ${res.status}`)
-        return null
-      }
-      const json = await res.json()
-      return json.data // This will contain .languages, .editors, etc.
-    },
-    ["waka-weekly-stats"],
+    () => fetchWakaTime("stats/last_7_days"),
+    ["waka-weekly-stats-v2"],
     { revalidate: 60 }
   )()
 }
