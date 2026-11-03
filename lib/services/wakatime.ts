@@ -5,7 +5,7 @@ export function getWakaTimeAllTime() {
   return unstable_cache(
     async () => {
       const encodedKey = Buffer.from(
-        process.env.WAKATIME_API_KEY || ""
+        process.env.WAKATIME_ACCESS_TOKEN || ""
       ).toString("base64")
 
       const res = await fetch(
@@ -31,7 +31,7 @@ export function getWakaTimeWeeklyStats() {
   return unstable_cache(
     async () => {
       const encodedKey = Buffer.from(
-        process.env.WAKATIME_API_KEY || ""
+        process.env.WAKATIME_ACCESS_TOKEN || ""
       ).toString("base64")
 
       const res = await fetch(
