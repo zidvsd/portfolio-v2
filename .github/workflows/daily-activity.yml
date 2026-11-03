@@ -2,9 +2,9 @@
 name: Daily Activity
 
 on:
-schedule:
-  - cron: "0 1,4,7,10,13,16 * * *"
-  workflow_dispatch:
+    schedule:
+        - cron: "0 1,4,7,10,13,16 * * *"
+    workflow_dispatch:
 
 permissions:
   contents: write
