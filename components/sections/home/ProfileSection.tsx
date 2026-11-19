@@ -24,8 +24,6 @@ export default async function ProfileSection() {
     <div className="space-y-8">
       {/* Header & Socials */}
       <section className="space-y-6 md:space-y-4">
-        {" "}
-        {/* Increased mobile vertical spacing */}
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="space-y-3 md:space-y-2">
             <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
@@ -54,20 +52,23 @@ export default async function ProfileSection() {
           <div className="flex items-center gap-2 md:justify-end">
             <SocialLink
               href={profile.socials.github}
+              label="GitHub"
               icon={<GithubLogoIcon size={22} />}
             />
             <SocialLink
               href={profile.socials.linkedin}
+              label="LinkedIn"
               icon={<LinkedinLogoIcon size={22} />}
             />
             <SocialLink
               href={profile.socials.email}
+              label="Email"
               icon={<EnvelopeSimpleIcon size={22} />}
             />
             <Link
               href="/Rashid_Visda_Resume.pdf"
               download
-              target="_blank"
+              aria-label="Download resume"
               className="flex h-10 items-center gap-2 rounded-lg border border-border px-3 text-sm font-medium transition-all hover:bg-neutral-100 hover:text-primary dark:text-white dark:hover:bg-neutral-800 dark:hover:text-primary"
             >
               <DownloadSimpleIcon size={18} weight="bold" />
@@ -76,7 +77,7 @@ export default async function ProfileSection() {
           </div>
         </div>
         {/* Bio: Adjusted line-height for better mobile readability */}
-        <p className="text-base leading-relaxed text-muted-foreground md:text-xl md:leading-8">
+        <p className="max-w-[70ch] text-base leading-relaxed text-muted-foreground md:text-lg md:leading-8">
           {profile.bio}
         </p>
       </section>
@@ -86,10 +87,10 @@ export default async function ProfileSection() {
       {/* Tech Stack */}
       <section className="space-y-6">
         <div className="flex items-center gap-2">
-          <CodeIcon className="size-6 text-primary md:size-8" />
-          <h3 className="text-lg font-bold tracking-widest uppercase">
+          <CodeIcon className="size-6 text-primary" />
+          <h2 className="text-lg font-bold tracking-widest uppercase">
             Technical Stack
-          </h3>
+          </h2>
         </div>
         <StaggerWrapper
           delayStep={0.05}
@@ -106,11 +107,22 @@ export default async function ProfileSection() {
   )
 }
 
-function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
+function SocialLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string
+  label: string
+  icon: React.ReactNode
+}) {
   return (
     <Link
       href={href}
       target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      title={label}
       className="flex h-10 w-10 items-center justify-center rounded-lg border border-border transition-all hover:bg-neutral-100 hover:text-primary dark:text-white dark:hover:bg-neutral-800 dark:hover:text-primary"
     >
       {icon}
@@ -125,7 +137,7 @@ function SkillBadge({ name }: { name: string }) {
   }
   return (
     <div
-      className={`hover-utility flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all hover:scale-110 ${config.color} shadow`}
+      className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold ${config.color}`}
     >
       <Image
         unoptimized

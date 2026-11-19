@@ -66,7 +66,7 @@ export default function BlogSinglePage({ blog }: { blog: Blog }) {
           {tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-[10px] font-bold tracking-widest text-blue-500 uppercase"
+              className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-widest text-primary uppercase"
             >
               #{tag}
             </span>

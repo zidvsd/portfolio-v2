@@ -39,7 +39,7 @@ export function SignupForm({
       email: data.email,
       password: data.password,
       name: data.email.split("@")[0],
-      callbackURL: "/chatroom",
+      callbackURL: "/",
     })
 
     if (error) {
@@ -58,7 +58,7 @@ export function SignupForm({
     await authClient.signIn.social(
       {
         provider,
-        callbackURL: "/chatroom",
+        callbackURL: "/",
       },
       {
         onRequest: () => {

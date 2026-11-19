@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react"
 import { Spinner } from "./ui/spinner"
 import axios from "axios"
+import { AnimatePresence, motion } from "motion/react"
 import { Button } from "./ui/button"
 interface Message {
   role: "user" | "ai"
@@ -56,90 +57,104 @@ export default function ChatToggle() {
   }
 
   return (
-    <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end">
-      {isOpen && (
-        <div className="mb-4 flex h-112 w-80 animate-in flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl duration-300 slide-in-from-bottom-5 fade-in">
-          <div className="flex items-center justify-between border-b bg-muted/30 p-4">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-bold tracking-tight">
-                AI Assistant
-              </span>
-              <div
-                className={`h-2 w-2 rounded-full ${isLoading ? "animate-pulse bg-blue-500" : "bg-green-500"}`}
-              />
-            </div>
-            <Button
-              onClick={() => setIsOpen(false)}
-              className="hover:text-foreground"
-            >
-              <XIcon size={18} />
-            </Button>
-          </div>
-
-          <div
-            ref={scrollRef}
-            className="flex-1 space-y-4 overflow-y-auto p-4 text-sm"
+    <div className="fixed right-4 bottom-4 z-50 flex flex-col items-end sm:right-6 sm:bottom-6">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.95 }}
+            transition={{ type: "spring", duration: 0.35, bounce: 0.2 }}
+            style={{ originX: 1, originY: 1 }}
+            className="mb-4 flex h-112 w-80 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl"
           >
-            {messages.length === 0 && (
-              <p className="text-xs text-muted-foreground italic">
-                Yo! I'm Zid, I'm probably deep into a project or locked in on
-                gaming right now, but my digital self is here. What's up?
-              </p>
-            )}
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-              >
+            <div className="flex items-center justify-between border-b bg-muted/30 p-4">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold tracking-tight">
+                  AI Assistant
+                </span>
                 <div
-                  className={`max-w-[85%] rounded-2xl px-3 py-2 ${
-                    msg.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "border border-border bg-muted text-foreground"
-                  }`}
-                >
-                  {msg.content}
-                </div>
+                  className={`h-2 w-2 rounded-full ${isLoading ? "animate-pulse bg-blue-500" : "bg-green-500"}`}
+                />
               </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="flex items-center gap-2 rounded-2xl border border-border bg-muted px-3 py-2 text-xs text-muted-foreground">
-                  <Spinner className="size-3" />
-                  Thinking...
-                </div>
-              </div>
-            )}
-          </div>
+              <Button
+                onClick={() => setIsOpen(false)}
+                aria-label="Close chat"
+                className="hover:text-foreground"
+              >
+                <XIcon size={18} />
+              </Button>
+            </div>
 
-          <form
-            onSubmit={handleSendMessage}
-            className="flex gap-2 border-t bg-muted/10 p-4"
-          >
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              className="flex-1 bg-transparent text-sm focus:outline-none"
-            />
-            <Button
-              type="submit"
-              variant={"ghost"}
-              disabled={isLoading || !input.trim()}
-              className="text-primary transition-transform hover:scale-110 disabled:opacity-50"
+            <div
+              ref={scrollRef}
+              className="flex-1 space-y-4 overflow-y-auto p-4 text-sm"
             >
-              {isLoading ? (
-                <Spinner className="size-5" />
-              ) : (
-                <PaperPlaneRightIcon className="size-6" />
+              {messages.length === 0 && (
+                <p className="text-xs text-muted-foreground italic">
+                  Yo! I'm Zid, I'm probably deep into a project or locked in on
+                  gaming right now, but my digital self is here. What's up?
+                </p>
               )}
-            </Button>
-          </form>
-        </div>
-      )}
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-3 py-2 ${
+                      msg.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "border border-border bg-muted text-foreground"
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="flex items-center gap-2 rounded-2xl border border-border bg-muted px-3 py-2 text-xs text-muted-foreground">
+                    <Spinner className="size-3" />
+                    Thinking...
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <form
+              onSubmit={handleSendMessage}
+              className="flex gap-2 border-t bg-muted/10 p-4"
+            >
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type a message..."
+                aria-label="Message"
+                className="flex-1 bg-transparent text-sm focus:outline-none"
+              />
+              <Button
+                type="submit"
+                aria-label="Send"
+                variant={"ghost"}
+                disabled={isLoading || !input.trim()}
+                className="text-primary transition-transform hover:scale-110 disabled:opacity-50"
+              >
+                {isLoading ? (
+                  <Spinner className="size-5" />
+                ) : (
+                  <PaperPlaneRightIcon className="size-6" />
+                )}
+              </Button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close chat" : "Chat with my AI assistant"}
+        aria-expanded={isOpen}
         className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition-all hover:scale-110 active:scale-90"
       >
         {isOpen ? (

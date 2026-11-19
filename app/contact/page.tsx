@@ -1,31 +1,13 @@
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import ContactSection from "@/components/sections/contact/ContactSection"
 
-export const metadata: Metadata = {
-  title: "Contact | Rashid Visda - Full-Stack Developer",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact & Hire Me",
   description:
     "Get in touch with Rashid Visda for freelance work, collaborations, or full-stack development opportunities using React and Next.js.",
-
-  alternates: {
-    canonical: "https://zidvsd.site/contact",
-  },
-  keywords: [
-    "contact rashid visda",
-    "contact zid visda",
-    "hire full stack developer philippines",
-    "full stack developer contact",
-    "nextjs developer contact",
-    "freelance web developer",
-  ],
-
-  openGraph: {
-    title: "Contact | Rashid Visda",
-    description:
-      "Hire or collaborate with a full-stack developer specializing in React and Next.js.",
-    url: "https://zidvsd.site/contact",
-    type: "website",
-  },
-}
+  path: "/contact",
+})
 
 export default function ContactPage() {
   return <ContactSection />

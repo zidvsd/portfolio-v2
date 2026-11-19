@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, HTMLMotionProps, Variant } from "framer-motion"
+import { motion, HTMLMotionProps } from "motion/react"
 
 interface InViewProps extends HTMLMotionProps<"div"> {
   children: React.ReactNode
@@ -32,23 +32,18 @@ export default function InView({
     <motion.div
       initial={{
         opacity: 0,
+        filter: "blur(4px)",
         ...offsets[direction],
       }}
       whileInView={{
         opacity: 1,
+        filter: "blur(0px)",
         x: 0,
         y: 0,
       }}
-      viewport={{
-        once: true, // Only animate the first time it enters
-        amount: 0.5, // Trigger when 20% of the item is visible
-        margin: "-20px", // Trigger 50px before it hits the actual viewport edge
-      }}
-      transition={{
-        duration: 0.6,
-        delay: delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
+      // amount 0.5 never fired for sections taller than 2x the viewport
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ type: "spring", duration: 0.6, bounce: 0, delay }}
       className={`${fullWidth ? "w-full" : ""} ${className || ""}`}
       {...props}
     >

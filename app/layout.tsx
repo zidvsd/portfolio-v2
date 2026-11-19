@@ -4,15 +4,22 @@ import { ThemeProvider } from "@/components/themes/theme-provider"
 import { cn } from "@/lib/utils"
 import MainLayout from "@/components/layout/MainLayout"
 import ChatToggle from "@/components/ChatToggle"
-import ScrollToTop from "@/components/ScrollToTop"
 import type { Metadata } from "next"
 import NextTopLoader from "nextjs-toploader"
+import { SITE_URL } from "@/lib/seo"
 
+// No `alternates.canonical` here: a root canonical is inherited by every page
+// that doesn't set its own, which told Google those pages duplicate the homepage.
 export const metadata: Metadata = {
-  title: "Rashid Visda - Full-Stack Developer Portfolio",
+  title: {
+    default: "Rashid Visda | Full-Stack Web Developer (Next.js, React)",
+    template: "%s | Rashid Visda",
+  },
   description:
     "Rashid Visda portfolio. Full-stack developer specializing in React, Next.js, and modern web applications.",
-  metadataBase: new URL("https://zidvsd.site"),
+  metadataBase: new URL(SITE_URL),
+  authors: [{ name: "Rashid Visda", url: SITE_URL }],
+  creator: "Rashid Visda",
   keywords: [
     "Rashid Visda",
     "Zid Visda",
@@ -29,9 +36,6 @@ export const metadata: Metadata = {
     "React Developer",
     "Web Developer Portfolio",
   ],
-  alternates: {
-    canonical: "https://zidvsd.site",
-  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -45,19 +49,54 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-  openGraph: {
-    title: "Rashid Visda - Web Developer Portfolio",
-    description:
-      "Full-stack developer building modern web apps with React and Next.js.",
-    url: "https://zidvsd.site",
-    siteName: "Rashid Visda Portfolio",
-    locale: "en_US",
-    type: "website",
-  },
   robots: {
     index: true,
     follow: true,
+    googleBot: { "max-image-preview": "large", "max-snippet": -1 },
   },
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Rashid Visda",
+      alternateName: ["Zid Visda", "zidvsd", "Zid"],
+      jobTitle: "Full-Stack Developer",
+      description:
+        "Full-stack web developer from Laguna, Philippines specializing in React, Next.js, and TypeScript.",
+      url: SITE_URL,
+      image: `${SITE_URL}/images/profile-picture.jpg`,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Laguna",
+        addressCountry: "PH",
+      },
+      sameAs: [
+        "https://github.com/zidvsd",
+        "https://www.linkedin.com/in/rashidvisda",
+      ],
+      knowsAbout: [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Supabase",
+        "MongoDB",
+        "PostgreSQL",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Rashid Visda",
+      inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#person` },
+    },
+  ],
 }
 
 const fontSans = Geist({
@@ -91,33 +130,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Rashid Visda",
-              jobTitle: "Full-Stack Developer",
-              alternateName: ["Zid Visda", "zidvsd", "Zid"],
-              url: "https://zidvsd.site",
-              image: "https://zidvsd.site/android-chrome-512x512.png",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Laguna",
-                addressCountry: "PH",
-              },
-              sameAs: [
-                "https://github.com/zidvsd",
-                "https://linkedin.com/in/rashidvisda",
-              ],
-              knowsAbout: [
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Tailwind CSS",
-                "Supabase",
-                "MongoDB",
-                "Postgresql",
-              ],
-            }),
+            __html: JSON.stringify(jsonLd),
           }}
         />
       </head>
@@ -125,7 +138,6 @@ export default function RootLayout({
         <ThemeProvider>
           <NextTopLoader height={2} showSpinner={false} color="#432dd7" />
           <MainLayout>{children}</MainLayout>
-          <ScrollToTop />
         </ThemeProvider>
         <ChatToggle />
       </body>

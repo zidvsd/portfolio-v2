@@ -6,6 +6,7 @@ import { Suspense } from "react"
 import BackButton from "@/components/ui/back-button"
 import ProjectDetailSection from "@/components/sections/projects/ProjectDetailSection"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
+import { pageMetadata } from "@/lib/seo"
 
 interface ProjectDetailPageProps {
   params: Promise<{ projectId: string }>
@@ -19,31 +20,23 @@ export const generateMetadata = async ({
 
   if (!repo) {
     return {
-      title: "Project Not Found | Rashid Visda",
+      title: "Project Not Found",
       description: "The requested project could not be found.",
+      robots: { index: false },
     }
   }
 
-  const title = `${repo.name} | Projects - Rashid Visda`
-  const description =
-    repo.description ||
-    "A full-stack web development project built with React and Next.js."
+  const config = MY_PROJECTS.find((p) => p.slug === projectId)
+  const name = config?.name || repo.name
 
-  return {
-    title,
-    description,
-
-    alternates: {
-      canonical: `https://zidvsd.site/projects/${projectId}`,
-    },
-
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      url: `https://zidvsd.site/projects/${projectId}`,
-    },
-  }
+  return pageMetadata({
+    title: `${name}: Project Case Study`,
+    description:
+      repo.description ||
+      `${name}, a full-stack web development project by Rashid Visda built with React and Next.js.`,
+    path: `/projects/${projectId}`,
+    image: config?.image,
+  })
 }
 
 const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {

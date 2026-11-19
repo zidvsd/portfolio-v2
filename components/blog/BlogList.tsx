@@ -74,9 +74,9 @@ export default function BlogList({ blogData }: BlogDataProps) {
       )}
 
       {/* Empty state */}
-      {(filteredBlogs.length === 0 || null) && (
+      {isFiltering && filteredBlogs.length === 0 && (
         <EmptyState
-          title="Unable to find any blogs related to your query ://"
+          title="No posts match your search"
           description="Try adjusting your filters or search terms."
           icon={<MagnifyingGlassIcon className="size-14" />}
         />

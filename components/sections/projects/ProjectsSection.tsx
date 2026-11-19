@@ -3,7 +3,6 @@ import { MY_PROJECTS } from "@/lib/constants/projects-config"
 import { ProjectCard } from "@/components/ProjectCard"
 import StaggerWrapper from "@/components/motion/StaggerWrapper"
 import { StaggerItem } from "@/components/motion/StaggerItem"
-import EndOfPage from "@/components/ui/end-of-page"
 
 export default async function ProjectsSection() {
   const githubRepos = await getProjects()
@@ -40,10 +39,6 @@ export default async function ProjectsSection() {
           <ProjectCard repo={repo} />
         </StaggerItem>
       ))}
-
-      <div className="col-span-full">
-        <EndOfPage />
-      </div>
     </StaggerWrapper>
   )
 }

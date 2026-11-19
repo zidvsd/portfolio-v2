@@ -42,7 +42,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "text-base font-bold text-zinc-50 transition-colors",
+        "text-base font-bold text-foreground transition-colors",
         className
       )}
       {...props}

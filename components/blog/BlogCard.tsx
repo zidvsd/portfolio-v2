@@ -14,8 +14,8 @@ export default function BlogCard({ blog }: BlogCardProps) {
 
   return (
     <Link href={`/blog/${blog.slug}`} className="group block h-full">
-      <Card className="flex h-full flex-col overflow-hidden border-none bg-transparent pt-0 shadow-md">
-        <div className="relative aspect-video w-full overflow-hidden rounded-tl-xl rounded-tr-xl border bg-muted dark:border-none">
+      <Card className="flex h-full flex-col overflow-hidden pt-0 shadow-sm">
+        <div className="relative aspect-video w-full overflow-hidden border-b bg-muted">
           {blog.coverImageUrl ? (
             <Image
               src={blog.coverImageUrl}
@@ -25,18 +25,18 @@ export default function BlogCard({ blog }: BlogCardProps) {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-blue-500/5 text-[10px] font-medium tracking-widest text-blue-500/40 uppercase">
+            <div className="flex h-full w-full items-center justify-center bg-primary/5 text-[10px] font-medium tracking-widest text-primary/50 uppercase">
               No Image
             </div>
           )}
         </div>
 
         <CardContent className="flex flex-1 flex-col space-y-3 px-4 py-4">
-          <span className="text-[10px] font-bold tracking-widest text-blue-600 uppercase">
+          <span className="text-[10px] font-bold tracking-widest text-primary uppercase">
             {blog.category || "General"}
           </span>
 
-          <h3 className="line-clamp-2 min-h-14 text-xl leading-tight font-bold transition-colors group-hover:text-blue-500">
+          <h3 className="line-clamp-2 text-lg leading-tight font-bold transition-colors group-hover:text-primary">
             {blog.title}
           </h3>
 
@@ -45,11 +45,9 @@ export default function BlogCard({ blog }: BlogCardProps) {
           </p>
         </CardContent>
         <CardFooter className="mt-auto flex items-center justify-between px-4 pb-4">
-          <div className="flex items-center gap-1.5 text-muted-foreground/60">
+          <div className="flex items-center gap-1.5 text-muted-foreground">
             <ClockIcon size={14} weight="bold" />
-            <span className="text-[10px] font-bold tracking-tight">
-              {readtime} MIN READ
-            </span>
+            <span className="text-xs font-medium">{readtime} min read</span>
           </div>
         </CardFooter>
       </Card>

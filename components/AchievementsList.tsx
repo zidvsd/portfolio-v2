@@ -22,25 +22,28 @@ export default function AchievementList({ initialData }: AchievementListProps) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="text flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             variant={filter === "all" ? "default" : "ghost"}
             onClick={() => setFilter("all")}
-            className="text-md px-6 py-4 transition-all"
+            size="lg"
+            className="px-4"
           >
             All
           </Button>
           <Button
             variant={filter === "certificate" ? "default" : "ghost"}
             onClick={() => setFilter("certificate")}
-            className="text-md px-6 py-4 transition-all"
+            size="lg"
+            className="px-4"
           >
             Certificates
           </Button>
           <Button
             variant={filter === "badge" ? "default" : "ghost"}
             onClick={() => setFilter("badge")}
-            className="text-md px-6 py-4 transition-all"
+            size="lg"
+            className="px-4"
           >
             Badges
           </Button>

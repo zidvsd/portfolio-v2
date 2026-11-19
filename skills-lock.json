@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "skills": {
+    "grill-me": {
+      "source": "Agni-glitch/grill-me",
+      "commit": "39786367f89ac1ab7e99fc7a9a9a2bdf2afa722f",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/grill-me/SKILL.md",
+      "computedHash": "9e9dfdc232257095b2b1dc7c7b50a00d046b6c7caaf05edbed8b2cd6dfb3f1ec"
+    },
+    "ponytail": {
+      "source": "DietrichGebert/ponytail",
+      "commit": "96608e078b2d5ea607c5c3b8b5a54d1c1fba6846",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "56d72677aca02689ac89bd48734e8c19b40ab86716d1257eaf5f1238b43cda6b"
+    },
+    "security-audit": {
+      "source": "cloudflare/security-audit-skill",
+      "commit": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "sourceType": "github",
+      "skillPath": "skills/security-audit/SKILL.md",
+      "computedHash": "8513eb3b2c39b8d05ef4f47b32ef4d18280b93a5efb91d8df6272f7435034af5"
+    },
+    "seo": {
+      "source": "AgriciDaniel/claude-seo",
+      "commit": "468ed5b0d9e3249394783710e54abb02837e326b",
+      "sourceType": "github",
+      "skillPath": "skills/seo/SKILL.md",
+      "computedHash": "70afc0c9ac0af4329789a719b4c7407997e138dba46e3551d76ca2e20f9c9417"
+    },
+    "seo-audit": {
+      "source": "AgriciDaniel/claude-seo",
+      "commit": "468ed5b0d9e3249394783710e54abb02837e326b",
+      "sourceType": "github",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "computedHash": "707a427004920bff64592070001d939d79f65307972c4e71f7ce590c35d3a62c"
+    }
+  }
+}

@@ -16,13 +16,13 @@ export default function SidebarBlogCard({ blog }: SidebarBlogCardProps) {
     <Link href={`/blog/${blog.slug}`} className="group block w-full">
       <div className="flex flex-col gap-2 py-4 last:border-0">
         <div className="flex items-center gap-2">
-          <div className="size-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+          <div className="size-2 rounded-full bg-primary" />
           <span className="text-[10px] font-medium tracking-wider text-muted-foreground uppercase">
             {timeAgo}
           </span>
         </div>
 
-        <h4 className="line-clamp-2 text-sm leading-snug font-bold transition-colors group-hover:text-blue-400">
+        <h4 className="line-clamp-2 text-sm leading-snug font-bold transition-colors group-hover:text-primary">
           {blog.title}
         </h4>
       </div>

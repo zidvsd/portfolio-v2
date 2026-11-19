@@ -1,27 +1,15 @@
 import { Suspense } from "react"
 import AchievementSection from "@/components/sections/achievements/AchievementsSection"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
-import EndOfPage from "@/components/ui/end-of-page"
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Achievements | Rashid Visda - Certifications & Milestones",
-
+export const metadata: Metadata = pageMetadata({
+  title: "Achievements & Certifications",
   description:
-    "Explore the achievements of Rashid Visda including certifications, project milestones, and accomplishments as a full-stack developer specializing in React and Next.js.",
-
-  alternates: {
-    canonical: "https://zidvsd.site/achievements",
-  },
-
-  openGraph: {
-    title: "Rashid Visda - Achievements",
-    description:
-      "Certifications, milestones, and accomplishments as a full-stack developer.",
-    url: "https://zidvsd.site/achievements",
-    type: "website",
-  },
-}
+    "Certifications, badges, and milestones earned by Rashid Visda as a full-stack developer specializing in React and Next.js.",
+  path: "/achievements",
+})
 
 export default function AchievementsPage() {
   return (
@@ -37,8 +25,6 @@ export default function AchievementsPage() {
       <Suspense fallback={<SkeletonLoader variant="achievement" />}>
         <AchievementSection />
       </Suspense>
-
-      <EndOfPage />
     </section>
   )
 }

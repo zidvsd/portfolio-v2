@@ -19,9 +19,9 @@ export default async function IntroSection() {
         ))}
         <div className="pt-4">
           <p className="font-medium text-foreground italic">Best regards,</p>
-          <h1 className="text-2xl font-bold tracking-tighter text-primary">
+          <p className="text-2xl font-bold tracking-tighter text-primary">
             RVisda
-          </h1>
+          </p>
         </div>
       </div>
     </section>

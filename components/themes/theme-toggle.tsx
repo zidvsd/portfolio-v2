@@ -13,7 +13,8 @@ export default function ThemeToggle() {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
+  // Same-size placeholder so the header/sidebar doesn't shift on hydration
+  if (!mounted) return <div className="h-9 w-18" />
 
   const isDark = resolvedTheme === "dark"
 

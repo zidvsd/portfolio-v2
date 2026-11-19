@@ -21,7 +21,7 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-10">
       <div className="lg:col-span-7">
         <Link href={`/blog/${blogHero.slug}`} className="group block h-full">
-          <Card className="h-full overflow-hidden border-white/5 bg-white/2 py-0 shadow-sm transition-colors hover:bg-white/4">
+          <Card className="h-full overflow-hidden py-0 shadow-sm">
             <div className="relative aspect-video w-full overflow-hidden">
               {blogHero.coverImageUrl ? (
                 <Image
@@ -33,13 +33,13 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
                   priority
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-blue-500/10 text-blue-500/40">
+                <div className="flex h-full w-full items-center justify-center bg-primary/10 text-primary/50">
                   No Image
                 </div>
               )}
             </div>
 
-            <CardHeader className="flex flex-row items-center gap-6 px-8 text-xs text-muted-foreground">
+            <CardHeader className="flex flex-row items-center gap-6 px-5 text-xs text-muted-foreground md:px-8">
               <div className="flex items-center gap-2">
                 <CalendarIcon size={16} />
                 <span>{formatDate(blogHero.datePublished)}</span>
@@ -50,8 +50,8 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
               </div>
             </CardHeader>
 
-            <CardContent className="space-y-3 px-8">
-              <h3 className="text-3xl leading-tight font-bold tracking-tight transition-colors group-hover:text-blue-500">
+            <CardContent className="space-y-3 px-5 md:px-8">
+              <h3 className="text-2xl leading-tight font-bold tracking-tight transition-colors group-hover:text-primary md:text-3xl">
                 {blogHero.title}
               </h3>
               <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
@@ -59,12 +59,12 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
               </p>
             </CardContent>
 
-            <CardFooter className="px-8 pt-4 pb-8">
+            <CardFooter className="px-5 pt-2 pb-6 md:px-8 md:pb-8">
               <div className="flex flex-wrap gap-2">
                 {blogHero.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="rounded-md bg-blue-500/10 px-2.5 py-1 text-[10px] font-bold tracking-wider text-blue-500 uppercase"
+                    className="rounded-md bg-primary/10 px-2.5 py-1 text-[10px] font-bold tracking-wider text-primary uppercase"
                   >
                     {tag}
                   </span>
@@ -77,7 +77,7 @@ export default function BlogHero({ blogHero, recentBlogs }: BlogHeroProps) {
 
       <div className="flex flex-col lg:col-span-3">
         <div className="mb-4 flex items-center justify-between gap-2">
-          <h2 className="text-sm font-bold tracking-[0.2em] text-nowrap text-zinc-700 dark:text-zinc-300">
+          <h2 className="text-sm font-bold tracking-widest text-nowrap text-muted-foreground uppercase">
             Recent Blogs
           </h2>
           <hr className="w-full border-border" />

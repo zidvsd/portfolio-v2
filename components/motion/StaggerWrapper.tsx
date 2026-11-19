@@ -10,14 +10,14 @@ interface StaggerWrapperProps {
 
 export default function StaggerWrapper({
   children,
-  delayStep = 0.2,
+  delayStep = 0.06,
   className,
 }: StaggerWrapperProps) {
   return (
     <motion.div
       initial="hidden"
-      animate="show"
-      viewport={{ once: true, margin: "-50px" }} // Triggers slightly before it hits the top
+      whileInView="show"
+      viewport={{ once: true, margin: "-50px" }}
       transition={{
         delayChildren: stagger(delayStep),
       }}

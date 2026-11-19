@@ -17,7 +17,7 @@ import { ContactInput } from "@/lib/schemas/contact.schema"
 const MapSection = dynamic(() => import("@/components/sections/MapSection"), {
   ssr: false,
   loading: () => (
-    <div className="h-75 w-full animate-pulse rounded-md bg-zinc-100" />
+    <div className="h-75 w-full animate-pulse rounded-xl bg-muted" />
   ),
 })
 
@@ -89,34 +89,25 @@ export default function ContactSection() {
             <StaggerWrapper className="space-y-4">
               {socialLinks.map((link) => (
                 <StaggerItem key={link.title}>
-                  <div className="hover-utility flex items-center justify-between rounded-md border bg-zinc-100 p-2 shadow-md transition-colors hover:bg-white/5 dark:bg-card">
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-4 rounded-lg p-2"
-                    >
-                      <div className="hover-utility flex size-10 shrink-0 items-center justify-center rounded-md bg-background/70 text-accent-foreground group-hover:text-primary">
-                        <link.icon className="size-5" />
-                      </div>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 rounded-md border bg-card p-4 shadow-sm transition-colors hover:border-primary/50 hover:bg-muted/50"
+                  >
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted transition-colors group-hover:text-primary">
+                      <link.icon className="size-5" />
+                    </div>
 
-                      <div>
-                        <h4 className="text-sm font-medium">{link.title}</h4>
-                        <p className="text-xs text-muted-foreground">
-                          {link.description}
-                        </p>
-                      </div>
-                    </a>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-sm font-medium">{link.title}</h3>
+                      <p className="text-xs text-muted-foreground">
+                        {link.description}
+                      </p>
+                    </div>
 
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-4 rounded-lg p-2"
-                    >
-                      <ArrowUpRightIcon className="shrink-0" />
-                    </a>
-                  </div>
+                    <ArrowUpRightIcon className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
                 </StaggerItem>
               ))}
             </StaggerWrapper>

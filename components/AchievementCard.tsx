@@ -7,9 +7,10 @@ import {
   CalendarDotsIcon,
   MedalIcon,
 } from "@phosphor-icons/react"
-import { Button } from "./ui/button"
-import { useState } from "react"
+import { buttonVariants } from "./ui/button"
+import { useEffect, useState } from "react"
 import { XIcon } from "@phosphor-icons/react"
+import { AnimatePresence, motion } from "motion/react"
 interface AchievementProps {
   data: {
     name: string
@@ -24,6 +25,15 @@ interface AchievementProps {
 export default function AchievementCard({ data }: AchievementProps) {
   const Icon = data.type === "certificate" ? CertificateIcon : MedalIcon
   const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    if (!isFullscreen) return
+    const onKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && setIsFullscreen(false)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [isFullscreen])
+
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-md border bg-card/50 p-5 shadow-md transition-all hover:border-primary/50 hover:shadow-md">
       <div className="absolute top-3 right-3 z-20">
@@ -39,13 +49,13 @@ export default function AchievementCard({ data }: AchievementProps) {
         </span>
       </div>
 
-      <div
+      <button
+        type="button"
         onClick={() => setIsFullscreen(true)}
-        className="relative mx-auto flex aspect-video w-full max-w-125 cursor-zoom-in items-center justify-center overflow-hidden rounded-tl-lg rounded-tr-lg border bg-zinc-950 group-hover:shadow-xl"
+        aria-label={`Enlarge ${data.name}`}
+        className="relative mx-auto flex aspect-video w-full max-w-125 cursor-zoom-in items-center justify-center overflow-hidden rounded-md border bg-zinc-950"
       >
-        {" "}
         <Image
-          priority={true}
           src={data.supabaseUrl}
           alt={data.alt}
           fill
@@ -53,7 +63,7 @@ export default function AchievementCard({ data }: AchievementProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="hover-utility pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-500/80 to-transparent opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 dark:from-zinc-950/80" />
-      </div>
+      </button>
 
       <div className="mt-4 flex flex-1 flex-col justify-between space-y-4">
         <div className="space-y-2">
@@ -61,8 +71,8 @@ export default function AchievementCard({ data }: AchievementProps) {
             {data.name}
           </h3>
 
-          <div className="flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-400">
-            <span className="max-w-36 flex-wrap">{data.issuer}</span>
+          <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
+            <span className="min-w-0 truncate">{data.issuer}</span>
             <span className="flex shrink-0 items-center gap-1 text-xs">
               <CalendarDotsIcon size={12} />
               {data.dateIssued}
@@ -70,39 +80,52 @@ export default function AchievementCard({ data }: AchievementProps) {
           </div>
         </div>
 
-        <Button variant="accent" size="lg" className="w-full">
-          <a
-            href={data.supabaseUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2"
-          >
-            View Credential
-            <ArrowSquareOutIcon size={14} />
-          </a>
-        </Button>
+        <a
+          href={data.supabaseUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={buttonVariants({ size: "lg", className: "w-full gap-2" })}
+        >
+          View Credential
+          <ArrowSquareOutIcon size={14} />
+        </a>
       </div>
 
-      {isFullscreen && (
-        <div
-          className="fixed inset-0 z-100 flex animate-in items-center justify-center bg-black/90 p-4 backdrop-blur-sm duration-200 fade-in"
-          onClick={() => setIsFullscreen(false)}
-        >
-          <button className="absolute top-6 right-6 text-white transition-colors hover:cursor-pointer hover:text-primary">
-            <XIcon size={32} />
-          </button>
+      <AnimatePresence>
+        {isFullscreen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+            onClick={() => setIsFullscreen(false)}
+          >
+            <button
+              aria-label="Close"
+              className="absolute top-6 right-6 text-white transition-colors hover:cursor-pointer hover:text-primary"
+            >
+              <XIcon size={32} />
+            </button>
 
-          <div className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl shadow-2xl">
-            <Image
-              sizes="100vw"
-              src={data.supabaseUrl}
-              alt={data.alt}
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
-      )}
+            <motion.div
+              initial={{ scale: 0.92 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.92 }}
+              transition={{ type: "spring", duration: 0.4, bounce: 0.2 }}
+              className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl shadow-2xl"
+            >
+              <Image
+                sizes="100vw"
+                src={data.supabaseUrl}
+                alt={data.alt}
+                fill
+                className="object-contain"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

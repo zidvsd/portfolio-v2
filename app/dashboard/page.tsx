@@ -1,30 +1,18 @@
 import { Suspense } from "react"
 import dynamicImport from "next/dynamic"
-import EndOfPage from "@/components/ui/end-of-page"
 import GithubCard from "@/components/dashboard/GithubCard"
 import { SkeletonLoader } from "@/components/skeleton/SkeletonLoader"
 import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 
 export const dynamic = "force-dynamic"
 
-export const metadata: Metadata = {
-  title: "Dashboard | Rashid Visda",
-
+export const metadata: Metadata = pageMetadata({
+  title: "Developer Dashboard",
   description:
     "Personal developer dashboard showing GitHub activity, WakaTime stats, Spotify listening activity, and coding progress in real time.",
-
-  alternates: {
-    canonical: "https://zidvsd.site/dashboard",
-  },
-
-  openGraph: {
-    title: "Developer Dashboard | Rashid Visda",
-    description:
-      "Real-time stats of coding activity, music, and development progress.",
-    url: "https://zidvsd.site/dashboard",
-    type: "website",
-  },
-}
+  path: "/dashboard",
+})
 
 const WakaTimeCardWrapper = dynamicImport(
   () => import("@/components/dashboard/WakaTimeWrapper"),
@@ -80,8 +68,6 @@ export default async function page() {
       <Suspense fallback={<SkeletonLoader variant="codewars-card" />}>
         <CodewarsCardWrapper />
       </Suspense>
-
-      <EndOfPage />
     </section>
   )
 }

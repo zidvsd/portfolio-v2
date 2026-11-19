@@ -26,21 +26,21 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
     await onSuccess(data)
     reset()
   }
-  
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 rounded-sm border bg-zinc-100 p-6 shadow-md dark:bg-card"
+      className="space-y-6 rounded-md border bg-card p-4 shadow-sm sm:p-6"
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label htmlFor="name" className="text-xs">
+          <label htmlFor="name" className="text-sm font-medium">
             Full Name
           </label>
           <Input
             {...register("name")}
             className={`py-4 ${errors.name ? "border border-destructive" : ""}`}
-            autoComplete="off"
+            autoComplete="name"
             id="name"
             placeholder="John Doe"
             required
@@ -52,13 +52,13 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
           )}
         </div>
         <div className="space-y-2">
-          <label htmlFor="email" className="text-xs">
+          <label htmlFor="email" className="text-sm font-medium">
             Email Address
           </label>
           <Input
             {...register("email")}
             className={`py-4 ${errors.email ? "border border-destructive" : ""}`}
-            autoComplete="off"
+            autoComplete="email"
             id="email"
             type="email"
             placeholder="john@example.com"
@@ -73,7 +73,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="subject" className="text-xs">
+        <label htmlFor="subject" className="text-sm font-medium">
           Subject
         </label>
         <Input
@@ -92,7 +92,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="message" className="text-xs">
+        <label htmlFor="message" className="text-sm font-medium">
           Message
         </label>
         <Textarea

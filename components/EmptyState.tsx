@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import {
   Empty,
   EmptyDescription,
@@ -22,7 +21,7 @@ export function EmptyState({
   title,
   description,
   icon,
-  linkHref = "#",
+  linkHref,
   linkText = "Learn More",
 }: EmptyStateProps) {
   return (
@@ -37,17 +36,16 @@ export function EmptyState({
         <EmptyTitle className="w-full text-2xl font-semibold">
           {title}
         </EmptyTitle>
-        <EmptyDescription className="text-md">{description}</EmptyDescription>
+        <EmptyDescription className="text-base">{description}</EmptyDescription>
       </EmptyHeader>
-      <Button
-        variant="link"
-        className="flex flex-row text-muted-foreground"
-        size="sm"
-      >
-        <Link href={linkHref} className="flex items-center gap-2">
+      {linkHref && (
+        <Link
+          href={linkHref}
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary"
+        >
           {linkText} <ArrowUpRightIcon />
         </Link>
-      </Button>
+      )}
     </Empty>
   )
 }
