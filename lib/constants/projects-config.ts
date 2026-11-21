@@ -20,6 +20,13 @@ export const MY_PROJECTS = [
     image: "/images/projects/taply.png",
     isFeatured: true,
   },
+    {
+    name: "Waddlr",
+    slug: "waddlr",
+    deployUrl: "https://clubly-jet.vercel.app/login",
+    image: "/images/projects/waddlr.png",
+    isFeatured: true,
+  },
   {
     name: "Kita Jobs",
     slug: "kita-jobs-app",
